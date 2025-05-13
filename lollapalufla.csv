@@ -1,0 +1,101 @@
+#ID da Banda,Nome da Banda,Genero Musical,Quantidade de Integrantes,Tempo de Show
+001,"Whitesnake",Rock,7,2.0
+002,"LimpBizkt",NuMetal,5,2.5
+003,"Sorriso Maroto",Samba,5,1.5
+004,"Chitaozinho e Xororo",Sertanejo,2,3.0
+005,"Metallica",Heavy-Metal,4,2.0
+006,"Coldplay",Pop-Rock,5,2.0
+007,"Racionais MC's",Rap,4,1.5
+008,"Skank",Pop-Rock,5,1.5
+009,"Legiao Urbana",Rock,3,2.0
+010,"Iron Maiden",Heavy-Metal,6,2.5
+011,"BFour",Rock-Alternativo,4,3.0
+012,"Grupo Revelacao",Samba,6,1.5
+013,"U2",Rock,4,2.0
+014,"Imagine Dragons",Alternative-Rock,4,2.0
+015,"Falamansa",Forro,5,1.5
+016,"Baroes da Pisadinha",Pisadinha,3,1.5
+017,"Os Paralamas do Sucesso",Rock,3,1.5
+018,"Roupa Nova",Pop-Rock,6,2.0
+019,"Calcinha Preta",Forro,5,1.5
+020,"Slipknot",Heavy-Metal,9,2.5
+021,"Zeze Di Camargo & Luciano",Sertanejo,2,1.5
+022,"Maroon 5",Pop,6,2.0
+023,"The Weeknd",RnB,1,1.5
+024,"Queen",Rock,4,2.0
+025,"Avioes do Forro",Forro,6,1.5
+026,"NX Zero",Emo-Rock,5,1.5
+027,"Charlie Brown Jr.",Rock,5,2.0
+028,"Turma do Pagode",Pagode,7,1.5
+029,"Bon Jovi",Rock,5,2.0
+030,"O Rappa",Reggae-Rock,5,2.0
+031,"Anavitoria",Pop,2,1.5
+032,"Los Hermanos",MPB,4,2.0
+033,"Arctic Monkeys",Indie-Rock,4,2.0
+034,"Mamonas Assassinas",Rock-Comico,5,1.5
+035,"The Beatles",Rock,4,2.0
+036,"The Rolling Stones",Rock,5,2.0
+037,"Adele",Pop,1,1.5
+038,"Grupo Pixote",Pagode,6,1.5
+039,"One Direction",Pop,5,2.0
+040,"Foo Fighters",Rock,6,2.0
+041,"KISS",Rock,4,2.0
+042,"Kings of Leon",Alternative-Rock,4,2.0
+043,"Oasis",Britpop,4,2.0
+044,"Green Day",Punk-Rock,3,2.0
+045,"Capital Inicial",Rock,4,1.5
+046,"Detonautas",Rock,5,1.5
+047,"Jota Quest",Pop-Rock,5,1.5
+048,"CPM 22",Hardcore,4,1.5
+049,"RBD",Pop-Latino,6,2.0
+050,"Twice",K-Pop,9,1.5
+051,"EXO",K-Pop,9,1.5
+052,"Scorpions",Rock,5,2.0
+053,"Simple Plan",Pop-Punk,5,2.0
+054,"Blink-182",Pop-Punk,3,2.0
+055,"The Killers",Alternative-Rock,4,2.0
+056,"Evanescence",Gothic-Rock,5,1.5
+057,"Linkin Park",NuMetal,6,2.0
+058,"System of a Down",Alternative-Metal,4,2.0
+059,"Red Hot Chili Peppers",Funk-Rock,4,2.0
+060,"Tribalistas",MPB,3,1.5
+061,"Rita Lee e Tutti Frutti",Rock,6,1.5
+062,"Titas",Rock,8,2.0
+063,"Engenheiros do Hawaii",Rock,4,1.5
+064,"Projota",Rap,1,1.0
+065,"Emicida",Rap,1,1.0
+066,"BaianaSystem",Axe,6,1.5
+067,"Ivete Sangalo",Axe,1,1.5
+068,"Claudia Leitte",Axe,1,1.5
+069,"Chico Buarque",MPB,1,1.5
+070,"Caetano Veloso",MPB,1,1.5
+071,"Gilberto Gil",MPB,1,1.5
+072,"Djavan",MPB,1,1.5
+073,"Luan Santana",Sertanejo,1,1.5
+074,"Gusttavo Lima",Sertanejo,1,1.5
+075,"Wesley Safadao",Forro,1,1.5
+076,"Maiara e Maraisa",Sertanejo,2,1.5
+077,"Simone e Simaria",Sertanejo,2,1.5
+078,"Hugo e Guilherme",Sertanejo,2,1.5
+079,"Henrique e Juliano",Sertanejo,2,1.5
+080,"Jorge e Mateus",Sertanejo,2,1.5
+081,"Zeca Pagodinho",Samba,1,1.5
+082,"Arlindo Cruz",Samba,1,1.5
+083,"Fundo de Quintal",Samba,6,1.5
+084,"Martinho da Vila",Samba,1,1.5
+085,"Turma da Monica Band",Infantil,4,1.0
+086,"Galinha Pintadinha",Infantil,3,1.0
+087,"Xuxa",Infantil,1,1.0
+088,"Patati Patata",Infantil,2,1.0
+089,"Sandy e Junior",Pop,2,1.5
+090,"Ludmilla",Funk,1,1.0
+091,"Anitta",Pop-Funk,1,1.5
+092,"MC Kevinho",Funk,1,1.0
+093,"MC Don Juan",Funk,1,1.0
+094,"Pabllo Vittar",Pop,1,1.5
+095,"Gloria Groove",Pop,1,1.5
+096,"Melim",Pop,3,1.5
+097,"Banda Eva",Axe,6,1.5
+098,"Cheiro de Amor",Axe,5,1.5
+099,"Psirico",Axe,7,1.5
+100,"E o Tchan",Axe,6,1.5
