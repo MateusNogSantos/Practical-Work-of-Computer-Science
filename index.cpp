@@ -4,11 +4,16 @@
 using namespace std;
 int main(){
 
-    //int lixoint;
-    string lixostr;
+    int id;
+    string lixostr,nome;
     ifstream entrada("lollapalufla.csv");
-    getline(entrada, lixostr);
-    cout<< lixostr;
+
+    getline(entrada,lixostr);
+
+    entrada >> id;
+    entrada.ignore(2);
+    getline(entrada,nome,'"');
+    cout << nome;
     
     return 0;
 }
