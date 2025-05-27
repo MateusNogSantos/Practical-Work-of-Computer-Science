@@ -20,10 +20,11 @@ int main(){
     int tamanho;
     string lixo;
     ifstream entrada("lollapalufla.csv");
+
     entrada >> tamanho;
+    entrada.ignore(1);
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
-
 
     getline(entrada,lixo); //Passa a primeira Linha do CSV para lixoStr
 
@@ -31,9 +32,8 @@ int main(){
     entrada >> vetorBandas[i].id; //Lê do CSV o valor #ID da Banda para a variável id
     entrada.ignore(2); //Desconsidera a primeira , e a primeira "
     getline(entrada,vetorBandas[i].nome,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct
-    entrada.ignore(2);//Desconsidera a virgula e a aspas duplas
-    entrada >> vetorBandas[i].genero;
-    entrada.ignore(1);
+    entrada.ignore(1);//Desconsidera a virgula e a aspas duplas
+    getline(entrada,vetorBandas[i].genero,',');
     entrada >> vetorBandas[i].numerodeIntegrantes;
     entrada.ignore(1);
     entrada >> vetorBandas[i].tempodeShow;
@@ -44,7 +44,9 @@ int main(){
 
     for(int i = 0;i < tamanho;i++){
 
-        cout << vetorBandas[i].id << " " << vetorBandas[i].nome << " " << vetorBandas[i].genero << " " << vetorBandas[i].numerodeIntegrantes;
+        cout << vetorBandas[i].id << " "<< vetorBandas[i].nome << " " <<
+        vetorBandas[i].genero << " " << vetorBandas[i].numerodeIntegrantes << " " <<
+        vetorBandas[i].tempodeShow << endl;
 
     }
 
