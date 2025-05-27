@@ -32,13 +32,16 @@ int main(){
     entrada >> vetorBandas[i].id; //Lê do CSV o valor #ID da Banda para a variável id
     entrada.ignore(2); //Desconsidera a primeira , e a primeira "
     getline(entrada,vetorBandas[i].nome,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct
-    entrada.ignore(1);//Desconsidera a virgula e a aspas duplas
-    getline(entrada,vetorBandas[i].genero,',');
-    entrada >> vetorBandas[i].numerodeIntegrantes;
-    entrada.ignore(1);
-    entrada >> vetorBandas[i].tempodeShow;
+    entrada.ignore(1);//Desconsidera a vírgula
+    getline(entrada,vetorBandas[i].genero,',');//Lê o genero
+    entrada >> vetorBandas[i].numerodeIntegrantes;//Lê o número de integrantes
+    entrada.ignore(1);//Desconsidera a vírgurla
+    entrada >> vetorBandas[i].tempodeShow;//Lê o tempo de show
 
     }
+
+
+    
 
 
 
