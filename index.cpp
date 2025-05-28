@@ -14,6 +14,35 @@ struct modeloBandas{
     };
 
 
+/*Função que recebe o o id do usuário,tamanho do vetor trabalhado e o próprio vetor,e retorna a posição da banda(índice) no vetor de classes*/
+int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
+
+    int posicao,i = 0;
+    bool encontrado = false;
+
+    //Laço de repetição que percorre o vetorTrabalhado e para ao encontrar.
+    while(i < tamanho and !encontrado){
+
+        //Compara o id do usuário ao do vetorTrabalhado e ao encontrar atribui i à variável posição.
+        if(IDuser == vetorTrabalhado[i].id){
+
+            posicao = i;
+            encontrado = true;//sentinela de controle
+
+        }
+
+        i++;
+    }
+
+    //Caso não encontrado a variável posicao e marcada com -1.
+    if(!encontrado){
+
+        posicao = -1;
+    }
+
+    return posicao;
+}
+
 int main(){
 
     //mecanismos de leitura
@@ -40,21 +69,21 @@ int main(){
 
     }
 
+    /*Parte de testes*/
+
+    int idProcura;
+
+    cin >> idProcura;
+
+    cout << buscaPorID(idProcura,tamanho,vetorBandas) << endl;
 
     
-
-
-
     for(int i = 0;i < tamanho;i++){
 
         cout << vetorBandas[i].id << " "<< vetorBandas[i].nome << " " <<
         vetorBandas[i].genero << " " << vetorBandas[i].numerodeIntegrantes << " " <<
         vetorBandas[i].tempodeShow << endl;
-
     }
-
-
-
 
     return 0;
 }
