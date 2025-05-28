@@ -14,20 +14,20 @@ struct modeloBandas{
     };
 
 
-/*Função que recebe o o id do usuário,tamanho do vetor trabalhado e o próprio vetor,e retorna a posição da banda(índice) no vetor de classes*/
+/*Função que recebe o o id do usuário,tamanho do vetor trabalhado e o próprio vetor,e retorna a posição da banda(índice do vetorBandas) no vetor de classes*/
 int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
 
     int posicao,i = 0;
     bool encontrado = false;
 
     //Laço de repetição que percorre o vetorTrabalhado e para ao encontrar.
-    while(i < tamanho and !encontrado){
+    while(i < tamanho and (!encontrado)){
 
         //Compara o id do usuário ao do vetorTrabalhado e ao encontrar atribui i à variável posição.
         if(IDuser == vetorTrabalhado[i].id){
 
             posicao = i;
-            encontrado = true;//sentinela de controle
+            encontrado = true;//sentinela para evitar repetição desnecessária
 
         }
 
@@ -35,6 +35,36 @@ int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
     }
 
     //Caso não encontrado a variável posicao e marcada com -1.
+    if(!encontrado){
+
+        posicao = -1;
+    }
+
+    return posicao;
+}
+
+
+/*Função que recebe o um nome escrito pelo usuário e compara ao vetor,retornando a posição(índice do vetorBandas)*/
+int buscaPorNome(string nomeDaBanda,int tamanho,modeloBandas *vetorTrabalhado){
+
+    int posicao,i = 0;
+    bool encontrado = false;
+    
+
+    //Laço de repetição que percorre todas os índices do vetorBandas
+    while(i < tamanho and (!encontrado)){
+
+        //ao encontrar,a posição recebe a variável i(índice do vetorBandas)
+        if(vetorTrabalhado[i].nome == nomeDaBanda){
+
+            posicao = i;
+            encontrado = true;//sentinela para evitar repetição desnecessária
+        }
+
+    i++;
+    }
+
+    //caso não encontrar,a posição é marcada com -1
     if(!encontrado){
 
         posicao = -1;
@@ -72,18 +102,19 @@ int main(){
     /*Parte de testes*/
 
     int idProcura;
+    string nomeProcura;
 
-    cin >> idProcura;
+    cin >> nomeProcura;
 
-    cout << buscaPorID(idProcura,tamanho,vetorBandas) << endl;
+    cout << buscaPorNome(nomeProcura,tamanho,vetorBandas) << endl;
 
-    
+    /*
     for(int i = 0;i < tamanho;i++){
 
         cout << vetorBandas[i].id << " "<< vetorBandas[i].nome << " " <<
         vetorBandas[i].genero << " " << vetorBandas[i].numerodeIntegrantes << " " <<
         vetorBandas[i].tempodeShow << endl;
-    }
+    }*/
 
     return 0;
 }
