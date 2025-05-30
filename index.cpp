@@ -13,7 +13,6 @@ struct modeloBandas{
 
     };
 
-
 /*Função que recebe o o id do usuário,tamanho do vetor trabalhado e o próprio vetor,e retorna a posição da banda(índice do vetorBandas) no vetor de classes*/
 int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
 
@@ -71,6 +70,13 @@ int buscaPorNome(string nomeDaBanda,int tamanho,modeloBandas *vetorTrabalhado){
     }
 
     return posicao;
+}
+
+//Função que percorre todo o vetor comparando o gênero ao gêneroPesquisado,e retorna o o tempo de show daquele gênero.
+int buscadeTempodeShow(string generoPesquisado,int tamanho,modeloBandas *vetorTrabalhado){
+    int tempodeShow;
+
+    return tempodeShow;
 }
 
 int main(){
