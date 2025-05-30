@@ -72,7 +72,7 @@ int buscaPorNome(string nomeDaBanda,int tamanho,modeloBandas *vetorTrabalhado){
     return posicao;
 }
 
-//Função que percorre todo o vetor comparando o gênero ao gêneroPesquisado,e retorna o o tempo de show daquele gênero.
+/*Função que percorre todo o vetor comparando o gênero ao gêneroPesquisado,e retorna o o tempo de show daquele gênero.*/
 int buscadeTempodeShow(string generoPesquisado,int tamanho,modeloBandas *vetorTrabalhado){
     int tempodeShow;
 
