@@ -13,33 +13,55 @@ struct modeloBandas{
 
     };
 
+
+//Funçao recursiva que divide o vetorTrabalhado ao meio compara e usa recursão para melhor desempenho
+int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *vetordeBusca){
+
+
+    //define o meio para a comparação do ID buscado com o meio do vetor 
+    int meio = (posicaoFinal+posicaoInicial)/2;
+
+
+    //caso base:elemento e encontrado e a função retorna sua posição no vetor.
+    if(IDuser == vetordeBusca[meio].id){
+
+        return meio;
+    }
+    // verifica se o ID buscado ainda pode ser buscado no vetor,pois quando a posição inicial for igual a posição final,quer dizer que o elemento não esta no vetor
+    else if(posicaoInicial < posicaoFinal){
+
+        //verifica se o IDuser é menor que o meio do vetor,se sim faz recursão,porém a posição final recebe (meio-1),dividindo o vetor.
+        if(IDuser < vetordeBusca[meio].id){
+
+            return buscaBinaria(IDuser,posicaoInicial,meio-1,vetordeBusca);
+        }
+        //verifica se o IDuser é maior que o meio do vetor,se sim faz recursão,porém a posição inicial recebe (meio+1),dividindo o vetor
+        else if(IDuser > vetordeBusca[meio].id){
+
+            return buscaBinaria(IDuser,meio+1,posicaoFinal,vetordeBusca);
+        }
+
+    }
+    //caso base:ao verificar que o elemento não está no vetor,retorna -1
+    else{
+
+        return -1;
+    }
+
+}
+
 /*Função que recebe o o id do usuário,tamanho do vetor trabalhado e o próprio vetor,e retorna a posição da banda(índice do vetorBandas) no vetor de classes*/
 int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
 
-    int posicao,i = 0;
-    bool encontrado = false;
+    int posicao;
+    int posInicial = 0,posFinal = tamanho;
 
-    //Laço de repetição que percorre o vetorTrabalhado e para ao encontrar.
-    while(i < tamanho and (!encontrado)){
 
-        //Compara o id do usuário ao do vetorTrabalhado e ao encontrar atribui i à variável posição.
-        if(IDuser == vetorTrabalhado[i].id){
-
-            posicao = i;
-            encontrado = true;//sentinela para evitar repetição desnecessária
-
-        }
-
-        i++;
-    }
-
-    //Caso não encontrado a variável posicao e marcada com -1.
-    if(!encontrado){
-
-        posicao = -1;
-    }
+    //posição recebe o retorno da função buscaBinária
+    posicao = buscaBinaria(IDuser,posInicial,posFinal,vetorTrabalhado);
 
     return posicao;
+
 }
 
 
@@ -80,7 +102,7 @@ int buscadeTempodeShow(string generoPesquisado,int tamanho,modeloBandas *vetorTr
 }
 
 int main(){
-
+    
     //mecanismos de leitura
     int tamanho;
     string lixo;
@@ -110,9 +132,9 @@ int main(){
     int idProcura;
     string nomeProcura;
 
-    cin >> nomeProcura;
+    cin >> idProcura;
 
-    cout << buscaPorNome(nomeProcura,tamanho,vetorBandas) << endl;
+    cout << buscaPorID(idProcura,tamanho,vetorBandas) << endl;
 
     /*
     for(int i = 0;i < tamanho;i++){
