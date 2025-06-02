@@ -95,8 +95,20 @@ int buscaPorNome(string nomeDaBanda,int tamanho,modeloBandas *vetorTrabalhado){
 }
 
 /*Função que percorre todo o vetor comparando o gênero ao gêneroPesquisado,e retorna o o tempo de show daquele gênero.*/
-int buscadeTempodeShow(string generoPesquisado,int tamanho,modeloBandas *vetorTrabalhado){
-    int tempodeShow;
+float buscadeGeneroTempodeShow(string generoPesquisado,int tamanho,modeloBandas *vetorTrabalhado){
+
+    float tempodeShow = 0;
+    
+    //laço de repetição que percorre todo o vetorTrabalhado
+    for(int i = 0;i < tamanho;i++){
+
+        //compara se o genero é o mesmo da posição comparada,se sim soma ao tempodeShow.
+        if(generoPesquisado == vetorTrabalhado[i].genero){
+        
+            tempodeShow += vetorTrabalhado[i].tempodeShow;
+
+        }
+    }
 
     return tempodeShow;
 }
@@ -130,19 +142,12 @@ int main(){
     /*Parte de testes*/
 
     int idProcura;
+    string genero;
     string nomeProcura;
 
-    cin >> idProcura;
+    cin >> genero;
 
-    cout << buscaPorID(idProcura,tamanho,vetorBandas) << endl;
-
-    /*
-    for(int i = 0;i < tamanho;i++){
-
-        cout << vetorBandas[i].id << " "<< vetorBandas[i].nome << " " <<
-        vetorBandas[i].genero << " " << vetorBandas[i].numerodeIntegrantes << " " <<
-        vetorBandas[i].tempodeShow << endl;
-    }*/
+    cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas) << endl;
 
     return 0;
 }
