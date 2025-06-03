@@ -115,31 +115,73 @@ float buscadeGeneroTempodeShow(string generoPesquisado,int tamanho,modeloBandas 
     return tempodeShow;
 }
 
-int main(){
-    
-    //mecanismos de leitura
-    int tamanho;
-    string lixo;
-    ifstream entrada("lollapalufla.csv");
+modeloBandas* redimencionar(modeloBandas *vet,int &tamanho){
 
-    entrada >> tamanho;
-    entrada.ignore(1);
+    tamanho += 5;
 
-    modeloBandas* vetorBandas = new modeloBandas[tamanho];
+    modeloBandas* newVet = new modeloBandas[tamanho];
 
-    getline(entrada,lixo); //Passa a primeira Linha do CSV para lixoStr
+    for(int i = 0;i < (tamanho-5);i++){
 
-    for(int i = 0;i < tamanho;i++){
-    entrada >> vetorBandas[i].id; //Lê do CSV o valor #ID da Banda para a variável id
-    entrada.ignore(2); //Desconsidera a primeira , e a primeira "
-    getline(entrada,vetorBandas[i].nome,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct
-    entrada.ignore(1);//Desconsidera a vírgula
-    getline(entrada,vetorBandas[i].genero,',');//Lê o genero
-    entrada >> vetorBandas[i].numerodeIntegrantes;//Lê o número de integrantes
-    entrada.ignore(1);//Desconsidera a vírgurla
-    entrada >> vetorBandas[i].tempodeShow;//Lê o tempo de show
+        newVet[i].id = vet[i].id;
+        newVet[i].nome = vet[i].nome;
+        newVet[i].genero = vet[i].genero;
+        newVet[i].numerodeIntegrantes = vet[i].numerodeIntegrantes;
+        newVet[i].tempodeShow = vet[i].tempodeShow;
+    }
+
+    for(int i = tamanho-5;i < tamanho;i++){
+
+        newVet[i].id = 0;
 
     }
+
+    delete [] vet;
+
+    return newVet;
+
+}
+
+void leitura(modeloBandas *Vetortrabalhado){
+
+int i = 0; //Contador de repetições possíveis
+int tamanho = 40;
+string lixo;
+
+ifstream entrada("lollapalufla.csv");
+
+getline(entrada,lixo); //Passa a primeira linha do csv para a variável lixo
+
+
+
+while(entrada >> Vetortrabalhado[i].id){
+
+    entrada.ignore(2); //Desconsidera a primeira , e a primeira "
+    getline(entrada,Vetortrabalhado[i].nome,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct
+    entrada.ignore(1);//Desconsidera a vírgula
+    getline(entrada,Vetortrabalhado[i].genero,',');//Lê o genero
+    entrada >> Vetortrabalhado[i].numerodeIntegrantes;//Lê o número de integrantes
+    entrada.ignore(1);//Desconsidera a vírgurla
+    entrada >> Vetortrabalhado[i].tempodeShow;//Lê o tempo de show
+
+    i++;
+
+    /*if(i == tamanho){
+
+        Vetortrabalhado = redimencionar(Vetortrabalhado,tamanho);
+
+    }*/
+   
+}
+
+} 
+
+int main(){
+
+    modeloBandas* vetorBandas = new modeloBandas[100];
+
+    leitura(vetorBandas);
+
 
     /*Parte de testes*/
 
@@ -147,9 +189,14 @@ int main(){
     string genero;
     string nomeProcura;
 
-    cin >> genero;
 
-    cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas) << endl;
+    for(int i = 0;i < 100;i++){
+    cout << vetorBandas[i].id << " " << vetorBandas[i].nome << endl;
+    }
+
+    //cin >> genero;
+
+    //cout << buscadeGeneroTempodeShow(genero,100,vetorBandas) << endl;
 
     return 0;
 }
