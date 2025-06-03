@@ -48,6 +48,8 @@ int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *ve
         return -1;
     }
 
+    return 0;
+
 }
 
 /*Função que recebe o o id do usuário,tamanho do vetor trabalhado e o próprio vetor,e retorna a posição da banda(índice do vetorBandas) no vetor de classes*/
