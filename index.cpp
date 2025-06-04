@@ -115,34 +115,39 @@ float buscadeGeneroTempodeShow(string generoPesquisado,int tamanho,modeloBandas 
     return tempodeShow;
 }
 
+//Função que redimenciona o vetor trabalhado de 5 em 5 posições
 void redimencionar(modeloBandas *&vet,int &tamanho){
 
+    //adiciona 5 ao tamanho antigo do vetor
     tamanho += 5;
 
+    //cria um novo vetor com o espaco adequado na memória(acrescido)
     modeloBandas* newVet = new modeloBandas[tamanho];
 
+    //passa os dados da struct antiga ao novo vetor
     for(int i = 0;i < (tamanho-5);i++){
 
         newVet[i] = vet[i];
 
     }
 
+    //Deleta o espaco do vetor antigo e aponta para o novo local
     delete [] vet;
-
     vet = newVet;
 
 }
 
+//Função que faz a leitura leitura dos dados no arquivo CSV e quando necessário chama a função redimencionar
 void leitura(modeloBandas *&Vetortrabalhado,int &tamanho){
 
 int i = 0; //Contador de repetições possíveis
-string lixo;
+string lixo;//caracteres que não serão lidos
 
 ifstream entrada("lollapalufla.csv");
 
 getline(entrada,lixo); //Passa a primeira linha do csv para a variável lixo
 
-
+//enquanto o id for diferente de 0,a leitura ocorrerá normalmente
 while(entrada >> Vetortrabalhado[i].id){
 
     entrada.ignore(2); //Desconsidera a primeira , e a primeira "
@@ -155,6 +160,7 @@ while(entrada >> Vetortrabalhado[i].id){
 
     i++;
 
+    //compara a repetição(variável i) ao tamanho do vetor,e se for igual chama a função redimencionar.
     if(i == tamanho){
 
         redimencionar(Vetortrabalhado,tamanho);
