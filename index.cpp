@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 using namespace std;
 
 /*criacao de uma classe que registre os usuarios,essa classe devera ser um vetor,que sera redimencionado dinamicamente,o*/
@@ -140,34 +141,63 @@ void redimencionar(modeloBandas *&vet,int &tamanho){
 //Função que faz a leitura leitura dos dados no arquivo CSV e quando necessário chama a função redimencionar
 void leitura(modeloBandas *&Vetortrabalhado,int &tamanho){
 
-int i = 0; //Contador de repetições possíveis
-string lixo;//caracteres que não serão lidos
+    int i = 0; //Contador de repetições possíveis
+    string lixo;//caracteres que não serão lidos
 
-ifstream entrada("lollapalufla.csv");
+    ifstream entrada("lollapalufla.csv");
 
-getline(entrada,lixo); //Passa a primeira linha do csv para a variável lixo
+    getline(entrada,lixo); //Passa a primeira linha do csv para a variável lixo
 
-//enquanto o id for diferente de 0,a leitura ocorrerá normalmente
-while(entrada >> Vetortrabalhado[i].id){
+    //enquanto o id for diferente de 0,a leitura ocorrerá normalmente
+    while(entrada >> Vetortrabalhado[i].id){
 
-    entrada.ignore(2); //Desconsidera a primeira , e a primeira "
-    getline(entrada,Vetortrabalhado[i].nome,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct
-    entrada.ignore(1);//Desconsidera a vírgula
-    getline(entrada,Vetortrabalhado[i].genero,',');//Lê o genero
-    entrada >> Vetortrabalhado[i].numerodeIntegrantes;//Lê o número de integrantes
-    entrada.ignore(1);//Desconsidera a vírgurla
-    entrada >> Vetortrabalhado[i].tempodeShow;//Lê o tempo de show
+        entrada.ignore(2); //Desconsidera a primeira , e a primeira "
+        getline(entrada,Vetortrabalhado[i].nome,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct
+        entrada.ignore(1);//Desconsidera a vírgula
+        getline(entrada,Vetortrabalhado[i].genero,',');//Lê o genero
+        entrada >> Vetortrabalhado[i].numerodeIntegrantes;//Lê o número de integrantes
+        entrada.ignore(1);//Desconsidera a vírgurla
+        entrada >> Vetortrabalhado[i].tempodeShow;//Lê o tempo de show
 
-    i++;
+        i++;
 
-    //compara a repetição(variável i) ao tamanho do vetor,e se for igual chama a função redimencionar.
-    if(i == tamanho){
+        //compara a repetição(variável i) ao tamanho do vetor,e se for igual chama a função redimencionar.
+        if(i == tamanho){
 
-        redimencionar(Vetortrabalhado,tamanho);
+           redimencionar(Vetortrabalhado,tamanho);
+        }
+
+    }
+}
+
+//Função que retorna o ultimo id adicionado do vetorTrabalhado
+int ultimoID(modeloBandas* vetorTrabalhado){
+
+    int i = 0,ultID;
+
+    //Laço que percorre o vetor enquanto o indice não for 0
+    while(vetorTrabalhado[i].id){
+
+        //atribui ao ultID,o id que está na posição i do vetor trabalhado
+        ultID = vetorTrabalhado[i].id;
+
+        i++;
+
     }
 
+    return ultID;
+
 }
+
+void adicionar(modeloBandas *vetorTrabalhado,string nome,string genero,int numerodeIntegrantes,int tempodeShow){
+
+    int newID = ultimoID(vetorTrabalhado)+1;
+
+    cout << newID;
+
 }
+
+void remover(){}
 
 int main(){
 
@@ -180,14 +210,12 @@ int main(){
 
     /*Parte de testes*/
 
+    adicionar(vetorBandas,"BandaNova","Rock",5,2.0);
+
     int idProcura;
     string genero;
     string nomeProcura;
 
-
-    for(int i = 0;i < 100;i++){
-    cout << vetorBandas[i].id << " " << vetorBandas[i].nome << endl;
-    }
 
     //cin >> genero;
 
