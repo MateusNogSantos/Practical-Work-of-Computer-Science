@@ -115,7 +115,7 @@ float buscadeGeneroTempodeShow(string generoPesquisado,int tamanho,modeloBandas 
     return tempodeShow;
 }
 
-modeloBandas* redimencionar(modeloBandas *vet,int &tamanho){
+void redimencionar(modeloBandas *&vet,int &tamanho){
 
     tamanho += 5;
 
@@ -123,35 +123,24 @@ modeloBandas* redimencionar(modeloBandas *vet,int &tamanho){
 
     for(int i = 0;i < (tamanho-5);i++){
 
-        newVet[i].id = vet[i].id;
-        newVet[i].nome = vet[i].nome;
-        newVet[i].genero = vet[i].genero;
-        newVet[i].numerodeIntegrantes = vet[i].numerodeIntegrantes;
-        newVet[i].tempodeShow = vet[i].tempodeShow;
-    }
-
-    for(int i = tamanho-5;i < tamanho;i++){
-
-        newVet[i].id = 0;
+        newVet[i] = vet[i];
 
     }
 
     delete [] vet;
 
-    return newVet;
+    vet = newVet;
 
 }
 
-void leitura(modeloBandas *Vetortrabalhado){
+void leitura(modeloBandas *&Vetortrabalhado,int &tamanho){
 
 int i = 0; //Contador de repetições possíveis
-int tamanho = 40;
 string lixo;
 
 ifstream entrada("lollapalufla.csv");
 
 getline(entrada,lixo); //Passa a primeira linha do csv para a variável lixo
-
 
 
 while(entrada >> Vetortrabalhado[i].id){
@@ -166,21 +155,21 @@ while(entrada >> Vetortrabalhado[i].id){
 
     i++;
 
-    /*if(i == tamanho){
+    if(i == tamanho){
 
-        Vetortrabalhado = redimencionar(Vetortrabalhado,tamanho);
+        redimencionar(Vetortrabalhado,tamanho);
+    }
 
-    }*/
-   
 }
-
-} 
+}
 
 int main(){
 
-    modeloBandas* vetorBandas = new modeloBandas[100];
+    int tamanho = 40;
 
-    leitura(vetorBandas);
+    modeloBandas* vetorBandas = new modeloBandas[tamanho];
+
+    leitura(vetorBandas,tamanho);
 
 
     /*Parte de testes*/
