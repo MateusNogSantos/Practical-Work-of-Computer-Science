@@ -107,7 +107,6 @@ bool verificaADD(modeloBandas* &vet,int tamanho,string nome){
 
         return 0;
     }
-
 }
 
 /*Função que percorre todo o vetor comparando o gênero ao gêneroPesquisado,e retorna o o tempo de show daquele gênero.*/
