@@ -132,6 +132,13 @@ void redimencionar(modeloBandas *&vet,int &tamanho){
 
     }
 
+
+    //atribui os novos índices adicionados o valor 0.
+    for(int i = tamanho-5;i < tamanho;i++){
+
+        newVet[i].id = 0;
+    }
+
     //Deleta o espaco do vetor antigo e aponta para o novo local
     delete [] vet;
     vet = newVet;
@@ -170,6 +177,25 @@ void leitura(modeloBandas *&Vetortrabalhado,int &tamanho){
     }
 }
 
+//Função que verifica se ha vaga para adicionar uma banda no vetor;
+bool verificaRedimencionar(modeloBandas* vet,int &tamanho){
+
+    //percorre o vetor buscando id's em branco
+    for(int i = 0;i < tamanho;i++){
+
+        //ao encontrar o id em branco retorna 0(não necessário redimencionar)
+        if(vet[i].id == 0){
+
+            return 0;
+        }
+
+    }
+
+    //se nao encontrar retorna 1(necessário redimencionar)
+    return 1;
+
+}
+
 //Função que retorna o ultimo id adicionado do vetorTrabalhado
 int ultimoID(modeloBandas* vetorTrabalhado){
 
@@ -189,11 +215,37 @@ int ultimoID(modeloBandas* vetorTrabalhado){
 
 }
 
-void adicionar(modeloBandas *vetorTrabalhado,string nome,string genero,int numerodeIntegrantes,int tempodeShow){
+//Função que adiciona novas bandas ao vetorBandas,e se necessário redimenciona;
+void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,string nome,string genero,int numerodeIntegrantes,int tempodeShow){
 
-    int newID = ultimoID(vetorTrabalhado)+1;
+    //Verifica se é necessário redimencionar o vetor.
+    if(verificaRedimencionar(vetorTrabalhado,tamanho)){
 
-    cout << newID;
+        redimencionar(vetorTrabalhado,tamanho);
+
+    }
+
+    //Atribui ao retorno da função ultimoID acrescido de uma unidade à variável newID
+    int newID = ultimoID(vetorTrabalhado)+1,indiceADD;
+
+    //percorre o vetorTrabalhado ate achar um id que seja igual a zero(ou seja,não há bandas registradas)
+    for(int i = 0;i < tamanho;i++){
+
+        //ao achar um id diferente de zero irá atribuir o valor,quando não achar mais valores diferentes de zero,o valor atribuido será do ultimo id que há banda registrada
+        if(vetorTrabalhado[i].id != 0){
+
+            //adiciona uma unidade para ser o índice que não há bandas adicionadas
+            indiceADD = i+1;
+        }
+
+    }
+
+    //atribui os atributos da função para o vetorBandas
+    vetorTrabalhado[indiceADD].id = newID;
+    vetorTrabalhado[indiceADD].genero = genero;
+    vetorTrabalhado[indiceADD].nome = nome;
+    vetorTrabalhado[indiceADD].numerodeIntegrantes = numerodeIntegrantes;
+    vetorTrabalhado[indiceADD].tempodeShow = tempodeShow;
 
 }
 
@@ -210,11 +262,28 @@ int main(){
 
     /*Parte de testes*/
 
-    adicionar(vetorBandas,"BandaNova","Rock",5,2.0);
+    for(int i = 0;i < 20;i++){
+
+        string nomedabanda,generodabanda;
+        int numerodeint;
+        float tempodes;
+
+        cin >> nomedabanda >> generodabanda >> numerodeint >> tempodes;
+
+        adicionar(vetorBandas,tamanho,nomedabanda,generodabanda,numerodeint,tempodes);
+
+    }
 
     int idProcura;
     string genero;
     string nomeProcura;
+
+    for(int i = 0;i < tamanho;i++){
+
+        cout << vetorBandas[i].id << " "<< vetorBandas[i].nome << " " << vetorBandas[i].genero << " " << vetorBandas[i] .numerodeIntegrantes << " " << vetorBandas[i].tempodeShow << endl;
+
+    }
+
 
 
     //cin >> genero;
