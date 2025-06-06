@@ -97,6 +97,19 @@ int buscaPorNome(string nomeDaBanda,int tamanho,modeloBandas *vetorTrabalhado){
     return posicao;
 }
 
+bool verificaADD(modeloBandas* &vet,int tamanho,string nome){
+
+    if(buscaPorNome(nome,tamanho,vet) == -1){
+
+        return 1;
+
+    }else{
+
+        return 0;
+    }
+
+}
+
 /*Função que percorre todo o vetor comparando o gênero ao gêneroPesquisado,e retorna o o tempo de show daquele gênero.*/
 float buscadeGeneroTempodeShow(string generoPesquisado,int tamanho,modeloBandas *vetorTrabalhado){
 
@@ -284,15 +297,16 @@ int main(){
 
     */
 
-    
     int idProcura;
     string genero;
     string nomeProcura;
 
+    cout << verificaADD(vetorBandas,tamanho,"U");
 
-    cin >> genero;
 
-    cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas) << endl;
+    //cin >> genero;
+
+    //cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas) << endl;
 
     return 0;
 }
