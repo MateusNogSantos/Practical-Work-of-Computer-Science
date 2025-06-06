@@ -249,7 +249,7 @@ void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,string nome,string ge
 
 }
 
-void remover(){}
+void remover(modeloBandas *&){}
 
 int main(){
 
@@ -262,6 +262,7 @@ int main(){
 
     /*Parte de testes*/
 
+    /*
     for(int i = 0;i < 20;i++){
 
         string nomedabanda,generodabanda;
@@ -274,21 +275,24 @@ int main(){
 
     }
 
-    int idProcura;
-    string genero;
-    string nomeProcura;
-
+    
     for(int i = 0;i < tamanho;i++){
 
         cout << vetorBandas[i].id << " "<< vetorBandas[i].nome << " " << vetorBandas[i].genero << " " << vetorBandas[i] .numerodeIntegrantes << " " << vetorBandas[i].tempodeShow << endl;
 
     }
 
+    */
+
+    
+    int idProcura;
+    string genero;
+    string nomeProcura;
 
 
-    //cin >> genero;
+    cin >> genero;
 
-    //cout << buscadeGeneroTempodeShow(genero,100,vetorBandas) << endl;
+    cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas) << endl;
 
     return 0;
 }
