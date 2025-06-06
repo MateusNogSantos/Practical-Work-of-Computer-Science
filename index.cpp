@@ -249,7 +249,25 @@ void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,string nome,string ge
 
 }
 
-void remover(modeloBandas *&){}
+void removerNome(modeloBandas *&vetorTrabalhado,int &tamanho,string nome){
+
+    for(int i= 0; i<tamanho; i++){
+        if(nome == vetorTrabalhado[i].nome){
+            vetorTrabalhado[i].id=-1;
+        }
+    }
+
+}
+
+void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID){
+
+    for(int i= 0; i<tamanho; i++){
+        if(ID == vetorTrabalhado[i].id){
+            vetorTrabalhado[i].id=-1;
+        }
+    }
+
+}
 
 int main(){
 
@@ -262,7 +280,7 @@ int main(){
 
     /*Parte de testes*/
 
-    /*
+    
     for(int i = 0;i < 20;i++){
 
         string nomedabanda,generodabanda;
@@ -282,10 +300,10 @@ int main(){
 
     }
 
-    */
+ 
 
     
-    int idProcura;
+    /*int idProcura;
     string genero;
     string nomeProcura;
 
@@ -293,6 +311,6 @@ int main(){
     cin >> genero;
 
     cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas) << endl;
-
+ */
     return 0;
 }
