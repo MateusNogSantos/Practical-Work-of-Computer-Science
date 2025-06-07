@@ -36,17 +36,5 @@ int main(){
 
     }
 
- 
-
-    
-    /*int idProcura;
-    string genero;
-    string nomeProcura;
-
-
-    cin >> genero;
-
-    cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas) << endl;
- */
     return 0;
 }

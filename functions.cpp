@@ -267,3 +267,15 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID){
     }
 
 }
+
+bool verificaADD(modeloBandas* &vet,int tamanho,string nome){
+
+    if(buscaPorNome(nome,tamanho,vet) == -1){
+
+        return 1;
+
+    }else{
+
+        return 0;
+    }
+}
