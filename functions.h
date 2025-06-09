@@ -31,5 +31,6 @@ void adicionar(modeloBandas *&vetorTrabalhado, int &tamanho, string nome, string
 void removerNome(modeloBandas *&vetorTrabalhado, int &tamanho, string nome);
 void removerID(modeloBandas *&vetorTrabalhado, int &tamanho, int ID);
 bool verificaADD(modeloBandas* &vet,int tamanho,string nome);
+void salvarAlteracao(modeloBandas* vet,int tamanho);
 
 #endif

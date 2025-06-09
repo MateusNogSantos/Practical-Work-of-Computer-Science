@@ -268,14 +268,42 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID){
 
 }
 
+//Função que verifica se o nome escolhido para uma banda já existe dentro do vetor.
 bool verificaADD(modeloBandas* &vet,int tamanho,string nome){
 
+    //chama a função buscaPorNome(caso o nome não seja encontrado o retorno é -1)e compara com -1.
+    //caso base 1:o nome não é encontrado e o retorno será 1.
     if(buscaPorNome(nome,tamanho,vet) == -1){
 
         return 1;
 
-    }else{
+    }
+    //o nome é encontrado e o retorno será 0.
+    else{
 
         return 0;
     }
+}
+
+modeloBandas* ordenarPorNome(modeloBandas *vet,int tamanho){}
+
+modeloBandas* ordenarPorID(){}
+
+//Função que deleta e cria um novo arquivo com o novo vetor
+void salvarAlteracao(modeloBandas* vet,int tamanho){
+
+    //OBS:Temporariamente o arquivo que irá salvar será o "saida.csv",para em casos de erros nn perder o banco de dados original.
+    ofstream saida("saida.csv");
+
+    saida << "#ID da Banda,Nome da Banda,Genero Musical,Quantidade de Integrantes,Tempo de Show" << endl;
+
+    for(int i = 0;i < tamanho;i++){
+
+        if(vet[i].id != 0){
+        saida << vet[i].id  << ',' << '"' << vet[i].nome << '"' << ',' << vet[i].genero << ',' << vet[i].numerodeIntegrantes << ',' << vet[i].tempodeShow << endl;
+        }
+
+    };
+
+
 }
