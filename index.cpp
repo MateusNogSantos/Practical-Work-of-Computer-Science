@@ -16,6 +16,12 @@ int main(){
 
     /*Parte de testes*/
 
+    bool confirmation = 0;
+
+    adicionar(vetorBandas,tamanho,confirmation,"U22","Rock",2,2.0);
+
+    cout << confirmation;
+
     salvarAlteracao(vetorBandas,tamanho);
 
     return 0;

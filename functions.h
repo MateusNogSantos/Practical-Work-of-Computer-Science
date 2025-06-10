@@ -27,10 +27,10 @@ void redimencionar(modeloBandas *&vet, int &tamanho);
 void leitura(modeloBandas *&Vetortrabalhado, int &tamanho);
 bool verificaRedimencionar(modeloBandas* vet, int &tamanho);
 int ultimoID(modeloBandas* vetorTrabalhado);
-void adicionar(modeloBandas *&vetorTrabalhado, int &tamanho, string nome, string genero, int numerodeIntegrantes, int tempodeShow);
+bool verificaADD(modeloBandas* &vet,int tamanho,string nome);
+void adicionar(modeloBandas *&vetorTrabalhado, int &tamanho,bool &confirmacao, string nome, string genero, int numerodeIntegrantes, int tempodeShow);
 void removerNome(modeloBandas *&vetorTrabalhado, int &tamanho, string nome);
 void removerID(modeloBandas *&vetorTrabalhado, int &tamanho, int ID);
-bool verificaADD(modeloBandas* &vet,int tamanho,string nome);
 void salvarAlteracao(modeloBandas* vet,int tamanho);
 
 #endif

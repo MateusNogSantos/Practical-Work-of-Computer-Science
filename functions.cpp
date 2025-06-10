@@ -214,8 +214,27 @@ int ultimoID(modeloBandas* vetorTrabalhado){
 
 }
 
+//Função que verifica se o nome escolhido para uma banda já existe dentro do vetor.
+bool verificaADD(modeloBandas* &vet,int tamanho,string nome){
+
+    //chama a função buscaPorNome(caso o nome não seja encontrado o retorno é -1)e compara com -1.
+    //caso base 1:o nome não é encontrado e o retorno será 1.
+    if(buscaPorNome(nome,tamanho,vet) == -1){
+
+        return 1;
+
+    }
+    //o nome é encontrado e o retorno será 0.
+    else{
+
+        return 0;
+    }
+}
+
 //Função que adiciona novas bandas ao vetorBandas,e se necessário redimenciona;
-void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,string nome,string genero,int numerodeIntegrantes,int tempodeShow){
+void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,bool &confirmacao,string nome,string genero,int numerodeIntegrantes,int tempodeShow){
+
+    if(verificaADD(vetorTrabalhado,tamanho,nome)){
 
     //Verifica se é necessário redimencionar o vetor.
     if(verificaRedimencionar(vetorTrabalhado,tamanho)){
@@ -246,6 +265,16 @@ void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,string nome,string ge
     vetorTrabalhado[indiceADD].numerodeIntegrantes = numerodeIntegrantes;
     vetorTrabalhado[indiceADD].tempodeShow = tempodeShow;
 
+    //Retorna true a variável de confirmação da adicao no vetor.
+    confirmacao = true;
+
+    }
+    //Retorna a variável de confirmação que a adição não foi efetuada,por existir uma banda ja com esse nome dentro do vetor.
+    else{
+
+        confirmacao = false;
+    }
+
 }
 
 void removerNome(modeloBandas *&vetorTrabalhado,int &tamanho,string nome){
@@ -268,23 +297,6 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID){
 
 }
 
-//Função que verifica se o nome escolhido para uma banda já existe dentro do vetor.
-bool verificaADD(modeloBandas* &vet,int tamanho,string nome){
-
-    //chama a função buscaPorNome(caso o nome não seja encontrado o retorno é -1)e compara com -1.
-    //caso base 1:o nome não é encontrado e o retorno será 1.
-    if(buscaPorNome(nome,tamanho,vet) == -1){
-
-        return 1;
-
-    }
-    //o nome é encontrado e o retorno será 0.
-    else{
-
-        return 0;
-    }
-}
-
 modeloBandas* ordenarPorNome(modeloBandas *vet,int tamanho){}
 
 modeloBandas* ordenarPorID(){}
@@ -295,8 +307,10 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
     //OBS:Temporariamente o arquivo que irá salvar será o "saida.csv",para em casos de erros nn perder o banco de dados original.
     ofstream saida("saida.csv");
 
+    //Representa o molde que o csv irá seguir
     saida << "#ID da Banda,Nome da Banda,Genero Musical,Quantidade de Integrantes,Tempo de Show" << endl;
 
+    //Um laço de repetição que irá gravar todo o vetor(já ajustado) no csv.
     for(int i = 0;i < tamanho;i++){
 
         if(vet[i].id != 0){
