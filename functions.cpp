@@ -277,29 +277,48 @@ void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,bool &confirmacao,str
 
 }
 
-void removerNome(modeloBandas *&vetorTrabalhado,int &tamanho,string nome){
+//Função que remove pelo nome,caso não encontrado,retorna falso à variável confirmacao.
+void removerNome(modeloBandas *&vetorTrabalhado,int &tamanho,string nome,bool &confirmacao){
 
+    confirmacao = false;
+
+    //Laço de repetição que percorre as posições do vetor.
     for(int i= 0; i<tamanho; i++){
+
+        //Condicional que compara o nome ao do vetor na posição i e,ao encontrar,marca o id como -1 e a variável confirmação recebe true.
         if(nome == vetorTrabalhado[i].nome){
-            vetorTrabalhado[i].id=-1;
+            
+            vetorTrabalhado[i].id = -1;
+            confirmacao = true;
+
         }
     }
 
 }
 
-void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID){
+//Função que remove pelo ID,caso não encontrado,retorna falso à variável confirmação.
+void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID,bool &confirmacao){
 
+    confirmacao = false;
+
+    //Laço de repetição que percorre o vetor trabalhado.
     for(int i= 0; i<tamanho; i++){
+
+        //Condicional que compara o ID ao do vetor na posição i e,ao encontrar,marca a variáver confirmacao como true e o id como -1.
         if(ID == vetorTrabalhado[i].id){
+
             vetorTrabalhado[i].id=-1;
+            confirmacao = true;
+
         }
     }
 
 }
 
 modeloBandas* ordenarPorNome(modeloBandas *vet,int tamanho){}
+modeloBandas* ordenarPorTempoDeShow(){}
+modeloBandas* ordenarPorNumerodeIntegrantes(modeloBandas *vet,int tamanho){}
 
-modeloBandas* ordenarPorID(){}
 
 //Função que deleta e cria um novo arquivo com o novo vetor
 void salvarAlteracao(modeloBandas* vet,int tamanho){
@@ -313,7 +332,8 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
     //Um laço de repetição que irá gravar todo o vetor(já ajustado) no csv.
     for(int i = 0;i < tamanho;i++){
 
-        if(vet[i].id != 0){
+        //compara se é maior que 0,pois exclui campos não gravados e excluídos
+        if(vet[i].id > 0){
         saida << vet[i].id  << ',' << '"' << vet[i].nome << '"' << ',' << vet[i].genero << ',' << vet[i].numerodeIntegrantes << ',' << vet[i].tempodeShow << endl;
         }
 

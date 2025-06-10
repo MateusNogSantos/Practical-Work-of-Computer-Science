@@ -18,8 +18,7 @@ int main(){
 
     bool confirmation = 0;
 
-    adicionar(vetorBandas,tamanho,confirmation,"U22","Rock",2,2.0);
-
+    removerID(vetorBandas,tamanho,103,confirmation);
     cout << confirmation;
 
     salvarAlteracao(vetorBandas,tamanho);
