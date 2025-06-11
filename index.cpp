@@ -5,6 +5,8 @@
 #include "functions.h"
 using namespace std;
 
+/*DE EXTREMA IMPORTÂNCIA:ao acabar o programa mudar o ofstream para ("lolapalufla.txt")*/
+
 int main(){
 
     int tamanho = 40;
