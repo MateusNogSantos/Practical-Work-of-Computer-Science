@@ -325,19 +325,37 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
 
     //OBS:Temporariamente o arquivo que irá salvar será o "saida.csv",para em casos de erros nn perder o banco de dados original.
     ofstream saida("saida.csv");
+    ofstream saidaBinario("saidaBinario.dat");
 
     //Representa o molde que o csv irá seguir
     saida << "#ID da Banda,Nome da Banda,Genero Musical,Quantidade de Integrantes,Tempo de Show" << endl;
 
-    //Um laço de repetição que irá gravar todo o vetor(já ajustado) no csv.
+    //Um laço de repetição que irá gravar todo o vetor(já ajustado) no csv e no arquivo binário.
     for(int i = 0;i < tamanho;i++){
 
         //compara se é maior que 0,pois exclui campos não gravados e excluídos
         if(vet[i].id > 0){
-        saida << vet[i].id  << ',' << '"' << vet[i].nome << '"' << ',' << vet[i].genero << ',' << vet[i].numerodeIntegrantes << ',' << vet[i].tempodeShow << endl;
-        }
+            //CSV
+            saida << vet[i].id  << ',' << '"' << vet[i].nome << '"' << ',' << vet[i].genero << ',' << vet[i].numerodeIntegrantes << ',' << vet[i].tempodeShow << endl;
+            
+            //Binário
+            saidaBinario.write(reinterpret_cast<char*>(&vet[i].id), sizeof(int));
 
+            unsigned int tamNome = vet[i].nome.size();
+            saidaBinario.write(reinterpret_cast<char*>(&tamNome), sizeof(unsigned int));
+            saidaBinario.write(vet[i].nome.c_str(), tamNome);
+
+            unsigned int tamGenero = vet[i].genero.size();
+            saidaBinario.write(reinterpret_cast<char*>(&tamGenero), sizeof(unsigned int));
+            saidaBinario.write(vet[i].genero.c_str(), tamGenero);
+
+            saidaBinario.write(reinterpret_cast<char*>(&vet[i].numerodeIntegrantes), sizeof(int));
+
+            saidaBinario.write(reinterpret_cast<char*>(&vet[i].tempodeShow), sizeof(float));
+        }
     };
 
+    saidaBinario.close();
+    saida.close();
 
 }

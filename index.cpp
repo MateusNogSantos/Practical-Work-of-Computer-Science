@@ -15,13 +15,23 @@ int main(){
 
 
     /*Parte de testes*/
+    int num, tempo;
+    string nome, genero;
+    bool conf;
 
-    bool confirmation = 0;
+    getline(cin, nome);
+    cin >>  genero
+        >>  num
+        >>  tempo;
 
-    removerID(vetorBandas,tamanho,103,confirmation);
-    cout << confirmation;
+    cout    << "Nome: " << nome << " "
+            << "Gênero: " << genero << " "
+            << "Integrantes: " << num << " "
+            << "Tempo de Show: " << tempo << " " << endl;
 
-    salvarAlteracao(vetorBandas,tamanho);
+    adicionar(vetorBandas, tamanho, conf,nome, genero, num, tempo);
+
+    salvarAlteracao(vetorBandas, tamanho);
 
     return 0;
 }
