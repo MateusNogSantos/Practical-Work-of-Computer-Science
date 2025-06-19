@@ -12,8 +12,11 @@ que rode "index.cpp" e este arquivo paralelamente, pois como "index.cpp" utiliza
 #include <iostream>
 #include <fstream> 
 #include <string>
+#include <cstring>
 using namespace std;
 
+void ordenarPorID(modeloBandas *&vetorTrabalhado,int &tamanho){
+}
 //Funçao recursiva que divide o vetorTrabalhado ao meio compara e usa recursão para melhor desempenho
 int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *vetordeBusca){
 
@@ -158,7 +161,7 @@ void leitura(modeloBandas *&Vetortrabalhado,int &tamanho){
     while(entrada >> Vetortrabalhado[i].id){
 
         entrada.ignore(2); //Desconsidera a primeira , e a primeira "
-        getline(entrada,Vetortrabalhado[i].nome,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct
+        entrada.getline(reinterpret_cast<char*>(Vetortrabalhado[i].nome),100,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct,convertendo uma string para um vetor de char
         entrada.ignore(1);//Desconsidera a vírgula
         getline(entrada,Vetortrabalhado[i].genero,',');//Lê o genero
         entrada >> Vetortrabalhado[i].numerodeIntegrantes;//Lê o número de integrantes
@@ -261,7 +264,8 @@ void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,bool &confirmacao,str
     //atribui os atributos da função para o vetorBandas
     vetorTrabalhado[indiceADD].id = newID;
     vetorTrabalhado[indiceADD].genero = genero;
-    vetorTrabalhado[indiceADD].nome = nome;
+    //uso do strcpy() para copiar o conteudo lido e fazer o casting para um vetor de char;
+    strcpy(vetorTrabalhado[indiceADD].nome,nome.c_str());
     vetorTrabalhado[indiceADD].numerodeIntegrantes = numerodeIntegrantes;
     vetorTrabalhado[indiceADD].tempodeShow = tempodeShow;
 
@@ -315,11 +319,6 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID,bool &confirm
 
 }
 
-modeloBandas* ordenarPorNome(modeloBandas *vet,int tamanho){}
-modeloBandas* ordenarPorTempoDeShow(){}
-modeloBandas* ordenarPorNumerodeIntegrantes(modeloBandas *vet,int tamanho){}
-
-
 //Função que deleta e cria um novo arquivo com o novo vetor
 void salvarAlteracao(modeloBandas* vet,int tamanho){
 
@@ -341,9 +340,9 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
             //Binário
             saidaBinario.write(reinterpret_cast<char*>(&vet[i].id), sizeof(int));
 
-            unsigned int tamNome = vet[i].nome.size();
+            unsigned int tamNome = 100*sizeof(char);
             saidaBinario.write(reinterpret_cast<char*>(&tamNome), sizeof(unsigned int));
-            saidaBinario.write(vet[i].nome.c_str(), tamNome);
+            saidaBinario.write(vet[i].nome, tamNome);
 
             unsigned int tamGenero = vet[i].genero.size();
             saidaBinario.write(reinterpret_cast<char*>(&tamGenero), sizeof(unsigned int));

@@ -7,13 +7,14 @@ que estão no "functions.cpp" no "index.cpp" utilizando o #include "functions.h"
 #define FUNCTIONS_H
 
 #include <string>
+#include <cstring>
 using namespace std;
 
 /*Criacao de uma classe que registre os usuarios,essa classe devera ser um vetor,que sera redimencionado dinamicamente,o*/
 struct modeloBandas{
 
     int id,numerodeIntegrantes;
-    string nome;
+    char nome[100];
     string genero;
     float tempodeShow;
 

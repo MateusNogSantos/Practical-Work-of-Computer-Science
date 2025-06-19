@@ -17,10 +17,10 @@ int main(){
 
 
     /*Parte de testes*/
-    int num, tempo;
-    string nome, genero;
-    bool conf;
 
+    //Vetornovo = ordenarPorNumerodeIntegrantes(vetorBandas,tamanho);
+
+    /*
     getline(cin, nome);
     cin >>  genero
         >>  num
@@ -34,6 +34,12 @@ int main(){
     adicionar(vetorBandas, tamanho, conf,nome, genero, num, tempo);
 
     salvarAlteracao(vetorBandas, tamanho);
+    */
+
+    for(int i = 0;i < 100;i++){
+
+        cout << vetorBandas[i].nome << endl;
+    }
 
     return 0;
 }
