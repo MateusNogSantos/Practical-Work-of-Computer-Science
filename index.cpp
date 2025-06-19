@@ -5,7 +5,7 @@
 #include "functions.h"
 using namespace std;
 
-/*DE EXTREMA IMPORTÂNCIA:ao acabar o programa mudar o ofstream para ("lolapalufla.txt")*/
+/*DE EXTREMA IMPORTÂNCIA:ao acabar o programa mudar o ofstream para ("lolapalufla.txt") e desalocar dinamicamente os vetores*/
 
 int main(){
 
@@ -15,6 +15,7 @@ int main(){
 
     leitura(vetorBandas,tamanho);
 
+    ordenarPorID(vetorBandas,tamanho);
 
     /*Parte de testes*/
 
@@ -36,7 +37,7 @@ int main(){
     salvarAlteracao(vetorBandas, tamanho);
     */
 
-    for(int i = 0;i < 100;i++){
+    for(int i = 0;i < tamanho;i++){
 
         cout << vetorBandas[i].nome << endl;
     }

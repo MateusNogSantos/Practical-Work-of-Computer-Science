@@ -15,8 +15,76 @@ que rode "index.cpp" e este arquivo paralelamente, pois como "index.cpp" utiliza
 #include <cstring>
 using namespace std;
 
-void ordenarPorID(modeloBandas *&vetorTrabalhado,int &tamanho){
+//Função com o objetivo de simplificar a passagem de parametros
+void ordenarPorID(modeloBandas* &vetOrdem,int tamanho){
+
+//chama a função quicksort
+quicksortID(vetOrdem,0,tamanho);
+
 }
+
+//Função de ordenação do tipo quicksort voltada para a ordenação por ID
+void quicksortID(modeloBandas* &vet,int posPivo,int posFinal){
+
+    //variável que recebe o valor do novo pivo,que vai ser comparado
+    int novoPivo;
+
+    //enquanto o pivo não ter o mesmo valor da posição final(mostra que a ordenação acabou)faz uso da recursividade.
+    if(posPivo < posFinal){
+
+        //recebe a posição correta do pivo no vetor trabalhado.
+        novoPivo = particionaVetorID(vet,posPivo,posFinal);
+
+        //recursividade da função em ambas as partes do vetor
+        quicksortID(vet,posPivo,novoPivo - 1);
+        quicksortID(vet,novoPivo + 1,posFinal);
+    }
+
+}
+
+//Função que move e retorna a posição do pivo no vetor trabalhado(base da função quicksort voltada ao ID)
+int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal){
+
+    //inicialização de variaveis internas e necessárias à função
+    modeloBandas pivo = vetorTrabalhado[PosInicial];
+    modeloBandas aux;
+    int i = PosInicial + 1;
+    int j = PosFinal;
+
+    //Laço de repetição que roda enquanto os contadores não se encontram e ao se encontrarem roda uma vez(j roda decrescendo e i roda crescendo).
+    while(i <= j){
+
+        //Se o pivo for maior que o ID do vetor no indice i,acresce o valor de i em uma unidade,mostrando que o ID está na posição correta.
+        if(pivo.id >= vetorTrabalhado[i].id){
+            i++;
+        }
+        //Se o pivo for menor que o ID do vetor no indice j,decresce o valor de j em uma unidade,mostrando que o ID está na posição correta.
+        else if(pivo.id <= vetorTrabalhado[j].id or vetorTrabalhado[j].id == 0){
+            j--;
+        }
+        //caso nenhuma das duas condicionais acima inicie,mostra que o total contrário ocorreu e soluciona trocando o lugar dos ID's.
+        else{
+
+            aux = vetorTrabalhado[j];
+            vetorTrabalhado[j] = vetorTrabalhado[i];
+            vetorTrabalhado[i] = aux;
+
+            //move os contadores,mostrando que os ID's estão na posição correta
+            i++;
+            j--;
+
+        }
+
+    }
+
+    //troca de lugar o pivo(que está na posição inicial com a posição onde ele deveria está)
+    vetorTrabalhado[PosInicial] = vetorTrabalhado[j];
+    vetorTrabalhado[j] = pivo;
+
+    return j;
+
+}
+
 //Funçao recursiva que divide o vetorTrabalhado ao meio compara e usa recursão para melhor desempenho
 int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *vetordeBusca){
 
@@ -199,7 +267,10 @@ bool verificaRedimencionar(modeloBandas* vet,int &tamanho){
 }
 
 //Função que retorna o ultimo id adicionado do vetorTrabalhado
-int ultimoID(modeloBandas* vetorTrabalhado){
+int ultimoID(modeloBandas* vetorTrabalhado,int tamanho){
+
+    //ordena o vetor para o maior ser o ultimo.
+    ordenarPorID(vetorTrabalhado,tamanho);
 
     int i = 0,ultID;
 
