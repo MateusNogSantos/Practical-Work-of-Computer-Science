@@ -15,33 +15,6 @@ que rode "index.cpp" e este arquivo paralelamente, pois como "index.cpp" utiliza
 #include <cstring>
 using namespace std;
 
-//Função com o objetivo de simplificar a passagem de parametros
-void ordenarPorID(modeloBandas* &vetOrdem,int tamanho){
-
-//chama a função quicksort
-quicksortID(vetOrdem,0,tamanho);
-
-}
-
-//Função de ordenação do tipo quicksort voltada para a ordenação por ID
-void quicksortID(modeloBandas* &vet,int posPivo,int posFinal){
-
-    //variável que recebe o valor do novo pivo,que vai ser comparado
-    int novoPivo;
-
-    //enquanto o pivo não ter o mesmo valor da posição final(mostra que a ordenação acabou)faz uso da recursividade.
-    if(posPivo < posFinal){
-
-        //recebe a posição correta do pivo no vetor trabalhado.
-        novoPivo = particionaVetorID(vet,posPivo,posFinal);
-
-        //recursividade da função em ambas as partes do vetor
-        quicksortID(vet,posPivo,novoPivo - 1);
-        quicksortID(vet,novoPivo + 1,posFinal);
-    }
-
-}
-
 //Função que move e retorna a posição do pivo no vetor trabalhado(base da função quicksort voltada ao ID)
 int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal){
 
@@ -84,6 +57,35 @@ int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal
     return j;
 
 }
+
+//Função de ordenação do tipo quicksort voltada para a ordenação por ID
+void quicksortID(modeloBandas* &vet,int posPivo,int posFinal){
+
+    //variável que recebe o valor do novo pivo,que vai ser comparado
+    int novoPivo;
+
+    //enquanto o pivo não ter o mesmo valor da posição final(mostra que a ordenação acabou)faz uso da recursividade.
+    if(posPivo < posFinal){
+
+        //recebe a posição correta do pivo no vetor trabalhado.
+        novoPivo = particionaVetorID(vet,posPivo,posFinal);
+
+        //recursividade da função em ambas as partes do vetor
+        quicksortID(vet,posPivo,novoPivo - 1);
+        quicksortID(vet,novoPivo + 1,posFinal);
+    }
+
+}
+
+//Função com o objetivo de simplificar a passagem de parametros
+void ordenarPorID(modeloBandas* &vetOrdem,int tamanho){
+
+//chama a função quicksort
+quicksortID(vetOrdem,0,tamanho);
+
+}
+
+void ordenarPorNumDeIntegrantes(){}
 
 //Funçao recursiva que divide o vetorTrabalhado ao meio compara e usa recursão para melhor desempenho
 int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *vetordeBusca){
@@ -207,6 +209,7 @@ void redimencionar(modeloBandas *&vet,int &tamanho){
     for(int i = tamanho-5;i < tamanho;i++){
 
         newVet[i].id = 0;
+        newVet[i].nome[0] = ' ';
     }
 
     //Deleta o espaco do vetor antigo e aponta para o novo local
@@ -231,7 +234,7 @@ void leitura(modeloBandas *&Vetortrabalhado,int &tamanho){
         entrada.ignore(2); //Desconsidera a primeira , e a primeira "
         entrada.getline(reinterpret_cast<char*>(Vetortrabalhado[i].nome),100,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct,convertendo uma string para um vetor de char
         entrada.ignore(1);//Desconsidera a vírgula
-        getline(entrada,Vetortrabalhado[i].genero,',');//Lê o genero
+        entrada.getline(reinterpret_cast<char*>(Vetortrabalhado[i].genero),100,',');//Lê o genero
         entrada >> Vetortrabalhado[i].numerodeIntegrantes;//Lê o número de integrantes
         entrada.ignore(1);//Desconsidera a vírgurla
         entrada >> Vetortrabalhado[i].tempodeShow;//Lê o tempo de show
@@ -318,7 +321,7 @@ void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,bool &confirmacao,str
     }
 
     //Atribui ao retorno da função ultimoID acrescido de uma unidade à variável newID
-    int newID = ultimoID(vetorTrabalhado)+1,indiceADD;
+    int newID = ultimoID(vetorTrabalhado,tamanho)+1,indiceADD;
 
     //percorre o vetorTrabalhado ate achar um id que seja igual a zero(ou seja,não há bandas registradas)
     for(int i = 0;i < tamanho;i++){
@@ -334,7 +337,7 @@ void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,bool &confirmacao,str
 
     //atribui os atributos da função para o vetorBandas
     vetorTrabalhado[indiceADD].id = newID;
-    vetorTrabalhado[indiceADD].genero = genero;
+    strcpy(vetorTrabalhado[indiceADD].genero,genero.c_str());
     //uso do strcpy() para copiar o conteudo lido e fazer o casting para um vetor de char;
     strcpy(vetorTrabalhado[indiceADD].nome,nome.c_str());
     vetorTrabalhado[indiceADD].numerodeIntegrantes = numerodeIntegrantes;
@@ -390,6 +393,8 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID,bool &confirm
 
 }
 
+void lerDoBinario(){}
+
 //Função que deleta e cria um novo arquivo com o novo vetor
 void salvarAlteracao(modeloBandas* vet,int tamanho){
 
@@ -415,9 +420,9 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
             saidaBinario.write(reinterpret_cast<char*>(&tamNome), sizeof(unsigned int));
             saidaBinario.write(vet[i].nome, tamNome);
 
-            unsigned int tamGenero = vet[i].genero.size();
+            unsigned int tamGenero = 20*sizeof(char);
             saidaBinario.write(reinterpret_cast<char*>(&tamGenero), sizeof(unsigned int));
-            saidaBinario.write(vet[i].genero.c_str(), tamGenero);
+            saidaBinario.write(vet[i].genero, tamGenero);
 
             saidaBinario.write(reinterpret_cast<char*>(&vet[i].numerodeIntegrantes), sizeof(int));
 

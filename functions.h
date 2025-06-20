@@ -15,14 +15,14 @@ struct modeloBandas{
 
     int id,numerodeIntegrantes;
     char nome[100];
-    string genero;
+    char genero[20];
     float tempodeShow;
 
     };
 
-void ordenarPorID(modeloBandas* &vetOrdem,int tamanho);
+int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal);    
 void quicksortID(modeloBandas* &vet,int posPivo,int posFinal);
-int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal);
+void ordenarPorID(modeloBandas* &vetOrdem,int tamanho);
 int buscaBinaria(int IDuser, int posicaoInicial, int posicaoFinal, modeloBandas *vetordeBusca);
 int buscaPorID(int IDuser, int tamanho, modeloBandas *vetorTrabalhado);
 int buscaPorNome(string nomeDaBanda, int tamanho, modeloBandas *vetorTrabalhado);
@@ -30,7 +30,7 @@ float buscadeGeneroTempodeShow(string generoPesquisado, int tamanho, modeloBanda
 void redimencionar(modeloBandas *&vet, int &tamanho);
 void leitura(modeloBandas *&Vetortrabalhado, int &tamanho);
 bool verificaRedimencionar(modeloBandas* vet, int &tamanho);
-int ultimoID(modeloBandas* vetorTrabalhado);
+int ultimoID(modeloBandas* vetorTrabalhado,int tamanho);
 bool verificaADD(modeloBandas* &vet,int tamanho,string nome);
 void adicionar(modeloBandas *&vetorTrabalhado, int &tamanho,bool &confirmacao, string nome, string genero, int numerodeIntegrantes, int tempodeShow);
 void removerNome(modeloBandas *&vetorTrabalhado, int &tamanho, string nome,bool &confirmacao);

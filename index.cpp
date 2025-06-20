@@ -15,7 +15,7 @@ int main(){
 
     leitura(vetorBandas,tamanho);
 
-    ordenarPorID(vetorBandas,tamanho);
+    //ordenarPorNome(vetorBandas,tamanho);
 
     /*Parte de testes*/
 
@@ -37,10 +37,16 @@ int main(){
     salvarAlteracao(vetorBandas, tamanho);
     */
 
-    for(int i = 0;i < tamanho;i++){
+    string genero;
 
-        cout << vetorBandas[i].nome << endl;
-    }
+    cin >> genero;
+
+    cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas);
+
+    //for(int i = 0;i < tamanho;i++){
+
+    //    cout << vetorBandas[i].nome << endl;
+   // }
 
     return 0;
 }
