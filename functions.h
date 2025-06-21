@@ -20,9 +20,13 @@ struct modeloBandas{
 
     };
 
+/*Declaração das Funções contidas no programa*/
 int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal);    
 void quicksortID(modeloBandas* &vet,int posPivo,int posFinal);
 void ordenarPorID(modeloBandas* &vetOrdem,int tamanho);
+int particionaVetorIntegrantes(modeloBandas* &vetorTrabalhado,int posInicial,int posFinal);
+void quicksortIntegrantes(modeloBandas* &vetorTrabalhado,int posPivo,int posFinal);
+void ordenarPorNumDeIntegrantes(modeloBandas* &vetorTrabalhado,int tamanho);
 int buscaBinaria(int IDuser, int posicaoInicial, int posicaoFinal, modeloBandas *vetordeBusca);
 int buscaPorID(int IDuser, int tamanho, modeloBandas *vetorTrabalhado);
 int buscaPorNome(string nomeDaBanda, int tamanho, modeloBandas *vetorTrabalhado);
@@ -35,7 +39,7 @@ bool verificaADD(modeloBandas* &vet,int tamanho,string nome);
 void adicionar(modeloBandas *&vetorTrabalhado, int &tamanho,bool &confirmacao, string nome, string genero, int numerodeIntegrantes, int tempodeShow);
 void removerNome(modeloBandas *&vetorTrabalhado, int &tamanho, string nome,bool &confirmacao);
 void removerID(modeloBandas *&vetorTrabalhado, int &tamanho, int ID,bool &confirmacao);
-
+void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho);
 void salvarAlteracao(modeloBandas* vet,int tamanho);
 
 #endif

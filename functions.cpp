@@ -85,7 +85,62 @@ quicksortID(vetOrdem,0,tamanho);
 
 }
 
-void ordenarPorNumDeIntegrantes(){}
+int particionaVetorIntegrantes(modeloBandas* &vetorTrabalhado,int posInicial,int posFinal){
+
+    modeloBandas pivo = vetorTrabalhado[posInicial];
+    modeloBandas aux;
+    int i = posInicial+1;
+    int j = posFinal;
+
+    while (i <= j){
+
+        if(pivo.numerodeIntegrantes <= vetorTrabalhado[j].numerodeIntegrantes or vetorTrabalhado[j].numerodeIntegrantes == 0){
+
+            j--;
+        }else if(pivo.numerodeIntegrantes >= vetorTrabalhado[i].numerodeIntegrantes){
+
+            i++;
+        }else{
+
+            aux = vetorTrabalhado[j];
+            vetorTrabalhado[j] = vetorTrabalhado[i];
+            vetorTrabalhado[i] = aux;
+
+            j--;
+            i++;
+
+        }
+
+        
+
+    }
+
+    vetorTrabalhado[posInicial] = vetorTrabalhado[j];
+    vetorTrabalhado[j] = pivo;
+
+    return j;
+}
+
+void quicksortIntegrantes(modeloBandas* &vetorTrabalhado,int posPivo,int posFinal){
+
+    int novoPivo;
+
+    if(posPivo < posFinal) {
+
+        novoPivo = particionaVetorIntegrantes(vetorTrabalhado,posPivo,posFinal);
+        quicksortIntegrantes(vetorTrabalhado,posPivo,novoPivo - 1);
+        quicksortIntegrantes(vetorTrabalhado,novoPivo + 1,posFinal);
+
+    }
+
+
+};
+
+void ordenarPorNumDeIntegrantes(modeloBandas* &vetorTrabalhado,int tamanho){
+
+    quicksortIntegrantes(vetorTrabalhado,0,tamanho);
+
+}
 
 //Funçao recursiva que divide o vetorTrabalhado ao meio compara e usa recursão para melhor desempenho
 int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *vetordeBusca){
@@ -208,8 +263,9 @@ void redimencionar(modeloBandas *&vet,int &tamanho){
     //atribui os novos índices adicionados o valor 0.
     for(int i = tamanho-5;i < tamanho;i++){
 
+        newVet[i].numerodeIntegrantes = 0;
         newVet[i].id = 0;
-        newVet[i].nome[0] = ' ';
+        newVet[i].nome[0] = 0;
     }
 
     //Deleta o espaco do vetor antigo e aponta para o novo local
@@ -393,14 +449,30 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID,bool &confirm
 
 }
 
-void lerDoBinario(){}
+void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho){
+
+    int i = 0;
+    int variavel = 0;
+
+    ifstream entradaBinario("saidaBinário.dat",ios::binary);
+
+    for(int i = 0;i < 100;i++){
+
+        entradaBinario.read(reinterpret_cast<char*> (&variavel),sizeof(int));
+        cout << variavel;
+
+    }
+    
+    
+
+}   
 
 //Função que deleta e cria um novo arquivo com o novo vetor
 void salvarAlteracao(modeloBandas* vet,int tamanho){
 
     //OBS:Temporariamente o arquivo que irá salvar será o "saida.csv",para em casos de erros nn perder o banco de dados original.
     ofstream saida("saida.csv");
-    ofstream saidaBinario("saidaBinario.dat");
+    ofstream saidaBinario("saidaBinario.dat",ios::binary);
 
     //Representa o molde que o csv irá seguir
     saida << "#ID da Banda,Nome da Banda,Genero Musical,Quantidade de Integrantes,Tempo de Show" << endl;
@@ -410,25 +482,29 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
 
         //compara se é maior que 0,pois exclui campos não gravados e excluídos
         if(vet[i].id > 0){
+
             //CSV
             saida << vet[i].id  << ',' << '"' << vet[i].nome << '"' << ',' << vet[i].genero << ',' << vet[i].numerodeIntegrantes << ',' << vet[i].tempodeShow << endl;
             
             //Binário
-            saidaBinario.write(reinterpret_cast<char*>(&vet[i].id), sizeof(int));
+            saidaBinario.write(reinterpret_cast<const char*>(&vet[i].id), sizeof(int));
 
             unsigned int tamNome = 100*sizeof(char);
-            saidaBinario.write(reinterpret_cast<char*>(&tamNome), sizeof(unsigned int));
+            saidaBinario.write(reinterpret_cast<const char*>(&tamNome), sizeof(unsigned int));
             saidaBinario.write(vet[i].nome, tamNome);
 
             unsigned int tamGenero = 20*sizeof(char);
-            saidaBinario.write(reinterpret_cast<char*>(&tamGenero), sizeof(unsigned int));
+            saidaBinario.write(reinterpret_cast<const char*>(&tamGenero), sizeof(unsigned int));
             saidaBinario.write(vet[i].genero, tamGenero);
 
-            saidaBinario.write(reinterpret_cast<char*>(&vet[i].numerodeIntegrantes), sizeof(int));
+            saidaBinario.write(reinterpret_cast<const char*>(&vet[i].numerodeIntegrantes), sizeof(int));
 
-            saidaBinario.write(reinterpret_cast<char*>(&vet[i].tempodeShow), sizeof(float));
+            saidaBinario.write(reinterpret_cast<const char*>(&vet[i].tempodeShow), sizeof(float));
+            
         }
     };
+
+    //saidaBinario.write(reinterpret_cast<const char*> (vet),tamanho*sizeof(modeloBandas));
 
     saidaBinario.close();
     saida.close();

@@ -37,16 +37,14 @@ int main(){
     salvarAlteracao(vetorBandas, tamanho);
     */
 
-    string genero;
+    //salvarAlteracao(vetorBandas,tamanho);
 
-    cin >> genero;
+    ordenarPorNumDeIntegrantes(vetorBandas,tamanho);
 
-    cout << buscadeGeneroTempodeShow(genero,tamanho,vetorBandas);
+    for(int i = 0;i < tamanho;i++){
 
-    //for(int i = 0;i < tamanho;i++){
-
-    //    cout << vetorBandas[i].nome << endl;
-   // }
+        cout << vetorBandas[i].nome << " " << vetorBandas[i].numerodeIntegrantes << endl;
+    }
 
     return 0;
 }
