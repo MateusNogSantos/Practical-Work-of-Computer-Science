@@ -13,7 +13,7 @@ int main(){
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
 
-    leitura(vetorBandas,tamanho);
+    //leitura(vetorBandas,tamanho);
 
     //ordenarPorNome(vetorBandas,tamanho);
 
@@ -39,12 +39,15 @@ int main(){
 
     //salvarAlteracao(vetorBandas,tamanho);
 
-    ordenarPorNumDeIntegrantes(vetorBandas,tamanho);
+    lerDoBinario(vetorBandas,tamanho);
+
 
     for(int i = 0;i < tamanho;i++){
 
         cout << vetorBandas[i].nome << " " << vetorBandas[i].numerodeIntegrantes << endl;
     }
+
+    cout << tamanho;
 
     return 0;
 }

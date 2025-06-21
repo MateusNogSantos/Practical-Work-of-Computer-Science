@@ -87,25 +87,35 @@ quicksortID(vetOrdem,0,tamanho);
 
 int particionaVetorIntegrantes(modeloBandas* &vetorTrabalhado,int posInicial,int posFinal){
 
+    //Atribui ao pivo o primeira struct da partição
     modeloBandas pivo = vetorTrabalhado[posInicial];
     modeloBandas aux;
+
+    //Atribui os extremos de onde a partição vai ocorrer
     int i = posInicial+1;
     int j = posFinal;
 
+    //enquanto as duas variáveis não se passarem,o laço roda
     while (i <= j){
 
+        //Se o valor do pivo for menor ou igual ao do vetorTrabalhado e nâo é uma struct vazia,indica que sua posição está correta,então é decrescido à variável j
         if(pivo.numerodeIntegrantes <= vetorTrabalhado[j].numerodeIntegrantes or vetorTrabalhado[j].numerodeIntegrantes == 0){
 
             j--;
-        }else if(pivo.numerodeIntegrantes >= vetorTrabalhado[i].numerodeIntegrantes){
+        }
+        //Se o valor do pivo for maior ou igual ao do vetorTrabalhado,indica que sua posição está correta,então é acrescido à variável i
+        else if(pivo.numerodeIntegrantes >= vetorTrabalhado[i].numerodeIntegrantes){
 
             i++;
-        }else{
+        }
+        //Caso não,foi o total contrário que ocorreu,então as variáveis são trocadas
+        else{
 
             aux = vetorTrabalhado[j];
             vetorTrabalhado[j] = vetorTrabalhado[i];
             vetorTrabalhado[i] = aux;
 
+            //Respectivas variáveis são manipuladas
             j--;
             i++;
 
@@ -115,19 +125,25 @@ int particionaVetorIntegrantes(modeloBandas* &vetorTrabalhado,int posInicial,int
 
     }
 
+    //troca de lugar a posição inicial com a do local adequado ao pivo
     vetorTrabalhado[posInicial] = vetorTrabalhado[j];
     vetorTrabalhado[j] = pivo;
 
+    //retorna a posição do pivo
     return j;
 }
 
+//Função que faz a recursividade antes e depois do novo pivo
 void quicksortIntegrantes(modeloBandas* &vetorTrabalhado,int posPivo,int posFinal){
 
     int novoPivo;
 
     if(posPivo < posFinal) {
 
+        //Atribui ao novo pivo o retorno da função particionaVetorIntegrantes
         novoPivo = particionaVetorIntegrantes(vetorTrabalhado,posPivo,posFinal);
+
+        //Recursividade da função antes e depois da posição do novo pivo
         quicksortIntegrantes(vetorTrabalhado,posPivo,novoPivo - 1);
         quicksortIntegrantes(vetorTrabalhado,novoPivo + 1,posFinal);
 
@@ -136,6 +152,7 @@ void quicksortIntegrantes(modeloBandas* &vetorTrabalhado,int posPivo,int posFina
 
 };
 
+//Função que faz a primeira chamada do quicksortIntegrantes com posição do pivo no indice 0
 void ordenarPorNumDeIntegrantes(modeloBandas* &vetorTrabalhado,int tamanho){
 
     quicksortIntegrantes(vetorTrabalhado,0,tamanho);
@@ -449,20 +466,25 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID,bool &confirm
 
 }
 
+//Função que lê do arquivo binário
 void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho){
 
+    //Inicialização de uma variável contadora
     int i = 0;
-    int variavel = 0;
 
-    ifstream entradaBinario("saidaBinário.dat",ios::binary);
+    //Abertura do arquivo binário
+    ifstream entradaBinario("saidaBinario.dat",ios::binary);
 
-    for(int i = 0;i < 100;i++){
+    //Laço de repetição com condição de passagem dos valores do binário para o vetorTrabalhado
+    while(entradaBinario.read(reinterpret_cast <char*> (&vetorTrabalhado[i]),sizeof(modeloBandas))){
 
-        entradaBinario.read(reinterpret_cast<char*> (&variavel),sizeof(int));
-        cout << variavel;
+        //Contador
+        i++;
+
+        //Redimenciona toda vez que o contador chega ao tamanho total do vetor e o ultimo id é diferente de 0(para evitar contagem de indices não usados dentro do vetor)
+        if(i == tamanho and vetorTrabalhado[i-1].id != 0)redimencionar(vetorTrabalhado,tamanho);
 
     }
-    
     
 
 }   
@@ -486,26 +508,13 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
             //CSV
             saida << vet[i].id  << ',' << '"' << vet[i].nome << '"' << ',' << vet[i].genero << ',' << vet[i].numerodeIntegrantes << ',' << vet[i].tempodeShow << endl;
             
-            //Binário
-            saidaBinario.write(reinterpret_cast<const char*>(&vet[i].id), sizeof(int));
-
-            unsigned int tamNome = 100*sizeof(char);
-            saidaBinario.write(reinterpret_cast<const char*>(&tamNome), sizeof(unsigned int));
-            saidaBinario.write(vet[i].nome, tamNome);
-
-            unsigned int tamGenero = 20*sizeof(char);
-            saidaBinario.write(reinterpret_cast<const char*>(&tamGenero), sizeof(unsigned int));
-            saidaBinario.write(vet[i].genero, tamGenero);
-
-            saidaBinario.write(reinterpret_cast<const char*>(&vet[i].numerodeIntegrantes), sizeof(int));
-
-            saidaBinario.write(reinterpret_cast<const char*>(&vet[i].tempodeShow), sizeof(float));
-            
         }
     };
 
-    //saidaBinario.write(reinterpret_cast<const char*> (vet),tamanho*sizeof(modeloBandas));
+    //Binário
+    saidaBinario.write(reinterpret_cast<const char*> (&vet),tamanho*sizeof(modeloBandas));
 
+    //Descarrega os Buffer's
     saidaBinario.close();
     saida.close();
 
