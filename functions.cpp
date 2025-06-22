@@ -21,23 +21,35 @@ void comparaNome(modeloBandas* &vetorTrabalhado,int indiceDoMenor,int indiceComp
     //struct auxiliar
     modeloBandas aux;
 
-    //Condicional que verifica se há uma letra anterior,se sim,coloca em sua posição adequada e passa a que estava como menor para a posição comparada.
-    if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] > (int)vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] and vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] != 0){
+    //variáveis para controle de igualdade
+    int controleDoMenor,controleDoComparado;
 
-        //Troca dos dados nas structs 
-        aux = vetorTrabalhado[indiceDoMenor];
-        vetorTrabalhado[indiceDoMenor] = vetorTrabalhado[indiceComparado];
-        vetorTrabalhado[indiceComparado] = aux;
-        
-    }
+    //variável que garante que todas as letras(maiúsculas e minúsculas)sejam comparadas da mesma forma
+    if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] < 97)controleDoMenor = 32;
+    else controleDoMenor = 0;
+
+    if((int)vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] < 97)controleDoComparado = 32;
+    else controleDoComparado = 0;
+
+
     //Se forem letras iguais
-    else if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] == (int)vetorTrabalhado[indiceComparado].nome[posicaoDaLetra]){
+    if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] + controleDoMenor == (int)vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] + controleDoComparado){
 
         //Soma uma unidade na posição dos indices das letras que serão comparadas
         posicaoDaLetra++;
         //Faz recursão com a nova posição comparada
         comparaNome(vetorTrabalhado,indiceDoMenor,indiceComparado,posicaoDaLetra);
 
+    }
+
+    //Condicional que verifica se há uma letra anterior,se sim,coloca em sua posição adequada e passa a que estava como menor para a posição comparada.
+    else if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] + controleDoMenor > (int)vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] + controleDoComparado and vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] != 0){
+
+        //Troca dos dados nas structs 
+        aux = vetorTrabalhado[indiceDoMenor];
+        vetorTrabalhado[indiceDoMenor] = vetorTrabalhado[indiceComparado];
+        vetorTrabalhado[indiceComparado] = aux;
+        
     }
 
 }
