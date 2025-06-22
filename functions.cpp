@@ -159,6 +159,49 @@ void ordenarPorNumDeIntegrantes(modeloBandas* &vetorTrabalhado,int tamanho){
 
 }
 
+//Função que retorna a posição do pivo, assim como as acima, porém para o Tempo de Show.
+int particionaVetorTempoDeShow(modeloBandas* &vetor, int posInicial, int posFinal){
+    modeloBandas pivo = vetor[posInicial];
+    modeloBandas aux;
+
+    int i = posInicial+1;
+    int j = posFinal;
+
+    while (i <= j){
+        if(pivo.tempodeShow <= vetor[j].tempodeShow or vetor[j].tempodeShow == 0){
+            j--;
+        }else if(pivo.tempodeShow >= vetor[i].tempodeShow){ 
+            i++;
+        }else{
+            aux = vetor[j];
+            vetor[j] = vetor[i];
+            vetor[i] = aux;
+            j--;
+            i++;
+        }
+    }
+
+    vetor[posInicial] = vetor[j];
+    vetor[j] = pivo;
+    return j;
+}
+
+//Ordenação quicksort para o Tempo de Show.
+void quicksortTempoDeShow(modeloBandas* &vetor, int posPivo, int posFinal){
+    int novoPivo;
+
+    if(posPivo < posFinal){
+        novoPivo = particionaVetorTempoDeShow(vetor, posPivo, posFinal);
+        quicksortTempoDeShow(vetor,posPivo,novoPivo - 1);
+        quicksortTempoDeShow(vetor,novoPivo + 1,posFinal);
+    }
+}
+
+//Chamada mais "clara" do quicksort.
+void ordenaPorTempoDeShow(modeloBandas* &vetor, int tamanho){
+    quicksortTempoDeShow(vetor, 0, tamanho);
+}
+
 //Funçao recursiva que divide o vetorTrabalhado ao meio compara e usa recursão para melhor desempenho
 int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *vetordeBusca){
 

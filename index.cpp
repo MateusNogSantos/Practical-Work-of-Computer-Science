@@ -13,41 +13,30 @@ int main(){
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
 
-    //leitura(vetorBandas,tamanho);
+    leitura(vetorBandas, tamanho);
 
-    //ordenarPorNome(vetorBandas,tamanho);
+    cout << endl << "_______________________________________________________________" << endl;
+    cout << "VETOR ANTES DE SER ORDENADO POR TEMPO DE SHOW: " << endl << endl;
+    for(int i = 0;i < tamanho;i++){
 
-    /*Parte de testes*/
+        cout << vetorBandas[i].id << " " 
+             << vetorBandas[i].nome << " " 
+             << vetorBandas[i].genero << " " 
+             << vetorBandas[i].tempodeShow << " " << endl;
+    }
 
-    //Vetornovo = ordenarPorNumerodeIntegrantes(vetorBandas,tamanho);
+    cout << endl << "_______________________________________________________________" << endl;
+    cout << endl <<"VETOR DEPOIS DE SER ORDENADO POR TEMPO DE SHOW: " << endl << endl;
 
-    /*
-    getline(cin, nome);
-    cin >>  genero
-        >>  num
-        >>  tempo;
-
-    cout    << "Nome: " << nome << " "
-            << "Gênero: " << genero << " "
-            << "Integrantes: " << num << " "
-            << "Tempo de Show: " << tempo << " " << endl;
-
-    adicionar(vetorBandas, tamanho, conf,nome, genero, num, tempo);
-
-    salvarAlteracao(vetorBandas, tamanho);
-    */
-
-    //salvarAlteracao(vetorBandas,tamanho);
-
-    lerDoBinario(vetorBandas,tamanho);
-
+    ordenaPorTempoDeShow(vetorBandas, tamanho);
 
     for(int i = 0;i < tamanho;i++){
 
-        cout << vetorBandas[i].nome << " " << vetorBandas[i].numerodeIntegrantes << endl;
+        cout << vetorBandas[i].id << " " 
+             << vetorBandas[i].nome << " " 
+             << vetorBandas[i].genero << " " 
+             << vetorBandas[i].tempodeShow << " " << endl;
     }
-
-    cout << tamanho;
 
     return 0;
 }
