@@ -21,6 +21,8 @@ struct modeloBandas{
     };
 
 /*Declaração das Funções contidas no programa*/
+void comparaNome(modeloBandas* &vetorTrabalhado,int indiceDoMenor,int indiceComparado,int posicaoDaLetra);
+void ordenarPorNome(modeloBandas* &vetorTrabalhado,int tamanho);
 int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal);    
 void quicksortID(modeloBandas* &vet,int posPivo,int posFinal);
 void ordenarPorID(modeloBandas* &vetOrdem,int tamanho);

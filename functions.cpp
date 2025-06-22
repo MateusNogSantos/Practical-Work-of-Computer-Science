@@ -15,6 +15,50 @@ que rode "index.cpp" e este arquivo paralelamente, pois como "index.cpp" utiliza
 #include <cstring>
 using namespace std;
 
+//Função que compara a palavra que deve ser a primeira na ordem alfabética
+void comparaNome(modeloBandas* &vetorTrabalhado,int indiceDoMenor,int indiceComparado,int posicaoDaLetra){
+
+    //struct auxiliar
+    modeloBandas aux;
+
+    //Condicional que verifica se há uma letra anterior,se sim,coloca em sua posição adequada e passa a que estava como menor para a posição comparada.
+    if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] > (int)vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] and vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] != 0){
+
+        //Troca dos dados nas structs 
+        aux = vetorTrabalhado[indiceDoMenor];
+        vetorTrabalhado[indiceDoMenor] = vetorTrabalhado[indiceComparado];
+        vetorTrabalhado[indiceComparado] = aux;
+        
+    }
+    //Se forem letras iguais
+    else if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] == (int)vetorTrabalhado[indiceComparado].nome[posicaoDaLetra]){
+
+        //Soma uma unidade na posição dos indices das letras que serão comparadas
+        posicaoDaLetra++;
+        //Faz recursão com a nova posição comparada
+        comparaNome(vetorTrabalhado,indiceDoMenor,indiceComparado,posicaoDaLetra);
+
+    }
+
+}
+
+//Função que recebe o vetorBandas e ordena em ordem alfabética
+void ordenarPorNome(modeloBandas* &vetorTrabalhado,int tamanho){
+
+    //Laço que marca a posição onde a palavra ordenada alfabeticamente(com base na tabeça ASCII) deve estar
+    for(int indiceDoMenor = 0;indiceDoMenor < tamanho;indiceDoMenor++){
+
+        //Laço que marca os valores que serão comparados
+        for(int indiceComparado = indiceDoMenor+1;indiceComparado < tamanho;indiceComparado++){
+
+            //Chamada da função comparaNome com o indice 0 para o vetor de char "nome"
+            comparaNome(vetorTrabalhado,indiceDoMenor,indiceComparado,0);
+
+        }
+    }
+
+}
+
 //Função que move e retorna a posição do pivo no vetor trabalhado(base da função quicksort voltada ao ID)
 int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal){
 
