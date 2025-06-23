@@ -381,7 +381,9 @@ void redimencionar(modeloBandas *&vet,int &tamanho){
 
         newVet[i].numerodeIntegrantes = 0;
         newVet[i].id = 0;
+        newVet[i].tempodeShow = 0;
         newVet[i].nome[0] = 0;
+       
     }
 
     //Deleta o espaco do vetor antigo e aponta para o novo local
@@ -442,24 +444,23 @@ bool verificaRedimencionar(modeloBandas* vet,int &tamanho){
 }
 
 //Função que retorna o ultimo id adicionado do vetorTrabalhado
-int ultimoID(modeloBandas* vetorTrabalhado,int tamanho){
+int ultimoID(modeloBandas *vetorTrabalhado,int tamanho){
 
-    //ordena o vetor para o maior ser o ultimo.
-    ordenarPorID(vetorTrabalhado,tamanho);
+   //Define como o maior id o número que está no inicio do vetor.
+    int maior = vetorTrabalhado[0].id;
 
-    int i = 0,ultID;
+    //Laço de repetição que percorre todos os elementos(ID) do vetor
+    for(int i = 0;i < tamanho;i++){
 
-    //Laço que percorre o vetor enquanto o indice não for 0
-    while(vetorTrabalhado[i].id){
-
-        //atribui ao ultID,o id que está na posição i do vetor trabalhado
-        ultID = vetorTrabalhado[i].id;
-
-        i++;
+        //Condicional que compara se algum valor maior que o que está na variável maior,e se for verdadeira a comparação,atribui à variável maior.
+        if(maior < vetorTrabalhado[i].id){
+            maior = vetorTrabalhado[i].id;
+        }
 
     }
 
-    return ultID;
+    //retorno o maior ID
+    return maior;
 
 }
 
@@ -481,7 +482,7 @@ bool verificaADD(modeloBandas* &vet,int tamanho,string nome){
 }
 
 //Função que adiciona novas bandas ao vetorBandas,e se necessário redimenciona;
-void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,bool &confirmacao,string nome,string genero,int numerodeIntegrantes,int tempodeShow){
+void adicionar(modeloBandas* &vetorTrabalhado,int &tamanho,bool &confirmacao,string nome,string genero,int numerodeIntegrantes,int tempodeShow){
 
     if(verificaADD(vetorTrabalhado,tamanho,nome)){
 
@@ -495,14 +496,21 @@ void adicionar(modeloBandas *&vetorTrabalhado,int &tamanho,bool &confirmacao,str
     //Atribui ao retorno da função ultimoID acrescido de uma unidade à variável newID
     int newID = ultimoID(vetorTrabalhado,tamanho)+1,indiceADD;
 
-    //percorre o vetorTrabalhado ate achar um id que seja igual a zero(ou seja,não há bandas registradas)
+    //variável que garante apenas uma execução do comando dentro da condicional.
+    bool primeiraVez = true;
+
+    //percorre o vetorTrabalhado até achar um id que seja igual a zero(ou seja,não há bandas registradas)
     for(int i = 0;i < tamanho;i++){
 
         //ao achar um id diferente de zero irá atribuir o valor,quando não achar mais valores diferentes de zero,o valor atribuido será do ultimo id que há banda registrada
-        if(vetorTrabalhado[i].id != 0){
+        if(vetorTrabalhado[i].id == 100 and primeiraVez){
 
             //adiciona uma unidade para ser o índice que não há bandas adicionadas
-            indiceADD = i+1;
+            indiceADD = i + 1;
+
+            //inviabiliza todas as outras execuções.
+            primeiraVez = false;
+
         }
 
     }
@@ -611,10 +619,244 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
     };
 
     //Binário
-    saidaBinario.write(reinterpret_cast<const char*> (&vet),tamanho*sizeof(modeloBandas));
+    int i = 0;
+
+    //Verifica se o índice é menor que o tamanho e se o id é zero(se sim,quer dizer que nâo há nada naquele indice do vetorBandas)
+    while(i < tamanho and vet[i].id !=0){
+
+        saidaBinario.write(reinterpret_cast<const char*>(&vet[i]),sizeof(modeloBandas));
+        i++;
+
+    }
 
     //Descarrega os Buffer's
     saidaBinario.close();
     saida.close();
+
+}
+
+//Função que faz a interface no terminal dos comandos de adição de usuário
+void frontendAdicionar(modeloBandas* &vetorBandas,int &tamanho){
+
+    string nome,genero;
+    bool tamanhoCorreto,confirmacao;
+    int numeroDeIntegrantes;
+    float tempoDeShow;
+
+    //Laço de repetição que roda enquanto o tamanho da variável não for adequada ao tamanho da string no binário.
+    do{
+
+        //Escrita no terminal.
+        cout << endl << "_______________________________________________________________" << endl << endl;
+        cout << "Digite o nome da banda(máximo 100 caracteres).";
+        cout << endl << "_______________________________________________________________" << endl << endl;
+
+        //Coleta da variável nome do terminal.
+        cin >> nome;
+
+        //Compara se o tamanho da string se adequa ao tamanho de char*100.
+        if(sizeof(nome) <= 800){
+
+            //Atribui que o tamanho está adequado.
+            tamanhoCorreto = true;
+
+        }else{
+
+            //Atribui que o tamanho está inadequado.
+            tamanhoCorreto = false;
+        }
+
+    }while(!tamanhoCorreto);
+
+    do{
+
+        //Escrita no terminal.
+        cout << endl << "_______________________________________________________________" << endl << endl;
+        cout << "Digite o gênero da banda(máximo 20 caracteres).";
+        cout << endl << "_______________________________________________________________" << endl << endl;
+
+        //Coleta da variável genero digitada pelo usuário no terminal.
+        cin >> genero;
+
+         //Compara se o tamanho da string se adequa ao tamanho de char*20.
+        if(sizeof(genero) <= 160){
+
+            //Atribui que o tamanho está adequado.
+            tamanhoCorreto = true;
+
+        }else{
+
+            //Atribui que o comando está inadequado.
+            tamanhoCorreto = false;
+        }
+
+    }while(!tamanhoCorreto);
+
+    //Escrita no terminal.
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Digite a quantidade de integrantes.";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Coleta da variável numeroDeIntegrantes escrita no teminal pelo usuário.
+    cin >> numeroDeIntegrantes;
+
+    //Escrita no terminal.
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Digite o tempo de show.";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Coleta da variável tempoDeShow escrita no terminal pelo usuário.
+    cin >> tempoDeShow;
+
+    //Chama a função de adição
+    adicionar(vetorBandas,tamanho,confirmacao,nome,genero,numeroDeIntegrantes,tempoDeShow);
+
+    //Condicional que mostra que a já esxite uma banda com aquele nome e adição não foi realizada(de acordo com o retorno da variável de confirmação).
+    if(!confirmacao){
+
+        //Escrita no terminal
+        cout << endl << "_______________________________________________________________" << endl << endl;
+        cout << "Nome já existente,adição interrompida.";
+        cout << endl << "_______________________________________________________________" << endl << endl;
+
+    }
+
+}
+
+//Funçao menu do programa.
+void frontendMenu(modeloBandas* &vetorBandas,int &tamanho){
+
+    int digito;
+    bool comandoReconhecido;
+
+    //Laço de repetição que roda enquanto nenhum comando de saída do programa for dado.
+    do{
+
+        //Interface no terminal
+        cout << endl << "_______________________________________________________________" << endl << endl;
+        cout << "Para sair sem salvar: 0" << endl << "Para sair e salvar: 1"<< endl << "Para adicionar uma banda: 2" << endl << "Para remover uma banda: 3" << endl << "Para pesquisar: 4" << endl << "Para mostrar as bandas participantes: 5";
+        cout << endl << "_______________________________________________________________" << endl << endl;
+
+        //Roda enquanto o comandoReconhecido for falso(não for reconhecido um comando).
+        do{
+
+            //Atribuição do digito de interação captado da digitação do usuário no terminal.
+            cin >> digito;
+
+            //Caso 1:Comando de saída do programa(sem salvar).
+            if(digito == 0){
+
+                //Aponta que o comando foi reconhecido.
+                comandoReconhecido = true;
+
+            }
+            //Caso 2:Comando de saída do programa(salvando no CSV e binário)
+            else if(digito == 1){
+
+                //Chama a função de  salvar as alterações e aponta que o comando foi reconhecido
+                salvarAlteracao(vetorBandas,tamanho);
+                comandoReconhecido = true;
+
+            }
+            //Caso 3:Comando de adicionar um usuário.
+            else if(digito == 2){
+
+                //Chama a interface de adição de usuário(função frontendAdicionar) e aponta que o comando foi reconhecido.
+                frontendAdicionar(vetorBandas,tamanho);
+                comandoReconhecido = true;
+
+            }
+            //Caso 0:Aponta que não foi reconhecido nenhum comando de interação.
+            else{
+
+                cout << endl << "_______________________________________________________________" << endl << endl;
+                cout << "Comando não reconhecido,digite novamente.";
+                cout << endl << "_______________________________________________________________" << endl << endl;
+
+                //comandoReconhecido recebe falso,mostrando que nenhum comando foi reconhecido.
+                comandoReconhecido = false;
+
+            }
+
+        }while(!comandoReconhecido);
+
+    }while((digito != 0 and digito != 1) or digito == 7);
+
+}
+
+//Função que faz a interface de leitura. 
+void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
+
+    int digito;
+    bool comandoReconhecido;
+
+    //Interface no terminal.
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Para sair: 0" << endl << "Para ler do arquivo Binário: 1 " << endl << "Para ler do arquivo CSV: 2";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Laço de repetição que roda enquanto algum comando não for reconhecido.
+    do{
+
+        //Entrada do digito de interação.
+        cin >> digito;
+
+        //Caso 1:quer sair do programa.
+        if(digito == 0){
+
+            //Corta o laço de repetição.
+            comandoReconhecido = true;
+
+        }
+
+        //Caso 2:Aponta que a leitura do Binário foi feita.
+        else if(digito == 1){
+
+            //Escrita no terminal.
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Leitura realizada.";
+            cout << endl << "_______________________________________________________________" << endl;
+
+            //Atribui verdadeiro ao comandoReconhecido e chama a função de leitura do arquivo binário.
+            comandoReconhecido = true;
+            lerDoBinario(vetorBandas,tamanho);
+
+        }
+
+        //Caso 3:Aponta que a leitura do CSV foi feita.
+        else if(digito == 2){
+
+            //Escrita no terminal.
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Leitura realizada.";
+            cout << endl << "_______________________________________________________________" << endl;
+            
+            //Atribui verdadeiro ao comandoReconhecido e chama a função de leitura do arquivo CSV.
+            leitura(vetorBandas,tamanho);
+            comandoReconhecido = true;
+        
+        }
+
+        //Caso 0:Aponta que não foi reconhecido um comando.
+        else{
+
+            //Escrita no terminal.
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Comando não reconhecido,digite novamente.";
+            cout << endl << "_______________________________________________________________" << endl << endl;
+
+            //comando reconhecido recebe falso(mostra que não foi reconhecido nenhum comando interativo).
+            comandoReconhecido = false;
+
+        }
+
+    }while(!comandoReconhecido);
+
+    //Se a leitura foi feita(Binário ou CSV) chama a função frontendMenu.
+    if(digito == 1 or digito == 2){
+
+        frontendMenu(vetorBandas,tamanho);
+
+    }
 
 }

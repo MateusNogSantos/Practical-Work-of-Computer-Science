@@ -41,10 +41,12 @@ void leitura(modeloBandas *&Vetortrabalhado, int &tamanho);
 bool verificaRedimencionar(modeloBandas* vet, int &tamanho);
 int ultimoID(modeloBandas* vetorTrabalhado,int tamanho);
 bool verificaADD(modeloBandas* &vet,int tamanho,string nome);
-void adicionar(modeloBandas *&vetorTrabalhado, int &tamanho,bool &confirmacao, string nome, string genero, int numerodeIntegrantes, int tempodeShow);
+void adicionar(modeloBandas* &vetorTrabalhado, int &tamanho,bool &confirmacao, string nome, string genero, int numerodeIntegrantes, int tempodeShow);
 void removerNome(modeloBandas *&vetorTrabalhado, int &tamanho, string nome,bool &confirmacao);
 void removerID(modeloBandas *&vetorTrabalhado, int &tamanho, int ID,bool &confirmacao);
 void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho);
 void salvarAlteracao(modeloBandas* vet,int tamanho);
+void frontendMenu(modeloBandas* &vetorBandas,int &tamanho);
+void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho);
 
 #endif

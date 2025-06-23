@@ -13,6 +13,9 @@ int main(){
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
 
+    frontendLeitura(vetorBandas,tamanho);
+
+    /*
     leitura(vetorBandas, tamanho);
 
     cout << endl << "_______________________________________________________________" << endl;
@@ -28,8 +31,8 @@ int main(){
     cout << endl << "_______________________________________________________________" << endl;
     cout << endl <<"VETOR DEPOIS DE SER ORDENADO POR TEMPO DE SHOW: " << endl << endl;
 
-    ordenaPorTempoDeShow(vetorBandas, tamanho);
-
+    ordenaPorTempoDeShow(vetorBandas, tamanho);*/
+    
     for(int i = 0;i < tamanho;i++){
 
         cout << vetorBandas[i].id << " " 
@@ -37,6 +40,8 @@ int main(){
              << vetorBandas[i].genero << " " 
              << vetorBandas[i].tempodeShow << " " << endl;
     }
+
+  
 
     return 0;
 }
