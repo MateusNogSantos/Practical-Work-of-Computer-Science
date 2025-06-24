@@ -494,7 +494,8 @@ void adicionar(modeloBandas* &vetorTrabalhado,int &tamanho,bool &confirmacao,str
     }
 
     //Atribui ao retorno da função ultimoID acrescido de uma unidade à variável newID
-    int newID = ultimoID(vetorTrabalhado,tamanho)+1,indiceADD;
+    int newID = ultimoID(vetorTrabalhado,tamanho)+1;
+    int indiceADD;
 
     //variável que garante apenas uma execução do comando dentro da condicional.
     bool primeiraVez = true;
@@ -503,10 +504,10 @@ void adicionar(modeloBandas* &vetorTrabalhado,int &tamanho,bool &confirmacao,str
     for(int i = 0;i < tamanho;i++){
 
         //ao achar um id diferente de zero irá atribuir o valor,quando não achar mais valores diferentes de zero,o valor atribuido será do ultimo id que há banda registrada
-        if(vetorTrabalhado[i].id == 100 and primeiraVez){
+        if(vetorTrabalhado[i].id == 0 and primeiraVez){
 
             //adiciona uma unidade para ser o índice que não há bandas adicionadas
-            indiceADD = i + 1;
+            indiceADD = i;
 
             //inviabiliza todas as outras execuções.
             primeiraVez = false;
@@ -516,7 +517,7 @@ void adicionar(modeloBandas* &vetorTrabalhado,int &tamanho,bool &confirmacao,str
     }
 
     //atribui os atributos da função para o vetorBandas
-    vetorTrabalhado[indiceADD].id = newID;
+    vetorTrabalhado[indiceADD].id = indiceADD;
     strcpy(vetorTrabalhado[indiceADD].genero,genero.c_str());
     //uso do strcpy() para copiar o conteudo lido e fazer o casting para um vetor de char;
     strcpy(vetorTrabalhado[indiceADD].nome,nome.c_str());
