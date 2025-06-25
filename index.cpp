@@ -13,35 +13,7 @@ int main(){
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
 
-    frontendLeitura(vetorBandas,tamanho);
-
-    /*
-    leitura(vetorBandas, tamanho);
-
-    cout << endl << "_______________________________________________________________" << endl;
-    cout << "VETOR ANTES DE SER ORDENADO POR TEMPO DE SHOW: " << endl << endl;
-    for(int i = 0;i < tamanho;i++){
-
-        cout << vetorBandas[i].id << " " 
-             << vetorBandas[i].nome << " " 
-             << vetorBandas[i].genero << " " 
-             << vetorBandas[i].tempodeShow << " " << endl;
-    }
-
-    cout << endl << "_______________________________________________________________" << endl;
-    cout << endl <<"VETOR DEPOIS DE SER ORDENADO POR TEMPO DE SHOW: " << endl << endl;
-
-    ordenaPorTempoDeShow(vetorBandas, tamanho);*/
-    
-    for(int i = 0;i < tamanho;i++){
-
-        cout << vetorBandas[i].id << " " 
-             << vetorBandas[i].nome << " " 
-             << vetorBandas[i].genero << " " 
-             << vetorBandas[i].tempodeShow << " " << endl;
-    }
-
-  
+    frontendMenuPrincipal(vetorBandas, tamanho);
 
     return 0;
 }

@@ -12,8 +12,29 @@ que rode "index.cpp" e este arquivo paralelamente, pois como "index.cpp" utiliza
 #include <iostream>
 #include <fstream> 
 #include <string>
+#include <iomanip>
 #include <cstring>
+#if defined(_WIN32)
+    #include <conio.h>
+#else
+    #include <termios.h>
+    #include <unistd.h>
+    int getch() {
+        struct termios oldt, newt;
+        int ch;
+        tcgetattr(STDIN_FILENO, &oldt);
+        newt = oldt;
+        newt.c_lflag &= ~(ICANON | ECHO);
+        tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+        ch = getchar();
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+        return ch;
+    }
+#endif
+
 using namespace std;
+
+
 
 //Função que compara a palavra que deve ser a primeira na ordem alfabética
 void comparaNome(modeloBandas* &vetorTrabalhado,int indiceDoMenor,int indiceComparado,int posicaoDaLetra){
@@ -638,6 +659,8 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
 
 //Função de Busca por gênero(interface).
 void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
+    
+    limparTela();
 
     int tempo;
     string genero;
@@ -672,6 +695,8 @@ void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
 
 //Função de Busca por ID(interface)
 void frontendBuscaID(modeloBandas* vetorBandas,int tamanho){
+
+    limparTela();
 
     int id,i;
 
@@ -710,6 +735,8 @@ void frontendBuscaID(modeloBandas* vetorBandas,int tamanho){
 
 //Função de busca por nome(interface).
 void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
+    
+    limparTela();
 
     int i;
     string nome;
@@ -749,8 +776,22 @@ void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
 
 }
 
+//Função que Limpará a tela na troca de Menus
+void limparTela(){
+    //Detecta se o Sistema Operacional é Windows e utiliza o comando "cls" para limpar o terminal.
+    #if defined(_WIN32)
+        system("cls");
+    //Detecta se o Sistema Operacional é Linux e utiliza o comando "clear" para limpar o terminal.
+    #elif defined(__linux__) || defined(__APPLE__)
+        system("clear");
+    #endif
+}
+
+
 //Função menu das funções de busca
 void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
+
+    limparTela();
 
     int digito;
     bool comandoReconhecido = false;
@@ -820,6 +861,8 @@ void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
 //Função que faz a remoção por nome.
 void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
 
+    limparTela();
+
     string nome;
     bool bandaEncontrada = false;
 
@@ -874,6 +917,8 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
 
 //Função que faz a remoção por ID
 void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
+
+    limparTela();
 
     int id;
     bool bandaEncontrada = false;
@@ -930,6 +975,8 @@ void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
 //Interface de menu de remoção.
 void frontendMenuDeRemoção(modeloBandas* &vetorBandas,int tamanho){
 
+    limparTela();
+
     int digito;
     bool comandoReconhecido = false;
 
@@ -985,49 +1032,50 @@ void frontendMenuDeRemoção(modeloBandas* &vetorBandas,int tamanho){
 }
 
 //Função que faz a interface no terminal dos comandos de adição de usuário
-void frontendAdicionar(modeloBandas* &vetorBandas,int &tamanho){
+void frontendAdicionar(modeloBandas* &vetor, int &tamanho) {
+    limparTela(); // Usa aquela função que limpa terminal no Linux/Windows
 
-    string nome,genero;
-    bool tamanhoCorreto,confirmacao;
-    int numeroDeIntegrantes;
-    float tempoDeShow;
+    string nome, genero;
+    int integrantes;
+    float tempo;
+    bool tamanhoCorreto, confirmacao = false;
+
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                █████╗ ██████╗ ██╗ ██████╗██╗ ██████╗ ███╗   ██╗ █████╗ ██████╗ 
+                ██╔══██╗██╔══██╗██║██╔════╝██║██╔═══██╗████╗  ██║██╔══██╗██╔══██╗
+                ███████║██║  ██║██║██║     ██║██║   ██║██╔██╗ ██║███████║██████╔╝
+                ██╔══██║██║  ██║██║██║     ██║██║   ██║██║╚██╗██║██╔══██║██╔══██╗
+                ██║  ██║██████╔╝██║╚██████╗██║╚██████╔╝██║ ╚████║██║  ██║██║  ██║
+                ╚═╝  ╚═╝╚═════╝ ╚═╝ ╚═════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝
+)" << endl << endl;
 
     //Laço de repetição que roda enquanto o tamanho da variável não for adequada ao tamanho da string no binário.
     do{
+    //Escrita no terminal.
+    cout << "Nome da banda (máx. 100 caracteres): ";
+    //Limpa Buffer
+    cin.ignore();
+    //Coleta da variável nome do terminal.
+    getline(cin, nome);
 
-        //Escrita no terminal.
-        cout << endl << "_______________________________________________________________" << endl << endl;
-        cout << "Digite o nome da banda(máximo 100 caracteres).";
-        cout << endl << "_______________________________________________________________" << endl << endl;
-
-        //Coleta da variável nome do terminal.
-        cin >> nome;
-
-        //Compara se o tamanho da string se adequa ao tamanho de char*100.
-        if(sizeof(nome) <= 800){
-
-            //Atribui que o tamanho está adequado.
-            tamanhoCorreto = true;
-
-        }else{
-
-            //Atribui que o tamanho está inadequado.
-            tamanhoCorreto = false;
-        }
+    //Compara se o tamanho da string se adequa ao tamanho de char*100.
+    if(sizeof(nome) <= 800){
+        //Atribui que o tamanho está adequado.
+        tamanhoCorreto = true;
+    }else{
+        //Atribui que o tamanho está inadequado.
+        tamanhoCorreto = false;
+    }
 
     }while(!tamanhoCorreto);
 
     do{
-
         //Escrita no terminal.
-        cout << endl << "_______________________________________________________________" << endl << endl;
-        cout << "Digite o gênero da banda(máximo 20 caracteres).";
-        cout << endl << "_______________________________________________________________" << endl << endl;
-
+        cout << "Gênero: ";
         //Coleta da variável genero digitada pelo usuário no terminal.
         cin >> genero;
-
-         //Compara se o tamanho da string se adequa ao tamanho de char*20.
+        //Compara se o tamanho da string se adequa ao tamanho de char*20.
         if(sizeof(genero) <= 160){
 
             //Atribui que o tamanho está adequado.
@@ -1040,117 +1088,146 @@ void frontendAdicionar(modeloBandas* &vetorBandas,int &tamanho){
         }
 
     }while(!tamanhoCorreto);
-
+    
     //Escrita no terminal.
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Digite a quantidade de integrantes.";
-    cout << endl << "_______________________________________________________________" << endl << endl;
-
+    cout << "Número de Integrantes: ";
     //Coleta da variável numeroDeIntegrantes escrita no teminal pelo usuário.
-    cin >> numeroDeIntegrantes;
-
+    cin >> integrantes;
     //Escrita no terminal.
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Digite o tempo de show.";
-    cout << endl << "_______________________________________________________________" << endl << endl;
-
+    cout << "Tempo de Show: ";
     //Coleta da variável tempoDeShow escrita no terminal pelo usuário.
-    cin >> tempoDeShow;
+    cin >> tempo;
 
-    //Chama a função de adição
-    adicionar(vetorBandas,tamanho,confirmacao,nome,genero,numeroDeIntegrantes,tempoDeShow);
+  
+    adicionar(vetor, tamanho, confirmacao, nome, genero, integrantes, tempo);
 
-    //Condicional que mostra que a já esxite uma banda com aquele nome e adição não foi realizada(de acordo com o retorno da variável de confirmação).
-    if(!confirmacao){
-
-        //Escrita no terminal
-        cout << endl << "_______________________________________________________________" << endl << endl;
-        cout << "Nome já existente,adição interrompida.";
-        cout << endl << "_______________________________________________________________" << endl << endl;
-
+    if (confirmacao) {
+        cout << "\n✅ Banda adicionada com sucesso!\n";
+    } else {
+        cout << "\n❌ Essa banda já existe no sistema.\n";
     }
 
+    cout << "\nPressione ENTER para voltar ao menu..." << endl;
+    cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+    cin.ignore();
+    cin.get();
 }
 
 //Funçao menu do programa.
-void frontendMenu(modeloBandas* &vetorBandas,int &tamanho){
+void frontendExibirMenu(string opcoes[], int totalOpcoes, int selecionado){
+    //Limpa o terminal para a exibição do Menu.
+    limparTela();
+    //Mostra o Menu;
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
 
-    int digito;
-    bool comandoReconhecido;
+██╗      ██████╗ ██╗     ██╗      █████╗ ██████╗  █████╗ ██╗     ██╗   ██╗███████╗██╗      █████╗ 
+██║     ██╔═══██╗██║     ██║     ██╔══██╗██╔══██╗██╔══██╗██║     ██║   ██║██╔════╝██║     ██╔══██╗
+██║     ██║   ██║██║     ██║     ███████║██████╔╝███████║██║     ██║   ██║█████╗  ██║     ███████║
+██║     ██║   ██║██║     ██║     ██╔══██║██╔═══╝ ██╔══██║██║     ██║   ██║██╔══╝  ██║     ██╔══██║
+███████╗╚██████╔╝███████╗███████╗██║  ██║██║     ██║  ██║███████╗╚██████╔╝██║     ███████╗██║  ██║
+╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝
 
-    //Laço de repetição que roda enquanto nenhum comando de saída do programa for dado.
-    do{
+Use as setas ↑ ↓ para navegar e ENTER para selecionar:
+)" << endl << endl;
 
-        //Interface no terminal
-        cout << endl << "_______________________________________________________________" << endl << endl;
-        cout << "Para sair sem salvar: 0" << endl << "Para sair e salvar: 1"<< endl << "Para adicionar uma banda: 2" << endl << "Para remover uma banda: 3" << endl << "Para pesquisar: 4" << endl << "Para mostrar as bandas participantes: 5";
-        cout << endl << "_______________________________________________________________" << endl << endl;
+    //Laço de repetição que apresenta as opções disponíveis no sistema;
+    for (int i = 0; i < totalOpcoes; ++i) {
+        if (i == selecionado) {
+            cout << " > " << opcoes[i] << endl;
+        } else {
+            cout << "   " << opcoes[i] << endl;
+        }
+    }
+    cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+}
 
-        //Roda enquanto o comandoReconhecido for falso(não for reconhecido um comando).
-        do{
+//Função que captura as setas que o usuário aperta para selecionar a opção desejada.
+int frontendMenuSelecionavel(string opcoes[], int totalOpcoes) {
+    int selecionado = 0;
+    char tecla;
 
-            //Atribuição do digito de interação captado da digitação do usuário no terminal.
-            cin >> digito;
+    while (true) {
+        frontendExibirMenu(opcoes, totalOpcoes, selecionado);
 
-            //Caso 1:Comando de saída do programa(sem salvar).
-            if(digito == 0){
+#if defined(_WIN32)
+        tecla = _getch();
+        if (tecla == -32) {
+            tecla = _getch();
+            if (tecla == 72)
+                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+            else if (tecla == 80)
+                selecionado = (selecionado + 1) % totalOpcoes;
+        } else if (tecla == 13) {
+            return selecionado;
+        }
+#else
+        tecla = getch();
+        if (tecla == 27 && getch() == 91) {
+            tecla = getch();
+            if (tecla == 'A')
+                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+            else if (tecla == 'B')
+                selecionado = (selecionado + 1) % totalOpcoes;
+        } else if (tecla == 10) {
+            return selecionado;
+        }
+#endif
+    }
+}
 
-                //Aponta que o comando foi reconhecido.
-                comandoReconhecido = true;
+void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
+    string opcoes[6] = {
+        "Adicionar Banda",
+        "Remover Banda",
+        "Pesquisar Bandas",
+        "Mostrar Bandas Participantes",
+        "Sair e Salvar",
+        "Sair sem Salvar"
+    };
 
-            }
-            //Caso 2:Comando de saída do programa(salvando no CSV e binário)
-            else if(digito == 1){
+    const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
 
-                //Chama a função de  salvar as alterações e aponta que o comando foi reconhecido
-                salvarAlteracao(vetorBandas,tamanho);
-                comandoReconhecido = true;
+    while(true){
+        int escolha = frontendMenuSelecionavel(opcoes, totalOpcoes);
 
-            }
-            //Caso 3:Comando de adicionar uma banda.
-            else if(digito == 2){
+        limparTela();
 
-                //Chama a interface de adição de usuário(função frontendAdicionar) e aponta que o comando foi reconhecido.
+        switch(escolha){
+            case 0:
+                //Chama a interface de adição de usuário(função frontendAdicionar)
                 frontendAdicionar(vetorBandas,tamanho);
-                comandoReconhecido = true;
-
-            }
-            //Caso 4:Comando de remover uma banda.
-            else if(digito == 3){
-
-                //Chama a interface de remoção de usuário e aponta que o comando foi reconhecido.
+                break;
+            case 1:
+                //Chama a interface de remoção de usuário
                 frontendMenuDeRemoção(vetorBandas,tamanho);
-                comandoReconhecido = true;
-
-            }
-            //Caso 5:Comando de Busca.
-            else if(digito == 4){
-
-                //Chama a interface de buscas e aponta que o comando foi reconhecido
+                break;
+            case 2:
+                //Chama a interface de buscas
                 frontendMenuBusca(vetorBandas,tamanho);
-                comandoReconhecido = true;
-
-            }
-            //Caso 0:Aponta que não foi reconhecido nenhum comando de interação.
-            else{
-
-                cout << endl << "_______________________________________________________________" << endl << endl;
-                cout << "Comando não reconhecido,digite novamente.";
-                cout << endl << "_______________________________________________________________" << endl << endl;
-
-                //comandoReconhecido recebe falso,mostrando que nenhum comando foi reconhecido.
-                comandoReconhecido = false;
-
-            }
-
-        }while(!comandoReconhecido);
-
-    }while((digito != 0 and digito != 1) or digito == 7);
-
+                break;
+            case 3:
+                break;
+            case 4:
+                //Chama a função de salvar as alterações
+                salvarAlteracao(vetorBandas,tamanho);
+                return;
+                break;
+            case 5:
+                return;
+                break;
+            default:
+                cout << "ERRO!";
+                return;
+                break;
+        }
+    }
 }
 
 //Função que faz a interface de leitura. 
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
+    
+    limparTela();
 
     int digito;
     bool comandoReconhecido;
@@ -1220,7 +1297,7 @@ void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
     //Se a leitura foi feita(Binário ou CSV) chama a função frontendMenu.
     if(digito == 1 or digito == 2){
 
-        frontendMenu(vetorBandas,tamanho);
+        //frontendMenu(vetorBandas,tamanho);
 
     }
 

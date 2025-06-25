@@ -51,5 +51,10 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho);
 void frontendMenuDeRemoção(modeloBandas* &vetorBandas,int tamanho);
 void frontendMenu(modeloBandas* &vetorBandas,int &tamanho);
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho);
+void limparTela();
+void frontendExibirMenu(string opcoes[], int totalOpcoes, int selecionado);
+int frontendMenuSelecionavel(string opcoes[], int totalOpcoes);
+void frontendMenuPrincipal(modeloBandas* &vetorBandas,int &tamanho);
+void frontendAdicionar(modeloBandas* &vetor, int &tamanho);
 
 #endif
