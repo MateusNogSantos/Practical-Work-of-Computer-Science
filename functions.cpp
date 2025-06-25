@@ -517,7 +517,7 @@ void adicionar(modeloBandas* &vetorTrabalhado,int &tamanho,bool &confirmacao,str
     }
 
     //atribui os atributos da função para o vetorBandas
-    vetorTrabalhado[indiceADD].id = indiceADD;
+    vetorTrabalhado[indiceADD].id = newID;
     strcpy(vetorTrabalhado[indiceADD].genero,genero.c_str());
     //uso do strcpy() para copiar o conteudo lido e fazer o casting para um vetor de char;
     strcpy(vetorTrabalhado[indiceADD].nome,nome.c_str());
@@ -634,6 +634,173 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
     saidaBinario.close();
     saida.close();
 
+}
+
+//Função que faz a remoção por nome.
+void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
+
+    string nome;
+    bool bandaEncontrada = false;
+
+    //Escrita no terminal.
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Digite o nome da banda a ser removida.";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Laço de repetição que roda enquanto nenhum comando for reconhecido ou for diferente de 0
+    do{
+
+        //Captação dos dados digitados pelo usuário
+        cin >> nome;
+
+        //Laço repetitivo que roda o vetor inteiro.
+        for(int i = 0;i < tamanho;i++){
+
+            //Condicional que executa o côdigo quando o conteudo do vetorBandas em i for igual ao digitado pelo usuário
+            if(vetorBandas[i].nome == nome){
+
+                //Marca o id da struct deletada como -1 e aponta que a banda foi encontrada.
+                vetorBandas[i].id = -1;
+                bandaEncontrada = true;
+
+            }
+
+        }
+
+        //Se a banda estava no vetor,mostra ao usuário o exito da operacao
+        if(bandaEncontrada){
+
+            //Escrita no terminal.
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Banda removida";
+            cout << endl << "_______________________________________________________________" << endl << endl;
+
+        }
+        //Se não estiver,avisa que a banda não foi encontrada no vetor.
+        else{
+
+            //Escrita no terminal.
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Banda não encontrada,digite novamente." << endl;
+            cout << "Sair: 0";
+            cout << endl << "_______________________________________________________________" << endl << endl;
+
+        }
+
+    }while(!bandaEncontrada and nome[0] != '0');
+
+}
+
+//Função que faz a remoção por ID
+void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
+
+    int id;
+    bool bandaEncontrada = false;
+
+    //Escrita no terminal.
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Digite o ID da banda a ser removida.";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Laço repetitivo que executa comandos enquanto a banda não for encontrada ou o comando de saida não foi dado
+    do{
+
+        //Captação de dados digitados pelo usuário no terminal
+        cin >> id;
+
+        //Laço de repetição que percorre o vetor inteiro
+        for(int i = 0;i < tamanho;i++){
+
+            //Condicional que executa comandos quando a variável for maior que 0 ou quando o id estiver no vetor.
+            if(vetorBandas[i].id == id and id > 0){
+
+                //Marca como -1 o id da struct deletada e aponta que a banda foi encontrada.
+                vetorBandas[i].id = -1;
+                bandaEncontrada = true;
+
+            }
+
+        }
+
+        //Se a banda foi encontrada,avisa o usuário.
+        if(bandaEncontrada){
+
+            //Escrita no terminal.
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Banda removida";
+            cout << endl << "_______________________________________________________________" << endl << endl;
+
+        }
+        //Se a banda não for encontrada avisa ao usuário.
+        else{
+
+            //Escrita no terminal.
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Banda não encontrada,digite novamente." << endl;
+            cout << "Sair: 0";
+            cout << endl << "_______________________________________________________________" << endl << endl;
+
+        }
+
+    }while(!bandaEncontrada and id > 0);
+
+}
+
+//Interface de menu de remoção.
+void frontendMenuDeRemoção(modeloBandas* &vetorBandas,int tamanho){
+
+    int digito;
+    bool comandoReconhecido = false;
+
+    //Escrita no terminal.
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Para sair: 0" << endl;
+    cout << "Para remover por nome: 1" << endl;
+    cout << "Para remover por id: 2" << endl;
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Laço de reptição que roda enquanto o comando não for reconhecido
+    do{
+
+        //Captação dos dados digitados pelo usuário no terminal.
+        cin >> digito;
+
+        //Condicional com 3 ramificações tomadas a partir do que estiver na variável digitos.
+        switch(digito){
+
+            //Caso onde o usuário escolhe a remoção a partir do nome.
+            case 1:
+
+            //Chama a função frontendRemoverPorNome e marca que o comando foi reconhecido.
+            frontendRemoverPorNome(vetorBandas,tamanho);
+            comandoReconhecido = true;
+            break;
+
+            //Caso onde o usuário escolhe a remoçâo a partir do id.
+            case 2:      
+
+            //Chama a função frontendRemoverPorId e marca que o comando foi reconhecido.
+            frontendRemoverPorID(vetorBandas,tamanho);
+            comandoReconhecido = true;
+            break;
+
+            //Caso o usuário escolha sair.
+            case 0:
+
+            //marca o comando como reconhecido para sair do programa.
+            comandoReconhecido = true;
+            break;
+
+            //Caso o comando nâo seja reconhecido
+            default:
+
+            //Escrita no terminal.
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Comando não encontrado";
+            cout << endl << "_______________________________________________________________" << endl << endl;
+
+        }
+    }while(!comandoReconhecido);
 }
 
 //Função que faz a interface no terminal dos comandos de adição de usuário
@@ -766,6 +933,12 @@ void frontendMenu(modeloBandas* &vetorBandas,int &tamanho){
                 frontendAdicionar(vetorBandas,tamanho);
                 comandoReconhecido = true;
 
+            }
+
+            else if(digito == 3){
+
+                frontendMenuDeRemoção(vetorBandas,tamanho);
+                comandoReconhecido = true;
             }
             //Caso 0:Aponta que não foi reconhecido nenhum comando de interação.
             else{

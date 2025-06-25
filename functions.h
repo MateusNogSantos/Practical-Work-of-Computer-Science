@@ -46,6 +46,9 @@ void removerNome(modeloBandas *&vetorTrabalhado, int &tamanho, string nome,bool 
 void removerID(modeloBandas *&vetorTrabalhado, int &tamanho, int ID,bool &confirmacao);
 void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho);
 void salvarAlteracao(modeloBandas* vet,int tamanho);
+void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho);
+void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho);
+void frontendMenuDeRemoção(modeloBandas* &vetorBandas,int tamanho);
 void frontendMenu(modeloBandas* &vetorBandas,int &tamanho);
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho);
 
