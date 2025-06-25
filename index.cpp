@@ -5,6 +5,15 @@
 #include "functions.h"
 using namespace std;
 
+/*
+Tema: Bandas.
+
+Nomes:  > Mateus Nogueira dos Santos Turma:10B.
+        > 
+        >
+
+*/
+
 /*DE EXTREMA IMPORTÂNCIA:ao acabar o programa mudar o ofstream para ("lolapalufla.txt") e desalocar dinamicamente os vetores*/
 
 int main(){
