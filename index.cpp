@@ -22,7 +22,7 @@ int main(){
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
 
-    frontendMenuPrincipal(vetorBandas, tamanho);
+    frontendLeitura(vetorBandas, tamanho);
 
     return 0;
 }

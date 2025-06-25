@@ -1297,7 +1297,7 @@ void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
     //Se a leitura foi feita(Binário ou CSV) chama a função frontendMenu.
     if(digito == 1 or digito == 2){
 
-        //frontendMenu(vetorBandas,tamanho);
+        frontendMenuPrincipal(vetorBandas,tamanho);
 
     }
 
