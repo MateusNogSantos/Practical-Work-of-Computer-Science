@@ -657,6 +657,17 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
 
 }
 
+//Função que Limpará a tela na troca de Menus
+void limparTela(){
+    //Detecta se o Sistema Operacional é Windows e utiliza o comando "cls" para limpar o terminal.
+    #if defined(_WIN32)
+        system("cls");
+    //Detecta se o Sistema Operacional é Linux e utiliza o comando "clear" para limpar o terminal.
+    #elif defined(__linux__) || defined(__APPLE__)
+        system("clear");
+    #endif
+}
+
 //Função de Busca por gênero(interface).
 void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
     
@@ -775,18 +786,6 @@ void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
 
 
 }
-
-//Função que Limpará a tela na troca de Menus
-void limparTela(){
-    //Detecta se o Sistema Operacional é Windows e utiliza o comando "cls" para limpar o terminal.
-    #if defined(_WIN32)
-        system("cls");
-    //Detecta se o Sistema Operacional é Linux e utiliza o comando "clear" para limpar o terminal.
-    #elif defined(__linux__) || defined(__APPLE__)
-        system("clear");
-    #endif
-}
-
 
 //Função menu das funções de busca
 void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
@@ -1054,10 +1053,9 @@ void frontendAdicionar(modeloBandas* &vetor, int &tamanho) {
     do{
     //Escrita no terminal.
     cout << "Nome da banda (máx. 100 caracteres): ";
-    //Limpa Buffer
-    cin.ignore();
+
     //Coleta da variável nome do terminal.
-    getline(cin, nome);
+    getline(cin,nome);
 
     //Compara se o tamanho da string se adequa ao tamanho de char*100.
     if(sizeof(nome) <= 800){
