@@ -35,7 +35,6 @@ que rode "index.cpp" e este arquivo paralelamente, pois como "index.cpp" utiliza
 using namespace std;
 
 
-
 //Função que compara a palavra que deve ser a primeira na ordem alfabética
 void comparaNome(modeloBandas* &vetorTrabalhado,int indiceDoMenor,int indiceComparado,int posicaoDaLetra){
 
@@ -657,17 +656,6 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
 
 }
 
-//Função que Limpará a tela na troca de Menus
-void limparTela(){
-    //Detecta se o Sistema Operacional é Windows e utiliza o comando "cls" para limpar o terminal.
-    #if defined(_WIN32)
-        system("cls");
-    //Detecta se o Sistema Operacional é Linux e utiliza o comando "clear" para limpar o terminal.
-    #elif defined(__linux__) || defined(__APPLE__)
-        system("clear");
-    #endif
-}
-
 //Função de Busca por gênero(interface).
 void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
     
@@ -787,6 +775,18 @@ void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
 
 }
 
+//Função que Limpará a tela na troca de Menus
+void limparTela(){
+    //Detecta se o Sistema Operacional é Windows e utiliza o comando "cls" para limpar o terminal.
+    #if defined(_WIN32)
+        system("cls");
+    //Detecta se o Sistema Operacional é Linux e utiliza o comando "clear" para limpar o terminal.
+    #elif defined(__linux__) || defined(__APPLE__)
+        system("clear");
+    #endif
+}
+
+
 //Função menu das funções de busca
 void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
 
@@ -866,9 +866,18 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
     bool bandaEncontrada = false;
 
     //Escrita no terminal.
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Digite o nome da banda a ser removida.";
-    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                                                              ███╗
+                                                              
+                ██████╗ ███████╗███╗   ███╗ ██████╗  ██████╗ █████╗  ██████╗ 
+                ██╔══██╗██╔════╝████╗ ████║██╔═══██╗██╔════╝██╔══██╗██╔═══██╗
+                ██████╔╝█████╗  ██╔████╔██║██║   ██║██║     ███████║██║   ██║
+                ██╔══██╗██╔══╝  ██║╚██╔╝██║██║   ██║██║     ██╔══██║██║   ██║
+                ██║  ██║███████╗██║ ╚═╝ ██║╚██████╔╝╚██████╗██║  ██║╚██████╔╝
+                ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═██══╝╚═╝  ╚═╝ ╚═════╝ 
+                                                       ╚═                                                             
+)" << endl << endl << "Digite o nome da banda a ser removida: ";
 
     //Laço de repetição que roda enquanto nenhum comando for reconhecido ou for diferente de 0
     do{
@@ -894,9 +903,11 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
         if(bandaEncontrada){
 
             //Escrita no terminal.
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Banda removida";
-            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "\n✅ Banda removida com sucesso!\n";
+            cout << "\nPressione ENTER para voltar ao menu..." << endl;
+            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+            cin.ignore();
+            cin.get();
 
         }
         //Se não estiver,avisa que a banda não foi encontrada no vetor.
@@ -904,8 +915,8 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
 
             //Escrita no terminal.
             cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Banda não encontrada,digite novamente." << endl;
-            cout << "Sair: 0";
+            cout << "❌ Banda não encontrada, digite novamente: " << endl;
+            cout << "Para Sair digite: 0";
             cout << endl << "_______________________________________________________________" << endl << endl;
 
         }
@@ -971,65 +982,6 @@ void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
 
 }
 
-//Interface de menu de remoção.
-void frontendMenuDeRemoção(modeloBandas* &vetorBandas,int tamanho){
-
-    limparTela();
-
-    int digito;
-    bool comandoReconhecido = false;
-
-    //Escrita no terminal.
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Para sair: 0" << endl;
-    cout << "Para remover por nome: 1" << endl;
-    cout << "Para remover por id: 2" << endl;
-    cout << endl << "_______________________________________________________________" << endl << endl;
-
-    //Laço de reptição que roda enquanto o comando não for reconhecido
-    do{
-
-        //Captação dos dados digitados pelo usuário no terminal.
-        cin >> digito;
-
-        //Condicional com 3 ramificações tomadas a partir do que estiver na variável digitos.
-        switch(digito){
-
-            //Caso onde o usuário escolhe a remoção a partir do nome.
-            case 1:
-
-            //Chama a função frontendRemoverPorNome e marca que o comando foi reconhecido.
-            frontendRemoverPorNome(vetorBandas,tamanho);
-            comandoReconhecido = true;
-            break;
-
-            //Caso onde o usuário escolhe a remoçâo a partir do id.
-            case 2:      
-
-            //Chama a função frontendRemoverPorId e marca que o comando foi reconhecido.
-            frontendRemoverPorID(vetorBandas,tamanho);
-            comandoReconhecido = true;
-            break;
-
-            //Caso o usuário escolha sair.
-            case 0:
-
-            //marca o comando como reconhecido para sair do programa.
-            comandoReconhecido = true;
-            break;
-
-            //Caso o comando nâo seja reconhecido
-            default:
-
-            //Escrita no terminal.
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Comando não encontrado";
-            cout << endl << "_______________________________________________________________" << endl << endl;
-
-        }
-    }while(!comandoReconhecido);
-}
-
 //Função que faz a interface no terminal dos comandos de adição de usuário
 void frontendAdicionar(modeloBandas* &vetor, int &tamanho) {
     limparTela(); // Usa aquela função que limpa terminal no Linux/Windows
@@ -1053,9 +1005,8 @@ void frontendAdicionar(modeloBandas* &vetor, int &tamanho) {
     do{
     //Escrita no terminal.
     cout << "Nome da banda (máx. 100 caracteres): ";
-
     //Coleta da variável nome do terminal.
-    getline(cin,nome);
+    getline(cin, nome);
 
     //Compara se o tamanho da string se adequa ao tamanho de char*100.
     if(sizeof(nome) <= 800){
@@ -1112,7 +1063,7 @@ void frontendAdicionar(modeloBandas* &vetor, int &tamanho) {
 }
 
 //Funçao menu do programa.
-void frontendExibirMenu(string opcoes[], int totalOpcoes, int selecionado){
+void frontendExibirMenuPrincipal(string opcoes[], int totalOpcoes, int selecionado){
     //Limpa o terminal para a exibição do Menu.
     limparTela();
     //Mostra o Menu;
@@ -1140,37 +1091,193 @@ Use as setas ↑ ↓ para navegar e ENTER para selecionar:
     cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
 }
 
+//Interface de menu de remoção.
+void frontendExibirMenuDeRemocao(string opcoes[], int totalOpcoes, int selecionado){
+        //Limpa o terminal para a exibição do Menu.
+    limparTela();
+    //Mostra o Menu;
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                                                              ███╗
+                                                              
+                ██████╗ ███████╗███╗   ███╗ ██████╗  ██████╗ █████╗  ██████╗ 
+                ██╔══██╗██╔════╝████╗ ████║██╔═══██╗██╔════╝██╔══██╗██╔═══██╗
+                ██████╔╝█████╗  ██╔████╔██║██║   ██║██║     ███████║██║   ██║
+                ██╔══██╗██╔══╝  ██║╚██╔╝██║██║   ██║██║     ██╔══██║██║   ██║
+                ██║  ██║███████╗██║ ╚═╝ ██║╚██████╔╝╚██████╗██║  ██║╚██████╔╝
+                ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═██══╝╚═╝  ╚═╝ ╚═════╝ 
+                                                       ╚═                                                             
+
+Use as setas ↑ ↓ para navegar e ENTER para selecionar:
+)" << endl << endl;
+
+    //Laço de repetição que apresenta as opções disponíveis no sistema;
+    for (int i = 0; i < totalOpcoes; ++i) {
+        if (i == selecionado) {
+            cout << " > " << opcoes[i] << endl;
+        } else {
+            cout << "   " << opcoes[i] << endl;
+        }
+    }
+    cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+
+}
+
+void frontendExibirMenuLeitura(string opcoes[], int totalOpcoes, int selecionado){
+    cout << R"(
+    ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+    ██╗      ██████╗ ██╗     ██╗      █████╗ ██████╗  █████╗ ██╗     ██╗   ██╗███████╗██╗      █████╗ 
+    ██║     ██╔═══██╗██║     ██║     ██╔══██╗██╔══██╗██╔══██╗██║     ██║   ██║██╔════╝██║     ██╔══██╗
+    ██║     ██║   ██║██║     ██║     ███████║██████╔╝███████║██║     ██║   ██║█████╗  ██║     ███████║
+    ██║     ██║   ██║██║     ██║     ██╔══██║██╔═══╝ ██╔══██║██║     ██║   ██║██╔══╝  ██║     ██╔══██║
+    ███████╗╚██████╔╝███████╗███████╗██║  ██║██║     ██║  ██║███████╗╚██████╔╝██║     ███████╗██║  ██║
+    ╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝
+
+    Use as setas ↑ ↓ para navegar e ENTER para selecionar:
+    )" << endl << endl;
+
+    //Laço de repetição que apresenta as opções disponíveis no sistema;
+    for (int i = 0; i < totalOpcoes; ++i) {
+        if (i == selecionado) {
+            cout << " > " << opcoes[i] << endl;
+        } else {
+            cout << "   " << opcoes[i] << endl;
+        }
+    }
+}
+
 //Função que captura as setas que o usuário aperta para selecionar a opção desejada.
-int frontendMenuSelecionavel(string opcoes[], int totalOpcoes) {
+int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
     int selecionado = 0;
     char tecla;
 
     while (true) {
-        frontendExibirMenu(opcoes, totalOpcoes, selecionado);
+        //Exibe o "Menu Selecionável" necessário
+        //0: Menu Leitura, 1: Menu Principal, 2: Menu de Remoção
+        switch(menu){
+            case 0:
+                //frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado);
 
-#if defined(_WIN32)
-        tecla = _getch();
-        if (tecla == -32) {
-            tecla = _getch();
-            if (tecla == 72)
-                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
-            else if (tecla == 80)
-                selecionado = (selecionado + 1) % totalOpcoes;
-        } else if (tecla == 13) {
-            return selecionado;
+                #if defined(_WIN32)
+                        tecla = _getch();
+                        if (tecla == -32) {
+                            tecla = _getch();
+                            if (tecla == 72)
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 80)
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 13) {
+                            return selecionado;
+                        }
+                #else
+                        tecla = getch();
+                        if (tecla == 27 && getch() == 91) {
+                            tecla = getch();
+                            if (tecla == 'A')
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 'B')
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 10) {
+                            return selecionado;
+                        }
+                #endif
+                break;
+                break;
+            case 1:
+                frontendExibirMenuPrincipal(opcoes, totalOpcoes, selecionado);
+
+                #if defined(_WIN32)
+                        tecla = _getch();
+                        if (tecla == -32) {
+                            tecla = _getch();
+                            if (tecla == 72)
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 80)
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 13) {
+                            return selecionado;
+                        }
+                #else
+                        tecla = getch();
+                        if (tecla == 27 && getch() == 91) {
+                            tecla = getch();
+                            if (tecla == 'A')
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 'B')
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 10) {
+                            return selecionado;
+                        }
+                #endif
+                break;
+            case 2:
+                frontendExibirMenuDeRemocao(opcoes, totalOpcoes, selecionado);
+
+                #if defined(_WIN32)
+                        tecla = _getch();
+                        if (tecla == -32) {
+                            tecla = _getch();
+                            if (tecla == 72)
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 80)
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 13) {
+                            return selecionado;
+                        }
+                #else
+                        tecla = getch();
+                        if (tecla == 27 && getch() == 91) {
+                            tecla = getch();
+                            if (tecla == 'A')
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 'B')
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 10) {
+                            return selecionado;
+                        }
+                #endif
+                break;
+            default:
+                break;
+
         }
-#else
-        tecla = getch();
-        if (tecla == 27 && getch() == 91) {
-            tecla = getch();
-            if (tecla == 'A')
-                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
-            else if (tecla == 'B')
-                selecionado = (selecionado + 1) % totalOpcoes;
-        } else if (tecla == 10) {
-            return selecionado;
+    }
+}
+
+void frontendMenuDeRemocao(modeloBandas* &vetorBandas,int tamanho){
+    string opcoes[3] = {
+        "Remover por Nome",
+        "Remover por ID",
+        "Voltar"
+    };
+
+    const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
+    int escolha;
+
+    while(true){
+
+        escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 2);
+
+        limparTela();
+
+        switch(escolha){
+            case 0:
+                //Chama a função frontendRemoverPorNome e marca que o comando foi reconhecido.
+                frontendRemoverPorNome(vetorBandas,tamanho);
+                break;
+            case 1:
+                //Chama a função frontendRemoverPorId e marca que o comando foi reconhecido.
+                frontendRemoverPorID(vetorBandas,tamanho);
+                break;
+            case 2:
+                return;
+                break;
+            default:
+                cout << "ERRO NA REMOÇÃO!";
+                return;
+                break;
         }
-#endif
     }
 }
 
@@ -1185,9 +1292,11 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
     };
 
     const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
+    int escolha;
 
     while(true){
-        int escolha = frontendMenuSelecionavel(opcoes, totalOpcoes);
+
+        escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 1);
 
         limparTela();
 
@@ -1198,7 +1307,7 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
                 break;
             case 1:
                 //Chama a interface de remoção de usuário
-                frontendMenuDeRemoção(vetorBandas,tamanho);
+                frontendMenuDeRemocao(vetorBandas,tamanho);
                 break;
             case 2:
                 //Chama a interface de buscas
@@ -1222,10 +1331,56 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
     }
 }
 
-//Função que faz a interface de leitura. 
+//Função que faz a interface de leitura.
+
+/*
+void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
+    string opcoes[3] = {
+        "Ler por Arquivo Binário",
+        "Ler por Arquivo CSV",
+        "Fechar Programa"
+    };
+
+    const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
+    int escolha;
+
+    while(true){
+
+        escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 0);
+
+        limparTela();
+
+        switch(escolha){
+            case 0:
+                //Lê os dados pelo arquivo binário
+                lerDoBinario(vetorBandas,tamanho);
+                cout << "\n✅ Leitura por Binário realizada com sucesso!\n" << "";
+                cout << "\nPressione ENTER para iniciar o programa..." << endl;
+                cin.get();
+                frontendMenuPrincipal(vetorBandas, tamanho);
+                break;
+            case 1:
+                //Lê os dados pelo CSV;
+                leitura(vetorBandas,tamanho);
+                cout << "\n✅ Leitura por CSV realizada com sucesso!\n" << "";
+                cout << "\nPressione ENTER para iniciar o programa..." << endl;
+                cin.get();
+                frontendMenuPrincipal(vetorBandas, tamanho);
+                break;
+            case 2:
+                return;
+                break;
+            default:
+                cout << "ERRO!";
+                return;
+                break;
+        }
+    }
+}
+*/
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
     
-    limparTela();
+    
 
     int digito;
     bool comandoReconhecido;
@@ -1259,7 +1414,7 @@ void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
 
             //Atribui verdadeiro ao comandoReconhecido e chama a função de leitura do arquivo binário.
             comandoReconhecido = true;
-            lerDoBinario(vetorBandas,tamanho);
+           
 
         }
 

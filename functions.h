@@ -49,6 +49,7 @@ void salvarAlteracao(modeloBandas* vet,int tamanho);
 void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho);
 void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho);
 void frontendMenuDeRemoção(modeloBandas* &vetorBandas,int tamanho);
+void frontendExibirMenuLeitura(string opcoes[], int totalOpcoes, int selecionado);
 void frontendMenu(modeloBandas* &vetorBandas,int &tamanho);
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho);
 void limparTela();

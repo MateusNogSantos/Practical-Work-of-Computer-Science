@@ -22,7 +22,12 @@ int main(){
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
 
-    frontendLeitura(vetorBandas, tamanho);
+    frontendMenuLeitura(vetorBandas, tamanho);
+
+    for(int i = 0;i < tamanho;i++){
+
+        cout << vetorBandas[i].nome << endl;
+    }
 
     return 0;
 }
