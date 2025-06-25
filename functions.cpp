@@ -622,8 +622,8 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
     //Binário
     int i = 0;
 
-    //Verifica se o índice é menor que o tamanho e se o id é zero(se sim,quer dizer que nâo há nada naquele indice do vetorBandas)
-    while(i < tamanho and vet[i].id !=0){
+    //Verifica se o índice é menor que o tamanho e se o id é maior que zero(se sim,quer dizer que nâo há nada naquele indice do vetorBandas ou que foi excluida)
+    while(i < tamanho and vet[i].id > 0){
 
         saidaBinario.write(reinterpret_cast<const char*>(&vet[i]),sizeof(modeloBandas));
         i++;
@@ -633,6 +633,187 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
     //Descarrega os Buffer's
     saidaBinario.close();
     saida.close();
+
+}
+
+//Função de Busca por gênero(interface).
+void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
+
+    int tempo;
+    string genero;
+
+    //Escrita no terminal
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Digite o gênero pesquisado.";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Captação de dados que o usuário digitou no terminal
+    cin >> genero;
+
+    //tempo recebe o retonro
+    tempo = buscadeGeneroTempodeShow(genero,tamanho,vetorBandas);
+
+    //Se o tempo for 0,aponta que não tem esse genero no vetor.
+    if(tempo == 0){
+
+        //Escrita no terminal
+        cout << endl << "_______________________________________________________________" << endl << endl;
+        cout << "Gênero não encontrado";
+        cout << endl << "_______________________________________________________________" << endl << endl;
+
+    }
+    //Caso contrario ele imprime o valor do tempo.
+    else{
+        
+        cout << "Tempo de show do gênero " << genero << "| " << tempo;
+    }
+
+}
+
+//Função de Busca por ID(interface)
+void frontendBuscaID(modeloBandas* vetorBandas,int tamanho){
+
+    int id,i;
+
+    //Escrita no terminal
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Digite o ID da banda.";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Capatação dos dados digitados pelo usuário no terminal.
+    cin >> id;
+
+    //i recebe o retorno da função buscaPorID.
+    i = buscaPorID(id,tamanho,vetorBandas);
+
+    //Se i for -1,significa que a banda não foi encontrada no vetor.
+    if(i == -1){
+
+        cout << endl << "_______________________________________________________________" << endl << endl;
+        cout << "Banda não encontrada";
+        cout << endl << "_______________________________________________________________" << endl << endl;
+
+    }
+    //Se i for diferente,significa que foi encontrada e a variável i é seu índice.
+    else{
+
+        //Escrita no terminal da posicao i da struct.
+        cout << "ID | " << vetorBandas[i].id << endl;
+        cout << "Nome | " << vetorBandas[i].nome << endl;
+        cout << "Gênero | " << vetorBandas[i].genero << endl;
+        cout << "Número de integrantes | " << vetorBandas[i].numerodeIntegrantes << endl;
+        cout << "Tempo de show | " << vetorBandas[i].tempodeShow << endl << endl;
+
+    }
+
+}
+
+//Função de busca por nome(interface).
+void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
+
+    int i;
+    string nome;
+
+    //Escrita no terminal.
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Digite o nome da banda.";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Captação dos dados digitados pelo usuário no terminal.
+    cin >> nome;
+
+    //a variável i recebe o retorno da funcao de busca por nome.
+    i = buscaPorNome(nome,tamanho,vetorBandas);
+
+    //Se o valor da variável i for igual à -1,significa que a banda não foi encontrada no vetor.
+    if(i == -1){
+
+        //Escrita no terminal
+        cout << endl << "_______________________________________________________________" << endl << endl;
+        cout << "Banda não encontrada";
+        cout << endl << "_______________________________________________________________" << endl << endl;
+
+    }
+    //Se o valor de i for diferente de -1,significa que seu retorno é o índice da struct onde ele está.
+    else{
+
+        //Escrita no terminal da struct na posição i.
+        cout << "ID | " << vetorBandas[i].id << endl;
+        cout << "Nome | " << vetorBandas[i].nome << endl;
+        cout << "Gênero | " << vetorBandas[i].genero << endl;
+        cout << "Número de integrantes | " << vetorBandas[i].numerodeIntegrantes << endl;
+        cout << "Tempo de show | " << vetorBandas[i].tempodeShow << endl << endl;
+
+    }
+
+
+}
+
+//Função menu das funções de busca
+void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
+
+    int digito;
+    bool comandoReconhecido = false;
+
+    //Interface de escolha
+    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << "Para sair: 0" << endl;
+    cout << "Para buscar por nome: 1" << endl;
+    cout << "Para buscar por ID: 2" << endl;
+    cout << "Para buscar por gênero(tempo de show): 3";
+    cout << endl << "_______________________________________________________________" << endl << endl;
+
+    //Laço de repetição que executa o bloco de comando enquanto comandos válidos não forem reconhecidos.
+    do{
+
+        //Captação dos dados digitados pelo usuário no terminal.
+        cin >> digito;
+
+        //Condicional de escolha.
+        switch(digito){
+
+            //Comando de saída do menu.
+            case 0:
+
+            //Marca a variável comandoReconhecido como verdadeira para encerrar o laço de repetição.
+            comandoReconhecido = true;
+            break;
+
+            //Comando de busca por nome.
+            case 1:
+
+            //Chama a função de busca por nome e aponta que o comando foi reconhecido.
+            frontendBuscaNome(vetorBandas,tamanho);
+            comandoReconhecido = true;
+            break;
+
+            //Comando de busca por ID.
+            case 2:
+
+            //Chama a função de busca por ID e aponta que o comando foi reconhecido.
+            frontendBuscaID(vetorBandas,tamanho);
+            comandoReconhecido = true;
+            break;
+
+            //Chama a função de busca por tempo de show(gênero).
+            case 3:
+
+            //Chama a função de busca por gênero e aponta que o comando foi reconhecido.
+            frontendBuscaPorGenero(vetorBandas,tamanho);
+            comandoReconhecido = true;
+            break;
+
+            //Caso o camando dado pelo usuário não seja valido o programa avisa o ocorrido ao usuário.
+            default:
+            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "Comando não encontrado,digite novamente";
+            cout << endl << "_______________________________________________________________" << endl << endl;
+
+        }
+
+
+    }while(!comandoReconhecido);
+
 
 }
 
@@ -926,7 +1107,7 @@ void frontendMenu(modeloBandas* &vetorBandas,int &tamanho){
                 comandoReconhecido = true;
 
             }
-            //Caso 3:Comando de adicionar um usuário.
+            //Caso 3:Comando de adicionar uma banda.
             else if(digito == 2){
 
                 //Chama a interface de adição de usuário(função frontendAdicionar) e aponta que o comando foi reconhecido.
@@ -934,11 +1115,21 @@ void frontendMenu(modeloBandas* &vetorBandas,int &tamanho){
                 comandoReconhecido = true;
 
             }
-
+            //Caso 4:Comando de remover uma banda.
             else if(digito == 3){
 
+                //Chama a interface de remoção de usuário e aponta que o comando foi reconhecido.
                 frontendMenuDeRemoção(vetorBandas,tamanho);
                 comandoReconhecido = true;
+
+            }
+            //Caso 5:Comando de Busca.
+            else if(digito == 4){
+
+                //Chama a interface de buscas e aponta que o comando foi reconhecido
+                frontendMenuBusca(vetorBandas,tamanho);
+                comandoReconhecido = true;
+
             }
             //Caso 0:Aponta que não foi reconhecido nenhum comando de interação.
             else{

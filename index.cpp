@@ -32,6 +32,15 @@ int main(){
     cout << endl <<"VETOR DEPOIS DE SER ORDENADO POR TEMPO DE SHOW: " << endl << endl;
 
     ordenaPorTempoDeShow(vetorBandas, tamanho);*/
+    
+    for(int i = 0;i < tamanho;i++){
+
+        cout << vetorBandas[i].id << " " 
+             << vetorBandas[i].nome << " " 
+             << vetorBandas[i].genero << " " 
+             << vetorBandas[i].tempodeShow << " " << endl;
+    }
+
   
 
     return 0;
