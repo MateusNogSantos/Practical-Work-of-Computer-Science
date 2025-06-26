@@ -1333,7 +1333,7 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
 
 //Função que faz a interface de leitura.
 
-/*
+
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
     string opcoes[3] = {
         "Ler por Arquivo Binário",
@@ -1377,7 +1377,8 @@ void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
         }
     }
 }
-*/
+
+/*
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
     
     
@@ -1454,4 +1455,4 @@ void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
 
     }
 
-}
+}*/
