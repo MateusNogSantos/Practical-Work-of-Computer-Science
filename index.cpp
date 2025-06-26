@@ -22,7 +22,7 @@ int main(){
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
 
-    frontendMenuLeitura(vetorBandas, tamanho);
+    frontendLeitura(vetorBandas, tamanho);
 
     for(int i = 0;i < tamanho;i++){
 
