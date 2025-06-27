@@ -656,125 +656,6 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
 
 }
 
-//Função de Busca por gênero(interface).
-void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
-    
-    limparTela();
-
-    int tempo;
-    string genero;
-
-    //Escrita no terminal
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Digite o gênero pesquisado.";
-    cout << endl << "_______________________________________________________________" << endl << endl;
-
-    //Captação de dados que o usuário digitou no terminal
-    cin >> genero;
-
-    //tempo recebe o retonro
-    tempo = buscadeGeneroTempodeShow(genero,tamanho,vetorBandas);
-
-    //Se o tempo for 0,aponta que não tem esse genero no vetor.
-    if(tempo == 0){
-
-        //Escrita no terminal
-        cout << endl << "_______________________________________________________________" << endl << endl;
-        cout << "Gênero não encontrado";
-        cout << endl << "_______________________________________________________________" << endl << endl;
-
-    }
-    //Caso contrario ele imprime o valor do tempo.
-    else{
-        
-        cout << "Tempo de show do gênero " << genero << "| " << tempo;
-    }
-
-}
-
-//Função de Busca por ID(interface)
-void frontendBuscaID(modeloBandas* vetorBandas,int tamanho){
-
-    limparTela();
-
-    int id,i;
-
-    //Escrita no terminal
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Digite o ID da banda.";
-    cout << endl << "_______________________________________________________________" << endl << endl;
-
-    //Capatação dos dados digitados pelo usuário no terminal.
-    cin >> id;
-
-    //i recebe o retorno da função buscaPorID.
-    i = buscaPorID(id,tamanho,vetorBandas);
-
-    //Se i for -1,significa que a banda não foi encontrada no vetor.
-    if(i == -1){
-
-        cout << endl << "_______________________________________________________________" << endl << endl;
-        cout << "Banda não encontrada";
-        cout << endl << "_______________________________________________________________" << endl << endl;
-
-    }
-    //Se i for diferente,significa que foi encontrada e a variável i é seu índice.
-    else{
-
-        //Escrita no terminal da posicao i da struct.
-        cout << "ID | " << vetorBandas[i].id << endl;
-        cout << "Nome | " << vetorBandas[i].nome << endl;
-        cout << "Gênero | " << vetorBandas[i].genero << endl;
-        cout << "Número de integrantes | " << vetorBandas[i].numerodeIntegrantes << endl;
-        cout << "Tempo de show | " << vetorBandas[i].tempodeShow << endl << endl;
-
-    }
-
-}
-
-//Função de busca por nome(interface).
-void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
-    
-    limparTela();
-
-    int i;
-    string nome;
-
-    //Escrita no terminal.
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Digite o nome da banda.";
-    cout << endl << "_______________________________________________________________" << endl << endl;
-
-    //Captação dos dados digitados pelo usuário no terminal.
-    cin >> nome;
-
-    //a variável i recebe o retorno da funcao de busca por nome.
-    i = buscaPorNome(nome,tamanho,vetorBandas);
-
-    //Se o valor da variável i for igual à -1,significa que a banda não foi encontrada no vetor.
-    if(i == -1){
-
-        //Escrita no terminal
-        cout << endl << "_______________________________________________________________" << endl << endl;
-        cout << "Banda não encontrada";
-        cout << endl << "_______________________________________________________________" << endl << endl;
-
-    }
-    //Se o valor de i for diferente de -1,significa que seu retorno é o índice da struct onde ele está.
-    else{
-
-        //Escrita no terminal da struct na posição i.
-        cout << "ID | " << vetorBandas[i].id << endl;
-        cout << "Nome | " << vetorBandas[i].nome << endl;
-        cout << "Gênero | " << vetorBandas[i].genero << endl;
-        cout << "Número de integrantes | " << vetorBandas[i].numerodeIntegrantes << endl;
-        cout << "Tempo de show | " << vetorBandas[i].tempodeShow << endl << endl;
-
-    }
-
-
-}
-
 //Função que Limpará a tela na troca de Menus
 void limparTela(){
     //Detecta se o Sistema Operacional é Windows e utiliza o comando "cls" para limpar o terminal.
@@ -787,74 +668,367 @@ void limparTela(){
 }
 
 
-//Função menu das funções de busca
-void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
+//Função de Busca por gênero(interface).
+void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
 
+            
     limparTela();
 
-    int digito;
-    bool comandoReconhecido = false;
+    int tempo;
+    string genero;
 
-    //Interface de escolha
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Para sair: 0" << endl;
-    cout << "Para buscar por nome: 1" << endl;
-    cout << "Para buscar por ID: 2" << endl;
-    cout << "Para buscar por gênero(tempo de show): 3";
-    cout << endl << "_______________________________________________________________" << endl << endl;
+    //Escrita no terminal.
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                            ██████╗ ██╗   ██╗███████╗ ██████╗ █████╗ 
+                            ██╔══██╗██║   ██║██╔════╝██╔════╝██╔══██╗
+                            ██████╔╝██║   ██║███████╗██║     ███████║
+                            ██╔══██╗██║   ██║╚════██║██║     ██╔══██║
+                            ██████╔╝╚██████╔╝███████║╚██████╗██║  ██║
+                            ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝
+                                         
+)" << endl << "Digite o gênero para Saber o Tempo de Show: ";
 
-    //Laço de repetição que executa o bloco de comando enquanto comandos válidos não forem reconhecidos.
-    do{
+    //Captação de dados que o usuário digitou no terminal
+    cin >> genero;
 
-        //Captação dos dados digitados pelo usuário no terminal.
-        cin >> digito;
+    //Condição que trata caso o usuário não digitar um número inteiro.
+    if (cin.fail()) {
+        genero = "generoInexistente";
+        cin.clear(); // limpa o estado de erro
+        cin.get();
+    }
 
-        //Condicional de escolha.
-        switch(digito){
+    //tempo recebe o retonro
+    tempo = buscadeGeneroTempodeShow(genero,tamanho,vetorBandas);
+    cin.get();
 
-            //Comando de saída do menu.
+    //Se o tempo for 0,aponta que não tem esse genero no vetor.
+    if(tempo == 0){
+        //Escrita no terminal
+        cout << endl;
+        cout << "❌ Gênero não encontrado." << endl;
+        cout << "\nPressione ENTER para voltar..." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+        cin.get();
+    }
+    //Caso contrario ele imprime o valor do tempo.
+    else{
+        //Escrita no terminal da struct na posição i.
+            cout << endl;
+            cout << "Tempo de show do gênero " << genero << ": " << tempo <<" horas." << endl;
+            cout << "\nPressione ENTER para voltar..." << endl;
+            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+            cin.get();
+        
+
+    }
+}
+
+//Função de Busca por ID(interface)
+void frontendBuscaID(modeloBandas* vetorBandas,int tamanho){
+        
+    limparTela();
+
+    int id,i;
+
+    //Escrita no terminal.
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                            ██████╗ ██╗   ██╗███████╗ ██████╗ █████╗ 
+                            ██╔══██╗██║   ██║██╔════╝██╔════╝██╔══██╗
+                            ██████╔╝██║   ██║███████╗██║     ███████║
+                            ██╔══██╗██║   ██║╚════██║██║     ██╔══██║
+                            ██████╔╝╚██████╔╝███████║╚██████╗██║  ██║
+                            ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝
+                                         
+)" << endl << "Digite o ID da Banda que está buscando: ";
+
+    //Captação dos dados digitados pelo usuário no terminal.
+    cin >> id;
+    //Condição que trata caso o usuário não digitar um número inteiro.
+    if (cin.fail()) {
+        cin.clear(); // limpa o estado de erro
+        cin.get();
+        id = -1;
+    }
+
+    //i recebe o retorno da função buscaPorID.
+    i = buscaPorID(id,tamanho,vetorBandas);
+    cin.get();
+
+    //Se o valor da variável i for igual à -1,significa que a banda não foi encontrada no vetor.
+    if(i == -1){
+        //Escrita no terminal
+        cout << endl;
+        cout << "❌ Banda não encontrada." << endl;
+        cout << "\nPressione ENTER para voltar..." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+        cin.get();
+    }
+    //Se o valor de i for diferente de -1,significa que seu retorno é o índice da struct onde ele está.
+    else{
+        //Escrita no terminal da struct na posição i.
+            cout << endl;
+            cout << "╔═══════════════════════════════════════════════╗" << endl;
+            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+            cout << "╚═══════════════════════════════════════════════╝" << endl;
+            cout << "\nPressione ENTER para voltar..." << endl;
+            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+            cin.get();
+    }
+}
+
+//Função de busca por nome(interface).
+void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
+    
+    limparTela();
+
+    int i;
+    string nome;
+
+    //Escrita no terminal.
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                            ██████╗ ██╗   ██╗███████╗ ██████╗ █████╗ 
+                            ██╔══██╗██║   ██║██╔════╝██╔════╝██╔══██╗
+                            ██████╔╝██║   ██║███████╗██║     ███████║
+                            ██╔══██╗██║   ██║╚════██║██║     ██╔══██║
+                            ██████╔╝╚██████╔╝███████║╚██████╗██║  ██║
+                            ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝
+                                         
+)" << endl << "Digite o nome da Banda que está buscando: ";
+
+    //Captação dos dados digitados pelo usuário no terminal.
+    getline(cin, nome);
+    if (cin.fail()) {
+        nome = "nomeInexistente";
+        cin.clear(); // limpa o estado de erro
+    }
+
+    //a variável i recebe o retorno da funcao de busca por nome.
+    i = buscaPorNome(nome,tamanho,vetorBandas);
+
+    //Se o valor da variável i for igual à -1,significa que a banda não foi encontrada no vetor.
+    if(i == -1){
+        //Escrita no terminal
+        cout << endl;
+        cout << "❌ Banda não encontrada." << endl;
+        cout << "\nPressione ENTER para voltar..." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+        cin.get();
+    }
+    //Se o valor de i for diferente de -1,significa que seu retorno é o índice da struct onde ele está.
+    else{
+        //Escrita no terminal da struct na posição i.
+            cout << endl;
+            cout << "╔═══════════════════════════════════════════════╗" << endl;
+            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+            cout << "╚═══════════════════════════════════════════════╝" << endl;
+            cout << "\nPressione ENTER para voltar..." << endl;
+            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+            cin.get();
+    }
+}
+
+//Função Front-End para ordenar e exibir o vetor por ID.
+void frontendOrdenarPorID(modeloBandas* vetorBandas,int tamanho){
+    //Limpa a Tela
+    limparTela();
+    //Chama o quicksort para ordenar o vetor por ID
+    ordenarPorID(vetorBandas, tamanho);
+
+    //Escrita no terminal.
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+
+██████╗  █████╗ ██████╗ ████████╗██╗ ██████╗██╗██████╗  █████╗ ███╗   ██╗████████╗███████╗███████╗
+██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║██╔══██╗██╔══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝
+██████╔╝███████║██████╔╝   ██║   ██║██║     ██║██████╔╝███████║██╔██╗ ██║   ██║   █████╗  ███████╗
+██╔═══╝ ██╔══██║██╔══██╗   ██║   ██║██║     ██║██╔═══╝ ██╔══██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║
+██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗██║██║     ██║  ██║██║ ╚████║   ██║   ███████╗███████║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝
+                                                                                                                                          
+)" << endl << endl;
+
+    for(int i = 0; i < tamanho; i++){
+         cout << endl;
+            cout << "╔═══════════════════════════════════════════════╗" << endl;
+            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+            cout << "╚═══════════════════════════════════════════════╝" << endl;
+    }
+
+        cout << endl << "\nPressione ENTER para voltar..." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+        cin.get();
+}
+
+//Função Front-End para ordenar e exibir o vetor por Nome.
+void frontendOrdenarPorNome(modeloBandas* vetorBandas,int tamanho){
+    //Limpa a Tela
+    limparTela();
+    //Chama o quicksort para ordenar o vetor por ID
+    ordenarPorNome(vetorBandas, tamanho);
+
+    //Escrita no terminal.
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+
+██████╗  █████╗ ██████╗ ████████╗██╗ ██████╗██╗██████╗  █████╗ ███╗   ██╗████████╗███████╗███████╗
+██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║██╔══██╗██╔══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝
+██████╔╝███████║██████╔╝   ██║   ██║██║     ██║██████╔╝███████║██╔██╗ ██║   ██║   █████╗  ███████╗
+██╔═══╝ ██╔══██║██╔══██╗   ██║   ██║██║     ██║██╔═══╝ ██╔══██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║
+██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗██║██║     ██║  ██║██║ ╚████║   ██║   ███████╗███████║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝
+                                                                                                                                          
+)" << endl << endl;
+
+    for(int i = 0; i < tamanho; i++){
+         cout << endl;
+            cout << "╔═══════════════════════════════════════════════╗" << endl;
+            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+            cout << "╚═══════════════════════════════════════════════╝" << endl;
+    }
+
+        cout << endl << "\nPressione ENTER para voltar..." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+        cin.get();
+}
+
+//Função Front-End para ordenar e exibir o vetor por Nº de Integrantes.
+void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
+        //Limpa a Tela
+    limparTela();
+    //Chama o quicksort para ordenar o vetor por ID
+    ordenarPorNumDeIntegrantes(vetorBandas, tamanho);
+
+    //Escrita no terminal.
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+
+██████╗  █████╗ ██████╗ ████████╗██╗ ██████╗██╗██████╗  █████╗ ███╗   ██╗████████╗███████╗███████╗
+██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║██╔══██╗██╔══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝
+██████╔╝███████║██████╔╝   ██║   ██║██║     ██║██████╔╝███████║██╔██╗ ██║   ██║   █████╗  ███████╗
+██╔═══╝ ██╔══██║██╔══██╗   ██║   ██║██║     ██║██╔═══╝ ██╔══██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║
+██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗██║██║     ██║  ██║██║ ╚████║   ██║   ███████╗███████║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝
+                                                                                                                                          
+)" << endl << endl;
+
+    for(int i = 0; i < tamanho; i++){
+         cout << endl;
+            cout << "╔═══════════════════════════════════════════════╗" << endl;
+            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+            cout << "╚═══════════════════════════════════════════════╝" << endl;
+    }
+
+        cout << endl << "\nPressione ENTER para voltar..." << endl;
+        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+        cin.get();
+}
+
+//Função menu das ordenações do vetor.
+void frontendMenuPartipantes(modeloBandas* vetorBandas,int tamanho){
+    string opcoes[4] = {
+        "Ordenar Participantes por ID",
+        "Ordenar Participantes por Nome",
+        "Ordenar Participantes por N° de Integrantes",
+        "Voltar"
+    };
+
+    const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
+    int escolha;
+
+    while(true){
+
+        escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 4);
+
+        limparTela();
+
+        switch(escolha){
             case 0:
-
-            //Marca a variável comandoReconhecido como verdadeira para encerrar o laço de repetição.
-            comandoReconhecido = true;
-            break;
-
-            //Comando de busca por nome.
+                //Chama a função de ordenação por ID.
+                frontendOrdenarPorID(vetorBandas, tamanho);
+                break;
             case 1:
-
-            //Chama a função de busca por nome e aponta que o comando foi reconhecido.
-            frontendBuscaNome(vetorBandas,tamanho);
-            comandoReconhecido = true;
-            break;
-
-            //Comando de busca por ID.
+                //Chama a função de ordenação por ID.
+                frontendOrdenarPorNome(vetorBandas, tamanho);
+                break;
             case 2:
-
-            //Chama a função de busca por ID e aponta que o comando foi reconhecido.
-            frontendBuscaID(vetorBandas,tamanho);
-            comandoReconhecido = true;
-            break;
-
-            //Chama a função de busca por tempo de show(gênero).
+                //Chama a função de ordenação por ID.
+                frontendOrdenarPorNumDeIntegrantes(vetorBandas, tamanho);
+                break;
             case 3:
-
-            //Chama a função de busca por gênero e aponta que o comando foi reconhecido.
-            frontendBuscaPorGenero(vetorBandas,tamanho);
-            comandoReconhecido = true;
-            break;
-
-            //Caso o camando dado pelo usuário não seja valido o programa avisa o ocorrido ao usuário.
+                return;
+                break;
             default:
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Comando não encontrado,digite novamente";
-            cout << endl << "_______________________________________________________________" << endl << endl;
-
+                cout << "ERRO NA ORDENAÇÃO!";
+                return;
+                break;
         }
+    }
+}
 
+//Função menu das funções de busca
+void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
+    string opcoes[4] = {
+        "Busca por Nome",
+        "Busca por ID",
+        "Busca por Gênero",
+        "Voltar"
+    };
 
-    }while(!comandoReconhecido);
+    const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
+    int escolha;
 
+    while(true){
 
+        escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 3);
+
+        limparTela();
+
+        switch(escolha){
+            case 0:
+                //Chama a função de busca por nome e aponta que o comando foi reconhecido.
+                frontendBuscaNome(vetorBandas,tamanho);
+                break;
+            case 1:
+                //Chama a função de busca por ID e aponta que o comando foi reconhecido.
+                frontendBuscaID(vetorBandas,tamanho);
+                break;
+            case 2:
+                //Chama a função de busca por gênero e aponta que o comando foi reconhecido.
+                frontendBuscaPorGenero(vetorBandas,tamanho);
+                break;
+            case 3:
+                return;
+                break;
+            default:
+                cout << "ERRO NA BUSCA!";
+                return;
+                break;
+        }
+    }
 }
 
 //Função que faz a remoção por nome.
@@ -912,13 +1086,27 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
         }
         //Se não estiver,avisa que a banda não foi encontrada no vetor.
         else{
-
-            //Escrita no terminal.
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "❌ Banda não encontrada, digite novamente: " << endl;
-            cout << "Para Sair digite: 0";
-            cout << endl << "_______________________________________________________________" << endl << endl;
-
+            if(nome == "0"){
+                cout << "\nPressione ENTER para voltar ao menu..." << endl;
+                cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+                cin.ignore();
+                cin.get();
+            }else{
+                //Escrita no terminal.
+                limparTela();
+                cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                                                              ███╗
+                                                              
+                ██████╗ ███████╗███╗   ███╗ ██████╗  ██████╗ █████╗  ██████╗ 
+                ██╔══██╗██╔════╝████╗ ████║██╔═══██╗██╔════╝██╔══██╗██╔═══██╗
+                ██████╔╝█████╗  ██╔████╔██║██║   ██║██║     ███████║██║   ██║
+                ██╔══██╗██╔══╝  ██║╚██╔╝██║██║   ██║██║     ██╔══██║██║   ██║
+                ██║  ██║███████╗██║ ╚═╝ ██║╚██████╔╝╚██████╗██║  ██║╚██████╔╝
+                ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═██══╝╚═╝  ╚═╝ ╚═════╝ 
+                                                       ╚═                                                             
+)" << endl << endl << "❌ Banda não encontrada, digite outro nome (Para sair digite '0'): ";
+            }
         }
 
     }while(!bandaEncontrada and nome[0] != '0');
@@ -934,23 +1122,32 @@ void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
     bool bandaEncontrada = false;
 
     //Escrita no terminal.
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Digite o ID da banda a ser removida.";
-    cout << endl << "_______________________________________________________________" << endl << endl;
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                                                              ███╗
+                                                              
+                ██████╗ ███████╗███╗   ███╗ ██████╗  ██████╗ █████╗  ██████╗ 
+                ██╔══██╗██╔════╝████╗ ████║██╔═══██╗██╔════╝██╔══██╗██╔═══██╗
+                ██████╔╝█████╗  ██╔████╔██║██║   ██║██║     ███████║██║   ██║
+                ██╔══██╗██╔══╝  ██║╚██╔╝██║██║   ██║██║     ██╔══██║██║   ██║
+                ██║  ██║███████╗██║ ╚═╝ ██║╚██████╔╝╚██████╗██║  ██║╚██████╔╝
+                ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═██══╝╚═╝  ╚═╝ ╚═════╝ 
+                                                       ╚═                                                             
+)" << endl << endl << "Digite o ID da banda a ser removida: ";
 
-    //Laço repetitivo que executa comandos enquanto a banda não for encontrada ou o comando de saida não foi dado
+    //Laço de repetição que roda enquanto nenhum comando for reconhecido ou for diferente de 0
     do{
 
-        //Captação de dados digitados pelo usuário no terminal
+        //Captação dos dados digitados pelo usuário
         cin >> id;
 
-        //Laço de repetição que percorre o vetor inteiro
+        //Laço repetitivo que roda o vetor inteiro.
         for(int i = 0;i < tamanho;i++){
 
-            //Condicional que executa comandos quando a variável for maior que 0 ou quando o id estiver no vetor.
+            //Condicional que executa o côdigo quando o conteudo do vetorBandas em i for igual ao digitado pelo usuário
             if(vetorBandas[i].id == id and id > 0){
 
-                //Marca como -1 o id da struct deletada e aponta que a banda foi encontrada.
+                //Marca o id da struct deletada como -1 e aponta que a banda foi encontrada.
                 vetorBandas[i].id = -1;
                 bandaEncontrada = true;
 
@@ -958,26 +1155,42 @@ void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
 
         }
 
-        //Se a banda foi encontrada,avisa o usuário.
+        //Se a banda estava no vetor,mostra ao usuário o exito da operacao
         if(bandaEncontrada){
 
             //Escrita no terminal.
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Banda removida";
-            cout << endl << "_______________________________________________________________" << endl << endl;
+            cout << "\n✅ Banda removida com sucesso!\n";
+            cout << "\nPressione ENTER para voltar ao menu..." << endl;
+            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+            cin.ignore();
+            cin.get();
 
         }
-        //Se a banda não for encontrada avisa ao usuário.
+        //Se não estiver,avisa que a banda não foi encontrada no vetor.
         else{
-
-            //Escrita no terminal.
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Banda não encontrada,digite novamente." << endl;
-            cout << "Sair: 0";
-            cout << endl << "_______________________________________________________________" << endl << endl;
-
+            if(id == 0){
+                cout << "\nPressione ENTER para voltar ao menu..." << endl;
+                cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+                cin.ignore();
+                cin.get();
+            }else{
+                //Escrita no terminal.
+                limparTela();
+                cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                                                              ███╗
+                                                              
+                ██████╗ ███████╗███╗   ███╗ ██████╗  ██████╗ █████╗  ██████╗ 
+                ██╔══██╗██╔════╝████╗ ████║██╔═══██╗██╔════╝██╔══██╗██╔═══██╗
+                ██████╔╝█████╗  ██╔████╔██║██║   ██║██║     ███████║██║   ██║
+                ██╔══██╗██╔══╝  ██║╚██╔╝██║██║   ██║██║     ██╔══██║██║   ██║
+                ██║  ██║███████╗██║ ╚═╝ ██║╚██████╔╝╚██████╗██║  ██║╚██████╔╝
+                ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═██══╝╚═╝  ╚═╝ ╚═════╝ 
+                                                       ╚═                                                             
+)" << endl << endl << "❌ Banda não encontrada, digite outro ID (Para sair digite '0'): ";
+                ;
+            }
         }
-
     }while(!bandaEncontrada and id > 0);
 
 }
@@ -1093,7 +1306,7 @@ Use as setas ↑ ↓ para navegar e ENTER para selecionar:
 
 //Interface de menu de remoção.
 void frontendExibirMenuDeRemocao(string opcoes[], int totalOpcoes, int selecionado){
-        //Limpa o terminal para a exibição do Menu.
+    //Limpa o terminal para a exibição do Menu.
     limparTela();
     //Mostra o Menu;
     cout << R"(
@@ -1124,15 +1337,17 @@ Use as setas ↑ ↓ para navegar e ENTER para selecionar:
 }
 
 void frontendExibirMenuLeitura(string opcoes[], int totalOpcoes, int selecionado){
+    //Limpa o terminal para a exibição do Menu.
+    limparTela();
     cout << R"(
-    ══════════════════════════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════════════════════════
 
-    ██╗      ██████╗ ██╗     ██╗      █████╗ ██████╗  █████╗ ██╗     ██╗   ██╗███████╗██╗      █████╗ 
-    ██║     ██╔═══██╗██║     ██║     ██╔══██╗██╔══██╗██╔══██╗██║     ██║   ██║██╔════╝██║     ██╔══██╗
-    ██║     ██║   ██║██║     ██║     ███████║██████╔╝███████║██║     ██║   ██║█████╗  ██║     ███████║
-    ██║     ██║   ██║██║     ██║     ██╔══██║██╔═══╝ ██╔══██║██║     ██║   ██║██╔══╝  ██║     ██╔══██║
-    ███████╗╚██████╔╝███████╗███████╗██║  ██║██║     ██║  ██║███████╗╚██████╔╝██║     ███████╗██║  ██║
-    ╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝
+██╗      ██████╗ ██╗     ██╗      █████╗ ██████╗  █████╗ ██╗     ██╗   ██╗███████╗██╗      █████╗ 
+██║     ██╔═══██╗██║     ██║     ██╔══██╗██╔══██╗██╔══██╗██║     ██║   ██║██╔════╝██║     ██╔══██╗
+██║     ██║   ██║██║     ██║     ███████║██████╔╝███████║██║     ██║   ██║█████╗  ██║     ███████║
+██║     ██║   ██║██║     ██║     ██╔══██║██╔═══╝ ██╔══██║██║     ██║   ██║██╔══╝  ██║     ██╔══██║
+███████╗╚██████╔╝███████╗███████╗██║  ██║██║     ██║  ██║███████╗╚██████╔╝██║     ███████╗██║  ██║
+╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝
 
     Use as setas ↑ ↓ para navegar e ENTER para selecionar:
     )" << endl << endl;
@@ -1147,6 +1362,63 @@ void frontendExibirMenuLeitura(string opcoes[], int totalOpcoes, int selecionado
     }
 }
 
+//Função que exibe o menu "selecionável" das ordenações.
+void frontendExibirMenuParticipantes(string opcoes[], int totalOpcoes, int selecionado){
+     //Limpa o terminal;
+    limparTela();
+    //Exibe BUSCA em ASCII no terminal
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+
+██████╗  █████╗ ██████╗ ████████╗██╗ ██████╗██╗██████╗  █████╗ ███╗   ██╗████████╗███████╗███████╗
+██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║██╔══██╗██╔══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝
+██████╔╝███████║██████╔╝   ██║   ██║██║     ██║██████╔╝███████║██╔██╗ ██║   ██║   █████╗  ███████╗
+██╔═══╝ ██╔══██║██╔══██╗   ██║   ██║██║     ██║██╔═══╝ ██╔══██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║
+██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗██║██║     ██║  ██║██║ ╚████║   ██║   ███████╗███████║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝
+                                                                                                  
+    Use as setas ↑ ↓ para navegar e ENTER para selecionar:                                     
+    )" << endl << endl;
+    
+    //Laço de repetição que apresenta as opções disponíveis no sistema;
+    for (int i = 0; i < totalOpcoes; ++i) {
+        if (i == selecionado) {
+            cout << " > " << opcoes[i] << endl;
+        } else {
+            cout << "   " << opcoes[i] << endl;
+        }
+    }
+    cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+}
+
+
+//Função que exibe o menu "selecionável" de busca.
+void frontendExibirMenuDeBusca(string opcoes[], int totalOpcoes, int selecionado){
+    //Limpa o terminal;
+    limparTela();
+    //Exibe BUSCA em ASCII no terminal
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+                            ██████╗ ██╗   ██╗███████╗ ██████╗ █████╗ 
+                            ██╔══██╗██║   ██║██╔════╝██╔════╝██╔══██╗
+                            ██████╔╝██║   ██║███████╗██║     ███████║
+                            ██╔══██╗██║   ██║╚════██║██║     ██╔══██║
+                            ██████╔╝╚██████╔╝███████║╚██████╗██║  ██║
+                            ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝
+    Use as setas ↑ ↓ para navegar e ENTER para selecionar:                                     
+    )" << endl << endl;
+    
+    //Laço de repetição que apresenta as opções disponíveis no sistema;
+    for (int i = 0; i < totalOpcoes; ++i) {
+        if (i == selecionado) {
+            cout << " > " << opcoes[i] << endl;
+        } else {
+            cout << "   " << opcoes[i] << endl;
+        }
+    }
+    cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+}
+
 //Função que captura as setas que o usuário aperta para selecionar a opção desejada.
 int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
     int selecionado = 0;
@@ -1154,11 +1426,11 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
 
     while (true) {
         //Exibe o "Menu Selecionável" necessário
-        //0: Menu Leitura, 1: Menu Principal, 2: Menu de Remoção
+        //0: Menu Leitura, 1: Menu Principal, 2: Menu de Remoção, 3: Menu de Busca
         switch(menu){
             case 0:
                 //frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado);
-
+                frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado);
                 #if defined(_WIN32)
                         tecla = _getch();
                         if (tecla == -32) {
@@ -1212,7 +1484,61 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
                 #endif
                 break;
             case 2:
-                frontendExibirMenuDeRemocao(opcoes, totalOpcoes, selecionado);
+                frontendExibirMenuDeBusca(opcoes, totalOpcoes, selecionado);
+
+                #if defined(_WIN32)
+                        tecla = _getch();
+                        if (tecla == -32) {
+                            tecla = _getch();
+                            if (tecla == 72)
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 80)
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 13) {
+                            return selecionado;
+                        }
+                #else
+                        tecla = getch();
+                        if (tecla == 27 && getch() == 91) {
+                            tecla = getch();
+                            if (tecla == 'A')
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 'B')
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 10) {
+                            return selecionado;
+                        }
+                #endif
+                break;
+            case 3:
+                frontendExibirMenuDeBusca(opcoes, totalOpcoes, selecionado);
+
+                #if defined(_WIN32)
+                        tecla = _getch();
+                        if (tecla == -32) {
+                            tecla = _getch();
+                            if (tecla == 72)
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 80)
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 13) {
+                            return selecionado;
+                        }
+                #else
+                        tecla = getch();
+                        if (tecla == 27 && getch() == 91) {
+                            tecla = getch();
+                            if (tecla == 'A')
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 'B')
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 10) {
+                            return selecionado;
+                        }
+                #endif
+                break;
+            case 4:
+                frontendExibirMenuParticipantes(opcoes, totalOpcoes, selecionado);
 
                 #if defined(_WIN32)
                         tecla = _getch();
@@ -1314,6 +1640,7 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
                 frontendMenuBusca(vetorBandas,tamanho);
                 break;
             case 3:
+                frontendMenuPartipantes(vetorBandas, tamanho);
                 break;
             case 4:
                 //Chama a função de salvar as alterações
@@ -1332,8 +1659,6 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
 }
 
 //Função que faz a interface de leitura.
-
-
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
     string opcoes[3] = {
         "Ler por Arquivo Binário",
@@ -1348,111 +1673,40 @@ void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
 
         escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 0);
 
-        limparTela();
-
         switch(escolha){
             case 0:
                 //Lê os dados pelo arquivo binário
                 lerDoBinario(vetorBandas,tamanho);
                 cout << "\n✅ Leitura por Binário realizada com sucesso!\n" << "";
                 cout << "\nPressione ENTER para iniciar o programa..." << endl;
+                cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
                 cin.get();
                 frontendMenuPrincipal(vetorBandas, tamanho);
+                limparTela();
+                return;
                 break;
             case 1:
                 //Lê os dados pelo CSV;
                 leitura(vetorBandas,tamanho);
-                cout << "\n✅ Leitura por CSV realizada com sucesso!\n" << "";
-                cout << "\nPressione ENTER para iniciar o programa..." << endl;
+                cout << "   \n✅ Leitura por CSV realizada com sucesso!\n" << "";
+                cout << "   \nPressione ENTER para iniciar o programa..." << endl;
+                cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
                 cin.get();
                 frontendMenuPrincipal(vetorBandas, tamanho);
+                limparTela();
+                return;
                 break;
             case 2:
+                //Limpa o terminal para a exibição do Menu.
+                limparTela();
                 return;
                 break;
             default:
                 cout << "ERRO!";
+                //Limpa o terminal para a exibição do Menu.
+                limparTela();
                 return;
                 break;
         }
     }
 }
-
-/*
-void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
-    
-    
-
-    int digito;
-    bool comandoReconhecido;
-
-    //Interface no terminal.
-    cout << endl << "_______________________________________________________________" << endl << endl;
-    cout << "Para sair: 0" << endl << "Para ler do arquivo Binário: 1 " << endl << "Para ler do arquivo CSV: 2";
-    cout << endl << "_______________________________________________________________" << endl << endl;
-
-    //Laço de repetição que roda enquanto algum comando não for reconhecido.
-    do{
-
-        //Entrada do digito de interação.
-        cin >> digito;
-
-        //Caso 1:quer sair do programa.
-        if(digito == 0){
-
-            //Corta o laço de repetição.
-            comandoReconhecido = true;
-
-        }
-
-        //Caso 2:Aponta que a leitura do Binário foi feita.
-        else if(digito == 1){
-
-            //Escrita no terminal.
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Leitura realizada.";
-            cout << endl << "_______________________________________________________________" << endl;
-
-            //Atribui verdadeiro ao comandoReconhecido e chama a função de leitura do arquivo binário.
-            comandoReconhecido = true;
-           
-
-        }
-
-        //Caso 3:Aponta que a leitura do CSV foi feita.
-        else if(digito == 2){
-
-            //Escrita no terminal.
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Leitura realizada.";
-            cout << endl << "_______________________________________________________________" << endl;
-            
-            //Atribui verdadeiro ao comandoReconhecido e chama a função de leitura do arquivo CSV.
-            leitura(vetorBandas,tamanho);
-            comandoReconhecido = true;
-        
-        }
-
-        //Caso 0:Aponta que não foi reconhecido um comando.
-        else{
-
-            //Escrita no terminal.
-            cout << endl << "_______________________________________________________________" << endl << endl;
-            cout << "Comando não reconhecido,digite novamente.";
-            cout << endl << "_______________________________________________________________" << endl << endl;
-
-            //comando reconhecido recebe falso(mostra que não foi reconhecido nenhum comando interativo).
-            comandoReconhecido = false;
-
-        }
-
-    }while(!comandoReconhecido);
-
-    //Se a leitura foi feita(Binário ou CSV) chama a função frontendMenu.
-    if(digito == 1 or digito == 2){
-
-        frontendMenuPrincipal(vetorBandas,tamanho);
-
-    }
-
-}*/

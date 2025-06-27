@@ -46,15 +46,25 @@ void removerNome(modeloBandas *&vetorTrabalhado, int &tamanho, string nome,bool 
 void removerID(modeloBandas *&vetorTrabalhado, int &tamanho, int ID,bool &confirmacao);
 void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho);
 void salvarAlteracao(modeloBandas* vet,int tamanho);
+void limparTela();
+void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho);
+void frontendBuscaID(modeloBandas* vetorBandas,int tamanho);
+void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho);
 void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho);
 void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho);
+void frontendOrdenarPorID(modeloBandas* vetorBandas,int tamanho);
+void frontendOrdenarPorNome(modeloBandas* vetorBandas,int tamanho);
+void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho);
+void frontendMenuPartipantes(modeloBandas* vetorBandas,int tamanho);
 void frontendMenuDeRemocao(modeloBandas* &vetorBandas,int tamanho);
 void frontendExibirMenuLeitura(string opcoes[], int totalOpcoes, int selecionado);
+void frontendExibirMenuParticipantes(string opcoes[], int totalOpcoes, int selecionado);
+void frontendExibirMenuDeBusca(string opcoes[], int totalOpcoes, int selecionado);
 void frontendMenuPrincipal(modeloBandas* &vetorBandas,int &tamanho);
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho);
-void limparTela();
-void frontendExibirMenu(string opcoes[], int totalOpcoes, int selecionado);
-int frontendMenuSelecionavel(string opcoes[], int totalOpcoes);
+void frontendExibirMenuPrincipal(string opcoes[], int totalOpcoes, int selecionado);
+void frontendExibirMenuDeRemocao(string opcoes[], int totalOpcoes, int selecionado);
+int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu);
 void frontendMenuPrincipal(modeloBandas* &vetorBandas,int &tamanho);
 void frontendAdicionar(modeloBandas* &vetor, int &tamanho);
 
