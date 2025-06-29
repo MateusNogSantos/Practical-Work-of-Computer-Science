@@ -913,7 +913,9 @@ void frontendOrdenarPorNome(modeloBandas* vetorBandas,int tamanho){
 
 //Função Front-End para ordenar e exibir o vetor por Nº de Integrantes.
 void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
-        //Limpa a Tela
+    int posInicial, posFinal;
+    string verTudo;
+    //Limpa a Tela
     limparTela();
     //Chama o quicksort para ordenar o vetor por ID
     ordenarPorNumDeIntegrantes(vetorBandas, tamanho);
@@ -929,10 +931,12 @@ void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
 ██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗██║██║     ██║  ██║██║ ╚████║   ██║   ███████╗███████║
 ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝
                                                                                                                                           
-)" << endl << endl;
-
-    for(int i = 0; i < tamanho; i++){
-         cout << endl;
+)" << endl << endl << "Você deseja visualizar todas as bandas [S/N]? ";
+    cin >> verTudo;
+    cout << endl;
+    if(verTudo == "s" or verTudo == "S"){
+        for(int i = 0; i < tamanho; i++){
+            cout << endl;
             cout << "╔═══════════════════════════════════════════════╗" << endl;
             cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
             cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
@@ -940,11 +944,44 @@ void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
             cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
             cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
             cout << "╚═══════════════════════════════════════════════╝" << endl;
-    }
+            cout << endl << "\nPressione ENTER para voltar..." << endl;
+            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+            cin.get();
+        }
+    }else if(verTudo == "n" or verTudo == "N"){
+        cout << endl << "Digite a posição inicial do trecho que deseja ver: ";
+        cin >> posInicial;
+        cout << endl;
+        cout << endl << "Digite a posição final do trecho que deseja ver: ";
+        cin >> posFinal;
+        cout << endl;
 
+        if(posFinal >= tamanho or posInicial < 0){
+            cout << "Você digitou um trecho inválido." << endl;
+            cout << endl << "\nPressione ENTER para voltar..." << endl;
+            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+            cin.get();
+        }else{
+            for(int i = posInicial; i <= posFinal; i++){
+                cout << endl;
+                cout << "╔═══════════════════════════════════════════════╗" << endl;
+                cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+                cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+                cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+                cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+                cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+                cout << "╚═══════════════════════════════════════════════╝" << endl;
+                cout << endl << "\nPressione ENTER para voltar..." << endl;
+                cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+                cin.get();
+            }
+        }
+    }else{
+        cout << endl << "Você não digitou 'S' ou 'N'." << endl;
         cout << endl << "\nPressione ENTER para voltar..." << endl;
         cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
         cin.get();
+    }
 }
 
 //Função menu das ordenações do vetor.
@@ -1422,7 +1459,7 @@ void frontendExibirMenuDeBusca(string opcoes[], int totalOpcoes, int selecionado
 //Função que captura as setas que o usuário aperta para selecionar a opção desejada.
 int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
     int selecionado = 0;
-    char tecla;
+    int tecla;
 
     while (true) {
         //Exibe o "Menu Selecionável" necessário
@@ -1433,12 +1470,13 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
                 frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado);
                 #if defined(_WIN32)
                         tecla = _getch();
-                        if (tecla == -32) {
+                        if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
-                            if (tecla == 72)
+                            if (tecla == 72){
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
-                            else if (tecla == 80)
+                            } else if (tecla == 80){
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                            }
                         } else if (tecla == 13) {
                             return selecionado;
                         }
@@ -1461,7 +1499,7 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
 
                 #if defined(_WIN32)
                         tecla = _getch();
-                        if (tecla == -32) {
+                        if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
                             if (tecla == 72)
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
@@ -1488,7 +1526,7 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
 
                 #if defined(_WIN32)
                         tecla = _getch();
-                        if (tecla == -32) {
+                        if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
                             if (tecla == 72)
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
@@ -1515,7 +1553,7 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
 
                 #if defined(_WIN32)
                         tecla = _getch();
-                        if (tecla == -32) {
+                        if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
                             if (tecla == 72)
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
@@ -1542,7 +1580,7 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
 
                 #if defined(_WIN32)
                         tecla = _getch();
-                        if (tecla == -32) {
+                        if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
                             if (tecla == 72)
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
