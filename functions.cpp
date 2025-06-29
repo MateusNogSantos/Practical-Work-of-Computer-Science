@@ -861,94 +861,27 @@ void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
     }
 }
 
-//Função Front-End para ordenar e exibir o vetor por ID.
-void frontendOrdenarPorID(modeloBandas* vetorBandas,int tamanho){
-    //Limpa a Tela
-    limparTela();
-    //Chama o quicksort para ordenar o vetor por ID
-    ordenarPorID(vetorBandas, tamanho);
-
-    //Escrita no terminal.
-    cout << R"(
-══════════════════════════════════════════════════════════════════════════════════════════════════
-
-██████╗  █████╗ ██████╗ ████████╗██╗ ██████╗██╗██████╗  █████╗ ███╗   ██╗████████╗███████╗███████╗
-██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║██╔══██╗██╔══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝
-██████╔╝███████║██████╔╝   ██║   ██║██║     ██║██████╔╝███████║██╔██╗ ██║   ██║   █████╗  ███████╗
-██╔═══╝ ██╔══██║██╔══██╗   ██║   ██║██║     ██║██╔═══╝ ██╔══██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║
-██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗██║██║     ██║  ██║██║ ╚████║   ██║   ███████╗███████║
-╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝
-                                                                                                                                          
-)" << endl << endl;
-
-    for(int i = 0; i < tamanho; i++){
-
-        //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
-        if(vetorBandas[i].id > 0){
-            cout << endl;
-            cout << "╔═══════════════════════════════════════════════╗" << endl;
-            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
-            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
-            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
-            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
-            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
-            cout << "╚═══════════════════════════════════════════════╝" << endl;
-        }
-    }
-
-        cout << endl << "\nPressione ENTER para voltar..." << endl;
-        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
-        cin.get();
-}
-
-//Função Front-End para ordenar e exibir o vetor por Nome.
-void frontendOrdenarPorNome(modeloBandas* vetorBandas,int tamanho){
-    //Limpa a Tela
-    limparTela();
-    //Chama o quicksort para ordenar o vetor por ID
-    ordenarPorNome(vetorBandas, tamanho);
-
-    //Escrita no terminal.
-    cout << R"(
-══════════════════════════════════════════════════════════════════════════════════════════════════
-
-██████╗  █████╗ ██████╗ ████████╗██╗ ██████╗██╗██████╗  █████╗ ███╗   ██╗████████╗███████╗███████╗
-██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║██╔══██╗██╔══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝
-██████╔╝███████║██████╔╝   ██║   ██║██║     ██║██████╔╝███████║██╔██╗ ██║   ██║   █████╗  ███████╗
-██╔═══╝ ██╔══██║██╔══██╗   ██║   ██║██║     ██║██╔═══╝ ██╔══██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║
-██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗██║██║     ██║  ██║██║ ╚████║   ██║   ███████╗███████║
-╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝
-                                                                                                                                          
-)" << endl << endl;
-
-    for(int i = 0; i < tamanho; i++){
-
-        //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
-        if(vetorBandas[i].id > 0){
-            cout << endl;
-            cout << "╔═══════════════════════════════════════════════╗" << endl;
-            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
-            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
-            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
-            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
-            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
-            cout << "╚═══════════════════════════════════════════════╝" << endl;
-        }
-    }
-
-        cout << endl << "\nPressione ENTER para voltar..." << endl;
-        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
-        cin.get();
-}
-
-//Função Front-End para ordenar e exibir o vetor por Nº de Integrantes.
-void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
+//Função Front-End para ordenar e exibir o vetor da maneira que foi escolhida.
+void frontendExibirMenuOrdenar(modeloBandas* vetorBandas,int tamanho, int ordem, int tipoOrdenacao){
     int posInicial, posFinal;
     string verTudo;
     //Limpa a Tela
     limparTela();
-    //Chama o quicksort para ordenar o vetor por número de integrantes.
-    ordenarPorNumDeIntegrantes(vetorBandas, tamanho);
+
+    //Chama o quicksort para ordenar o vetor pela forma escolhida.
+    switch (tipoOrdenacao){
+    case 0: //Ordenar por ID
+        ordenarPorID(vetorBandas,tamanho);
+        break;
+    case 1: //Ordenar por Nome
+        ordenarPorNome(vetorBandas,tamanho);
+        break;
+    case 2: //Ordenar por N° de Integrantes
+        ordenarPorNumDeIntegrantes(vetorBandas,tamanho);
+        break;
+    default:
+        break;
+    }
 
     //Escrita no terminal.
     cout << R"(
@@ -964,57 +897,137 @@ void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
 )" << endl << endl << "Você deseja visualizar todas as bandas [S/N]? ";
     cin >> verTudo;
     cout << endl;
-    if(verTudo == "s" or verTudo == "S"){
-        for(int i = 0; i < tamanho; i++){
 
-            //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
-            if(vetorBandas[i].id > 0){
-                cout << endl;
-                cout << "╔═══════════════════════════════════════════════╗" << endl;
-                cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
-                cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
-                cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
-                cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
-                cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
-                cout << "╚═══════════════════════════════════════════════╝" << endl;
-                cout << endl << "\nPressione ENTER para voltar..." << endl;
-                cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
-                cin.get();
+    //Condicional que verifica se o usuário deseja que o vetor seja exibido em ordem crescente ou decrescente.
+    if(ordem == 0){
+        
+        //Condicional que verifica se o usuário digitou S ou N.
+        if(verTudo == "s" or verTudo == "S"){
+            for(int i = 0; i < tamanho; i++){
+
+                //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
+                if(vetorBandas[i].id > 0){
+                    cout << endl;
+                    cout << "╔═══════════════════════════════════════════════╗" << endl;
+                    cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+                    cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+                    cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+                    cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+                    cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+                    cout << "╚═══════════════════════════════════════════════╝" << endl;
+                }
             }
-        }
-    }else if(verTudo == "n" or verTudo == "N"){
-        cout << endl << "Digite a posição inicial do trecho que deseja ver: ";
-        cin >> posInicial;
-        cout << endl;
-        cout << endl << "Digite a posição final do trecho que deseja ver: ";
-        cin >> posFinal;
-        cout << endl;
+        }else if(verTudo == "n" or verTudo == "N"){
+            cout << endl << "Digite a posição inicial do trecho que deseja ver: ";
+            cin >> posInicial;
+            cout << endl;
+            cout << endl << "Digite a posição final do trecho que deseja ver: ";
+            cin >> posFinal;
+            cout << endl;
 
-        if(posFinal >= tamanho or posInicial < 0){
-            cout << "Você digitou um trecho inválido." << endl;
-            cout << endl << "\nPressione ENTER para voltar..." << endl;
-            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
-            cin.get();
+            if(posInicial > posFinal){
+                cout << "ERRO!" << endl << "Você digitou uma posição INICIAL maior que a FINAL." << endl;
+            }else if(posFinal >= tamanho or posInicial < 0){
+                cout << "ERRO!" << endl << "Você digitou um trecho inválido." << endl;
+            }else{
+                for(int i = posInicial; i <= posFinal; i++){
+                    cout << endl;
+                    cout << "╔═══════════════════════════════════════════════╗" << endl;
+                    cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+                    cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+                    cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+                    cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+                    cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+                    cout << "╚═══════════════════════════════════════════════╝" << endl;
+                }
+            }
         }else{
-            for(int i = posInicial; i <= posFinal; i++){
-                cout << endl;
-                cout << "╔═══════════════════════════════════════════════╗" << endl;
-                cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
-                cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
-                cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
-                cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
-                cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
-                cout << "╚═══════════════════════════════════════════════╝" << endl;
-                cout << endl << "\nPressione ENTER para voltar..." << endl;
-                cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
-                cin.get();
-            }
+            cout << endl << "Você não digitou 'S' ou 'N'." << endl;
         }
     }else{
-        cout << endl << "Você não digitou 'S' ou 'N'." << endl;
-        cout << endl << "\nPressione ENTER para voltar..." << endl;
-        cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
-        cin.get();
+
+        //Condicional que verifica se o usuário digitou S ou N.
+        if(verTudo == "s" or verTudo == "S"){
+            for(int i = tamanho-1; i >= 0; i--){
+
+                //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
+                if(vetorBandas[i].id > 0){
+                    cout << endl;
+                    cout << "╔═══════════════════════════════════════════════╗" << endl;
+                    cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+                    cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+                    cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+                    cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+                    cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+                    cout << "╚═══════════════════════════════════════════════╝" << endl;
+                }
+            }
+        }else if(verTudo == "n" or verTudo == "N"){
+            cout << endl << "Digite a posição inicial do trecho que deseja ver: ";
+            cin >> posInicial;
+            cout << endl;
+            cout << endl << "Digite a posição final do trecho que deseja ver: ";
+            cin >> posFinal;
+            cout << endl;
+
+            if(posInicial < posFinal){
+                cout << "ERRO!" << endl << "Você digitou uma posição INICIAL menor que a FINAL." << endl;
+            }else if(posInicial >= tamanho or posFinal < 0){
+                cout << "ERRO!" << endl << "Você digitou um trecho inválido." << endl;
+            }else{
+                for(int i = posInicial; i >= posFinal; i--){
+                    cout << endl;
+                    cout << "╔═══════════════════════════════════════════════╗" << endl;
+                    cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+                    cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+                    cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+                    cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+                    cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+                    cout << "╚═══════════════════════════════════════════════╝" << endl;
+                }
+            }
+        }else{
+            cout << endl << "Você não digitou 'S' ou 'N'." << endl;
+        }        
+    }
+    cout << endl << "\nPressione ENTER para voltar..." << endl;
+    cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+    cin.get();
+    cin.get();
+}
+
+void frontendMenuDeOrdem(modeloBandas* &vetorBandas, int tamanho, int tipoOrdenacao){
+    string opcoes[3] = {
+        "Ordenar em ordem Crescente",
+        "Ordenar em ordem Decrescente",
+        "Voltar"
+    };
+
+    const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
+    int escolha;
+
+    while(true){
+
+        escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 5);
+
+        limparTela();
+
+        switch(escolha){
+            case 0:
+                //Chama a função de ordenação crescente e passa o tipo de ordenação.
+                frontendExibirMenuOrdenar(vetorBandas, tamanho, 0, tipoOrdenacao);
+                break;
+            case 1:
+                frontendExibirMenuOrdenar(vetorBandas, tamanho, 1, tipoOrdenacao);
+                break;
+            case 2:
+                return;
+                break;
+            default:
+                cout << "ERRO NA ORDEM!";
+                return;
+                break;
+        }
     }
 }
 
@@ -1038,16 +1051,16 @@ void frontendMenuPartipantes(modeloBandas* vetorBandas,int tamanho){
 
         switch(escolha){
             case 0:
-                //Chama a função de ordenação por ID.
-                frontendOrdenarPorID(vetorBandas, tamanho);
+                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente
+                frontendMenuDeOrdem(vetorBandas, tamanho, 0);
                 break;
             case 1:
-                //Chama a função de ordenação por ID.
-                frontendOrdenarPorNome(vetorBandas, tamanho);
+                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente
+                frontendMenuDeOrdem(vetorBandas, tamanho, 1);
                 break;
             case 2:
-                //Chama a função de ordenação por ID.
-                frontendOrdenarPorNumDeIntegrantes(vetorBandas, tamanho);
+                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente
+                frontendMenuDeOrdem(vetorBandas, tamanho, 2);
                 break;
             case 3:
                 return;
@@ -1423,7 +1436,7 @@ void frontendExibirMenuLeitura(string opcoes[], int totalOpcoes, int selecionado
 
 //Função que exibe o menu "selecionável" das ordenações.
 void frontendExibirMenuParticipantes(string opcoes[], int totalOpcoes, int selecionado){
-     //Limpa o terminal;
+    //Limpa o terminal;
     limparTela();
     //Exibe BUSCA em ASCII no terminal
     cout << R"(
@@ -1450,6 +1463,33 @@ void frontendExibirMenuParticipantes(string opcoes[], int totalOpcoes, int selec
     cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
 }
 
+void frontendExibirMenuOrdem(string opcoes[], int totalOpcoes, int selecionado){
+    //Limpa o terminal;
+    limparTela();
+    //Exibe BUSCA em ASCII no terminal
+    cout << R"(
+══════════════════════════════════════════════════════════════════════════════════════════════════
+
+██████╗  █████╗ ██████╗ ████████╗██╗ ██████╗██╗██████╗  █████╗ ███╗   ██╗████████╗███████╗███████╗
+██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝██║██╔══██╗██╔══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝
+██████╔╝███████║██████╔╝   ██║   ██║██║     ██║██████╔╝███████║██╔██╗ ██║   ██║   █████╗  ███████╗
+██╔═══╝ ██╔══██║██╔══██╗   ██║   ██║██║     ██║██╔═══╝ ██╔══██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║
+██║     ██║  ██║██║  ██║   ██║   ██║╚██████╗██║██║     ██║  ██║██║ ╚████║   ██║   ███████╗███████║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝
+                                                                                                  
+    Use as setas ↑ ↓ para navegar e ENTER para selecionar:                                     
+    )" << endl << endl;
+    
+    //Laço de repetição que apresenta as opções disponíveis no sistema;
+    for (int i = 0; i < totalOpcoes; ++i) {
+        if (i == selecionado) {
+            cout << " > " << opcoes[i] << endl;
+        } else {
+            cout << "   " << opcoes[i] << endl;
+        }
+    }
+    cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+}
 
 //Função que exibe o menu "selecionável" de busca.
 void frontendExibirMenuDeBusca(string opcoes[], int totalOpcoes, int selecionado){
@@ -1485,7 +1525,7 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
 
     while (true) {
         //Exibe o "Menu Selecionável" necessário
-        //0: Menu Leitura, 1: Menu Principal, 2: Menu de Remoção, 3: Menu de Busca
+        //0: Menu Leitura, 1: Menu Principal, 2: Menu de Remoção, 3: Menu de Busca, 4: Menu de Participantes, 5: Menu de Ordenação
         switch(menu){
             case 0:
                 //frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado);
@@ -1624,6 +1664,33 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
                         }
                 #endif
                 break;
+            case 5:
+                frontendExibirMenuOrdem(opcoes, totalOpcoes, selecionado);
+                
+                                #if defined(_WIN32)
+                        tecla = _getch();
+                        if (tecla == 224 or tecla == 0) {
+                            tecla = _getch();
+                            if (tecla == 72)
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 80)
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 13) {
+                            return selecionado;
+                        }
+                #else
+                        tecla = getch();
+                        if (tecla == 27 && getch() == 91) {
+                            tecla = getch();
+                            if (tecla == 'A')
+                                selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            else if (tecla == 'B')
+                                selecionado = (selecionado + 1) % totalOpcoes;
+                        } else if (tecla == 10) {
+                            return selecionado;
+                        }
+                #endif
+                break;
             default:
                 break;
 
@@ -1717,6 +1784,8 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
         }
     }
 }
+
+
 
 //Função que faz a interface de leitura.
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
