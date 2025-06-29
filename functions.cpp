@@ -108,7 +108,7 @@ int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal
             i++;
         }
         //Se o pivo for menor que o ID do vetor no indice j,decresce o valor de j em uma unidade,mostrando que o ID está na posição correta.
-        else if(pivo.id <= vetorTrabalhado[j].id or vetorTrabalhado[j].id == 0){
+        else if(pivo.id <= vetorTrabalhado[j].id ){
             j--;
         }
         //caso nenhuma das duas condicionais acima inicie,mostra que o total contrário ocorreu e soluciona trocando o lugar dos ID's.
@@ -156,8 +156,9 @@ void quicksortID(modeloBandas* &vet,int posPivo,int posFinal){
 //Função com o objetivo de simplificar a passagem de parametros
 void ordenarPorID(modeloBandas* &vetOrdem,int tamanho){
 
-//chama a função quicksort
-quicksortID(vetOrdem,0,tamanho);
+    //chama a função quicksort
+    quicksortID(vetOrdem,0,tamanho-1);
+
 
 }
 
@@ -322,6 +323,7 @@ int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
     int posicao;
     int posInicial = 0,posFinal = tamanho;
 
+    ordenarPorID(vetorTrabalhado,tamanho);
 
     //posição recebe o retorno da função buscaBinária
     posicao = buscaBinaria(IDuser,posInicial,posFinal,vetorTrabalhado);
@@ -896,14 +898,14 @@ void frontendOrdenarPorNome(modeloBandas* vetorBandas,int tamanho){
 )" << endl << endl;
 
     for(int i = 0; i < tamanho; i++){
-         cout << endl;
-            cout << "╔═══════════════════════════════════════════════╗" << endl;
-            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
-            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
-            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
-            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
-            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
-            cout << "╚═══════════════════════════════════════════════╝" << endl;
+        cout << endl;
+        cout << "╔═══════════════════════════════════════════════╗" << endl;
+        cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+        cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+        cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+        cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+        cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+        cout << "╚═══════════════════════════════════════════════╝" << endl;
     }
 
         cout << endl << "\nPressione ENTER para voltar..." << endl;
