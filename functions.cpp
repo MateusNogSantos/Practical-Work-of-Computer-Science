@@ -339,10 +339,16 @@ int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
 
     ordenarPorID(vetorTrabalhado,tamanho);
 
-    //posição recebe o retorno da função buscaBinária
-    posicao = buscaBinaria(IDuser,posInicial,posFinal,vetorTrabalhado);
+    if(IDuser > 0){
+        //posição recebe o retorno da função buscaBinária
+        posicao = buscaBinaria(IDuser,posInicial,posFinal,vetorTrabalhado);
 
-    return posicao;
+        return posicao;
+
+    }else{
+
+        return -1;
+    }
 
 }
 
@@ -960,7 +966,7 @@ void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
     cout << endl;
     if(verTudo == "s" or verTudo == "S"){
         for(int i = 0; i < tamanho; i++){
-            
+
             //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
             if(vetorBandas[i].id > 0){
                 cout << endl;
