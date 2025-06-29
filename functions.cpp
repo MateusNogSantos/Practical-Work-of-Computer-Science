@@ -153,12 +153,26 @@ void quicksortID(modeloBandas* &vet,int posPivo,int posFinal){
 
 }
 
-//Função com o objetivo de simplificar a passagem de parametros
+//Função com o objetivo de simplificar a passagem de parametros e passa os ID's iguais à zero para o fim do vetor.
 void ordenarPorID(modeloBandas* &vetOrdem,int tamanho){
 
     //chama a função quicksort
     quicksortID(vetOrdem,0,tamanho-1);
 
+    //Enquanto a primeira posição for zero,o laço repetitivo executa
+    while(vetOrdem[0].id == 0){
+
+        //move o vetor uma posição para a esquerda
+        for(int i = 1;i < tamanho;i++){
+
+            vetOrdem[i-1] = vetOrdem[i];
+
+        }
+
+        //zera o id da ultima posição do vetor
+        vetOrdem[tamanho-1].id = 0;
+
+    }
 
 }
 
@@ -344,7 +358,7 @@ int buscaPorNome(string nomeDaBanda,int tamanho,modeloBandas *vetorTrabalhado){
     while(i < tamanho and (!encontrado)){
 
         //ao encontrar,a posição recebe a variável i(índice do vetorBandas)
-        if(vetorTrabalhado[i].nome == nomeDaBanda){
+        if(vetorTrabalhado[i].nome == nomeDaBanda and vetorTrabalhado[i].id > 0){
 
             posicao = i;
             encontrado = true;//sentinela para evitar repetição desnecessária
@@ -370,8 +384,8 @@ float buscadeGeneroTempodeShow(string generoPesquisado,int tamanho,modeloBandas 
     //laço de repetição que percorre todo o vetorTrabalhado
     for(int i = 0;i < tamanho;i++){
 
-        //compara se o genero é o mesmo da posição comparada,se sim soma ao tempodeShow.
-        if(generoPesquisado == vetorTrabalhado[i].genero){
+        //compara se o genero é o mesmo da posição e se ela não foi excuída,se verdadeiro,soma ao tempodeShow.
+        if(generoPesquisado == vetorTrabalhado[i].genero and vetorTrabalhado[i].id > 0){
         
             tempodeShow += vetorTrabalhado[i].tempodeShow;
 
@@ -566,8 +580,8 @@ void removerNome(modeloBandas *&vetorTrabalhado,int &tamanho,string nome,bool &c
     //Laço de repetição que percorre as posições do vetor.
     for(int i= 0; i<tamanho; i++){
 
-        //Condicional que compara o nome ao do vetor na posição i e,ao encontrar,marca o id como -1 e a variável confirmação recebe true.
-        if(nome == vetorTrabalhado[i].nome){
+        //Condicional que compara o nome ao do vetor na posição i e se a posição do vetor não foi marcada como excuída,ao encontrar,marca o id como -1 e a variável confirmação recebe true.
+        if(nome == vetorTrabalhado[i].nome and vetorTrabalhado[i].id > 0){
             
             vetorTrabalhado[i].id = -1;
             confirmacao = true;
@@ -585,8 +599,8 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID,bool &confirm
     //Laço de repetição que percorre o vetor trabalhado.
     for(int i= 0; i<tamanho; i++){
 
-        //Condicional que compara o ID ao do vetor na posição i e,ao encontrar,marca a variáver confirmacao como true e o id como -1.
-        if(ID == vetorTrabalhado[i].id){
+        //Condicional que compara o ID ao do vetor na posição i e se não foi excluída,ao encontrar,marca a variáver confirmacao como true e o id como -1.
+        if(ID == vetorTrabalhado[i].id and vetorTrabalhado[i].id > 0){
 
             vetorTrabalhado[i].id=-1;
             confirmacao = true;
@@ -596,22 +610,22 @@ void removerID(modeloBandas *&vetorTrabalhado,int &tamanho, int ID,bool &confirm
 
 }
 
-//Função que lê do arquivo binário
+//Função que lê do arquivo binário.
 void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho){
 
-    //Inicialização de uma variável contadora
+    //Inicialização de uma variável contadora.
     int i = 0;
 
-    //Abertura do arquivo binário
+    //Abertura do arquivo binário.
     ifstream entradaBinario("saidaBinario.dat",ios::binary);
 
-    //Laço de repetição com condição de passagem dos valores do binário para o vetorTrabalhado
+    //Laço de repetição com condição de passagem dos valores do binário para o vetorTrabalhado.
     while(entradaBinario.read(reinterpret_cast <char*> (&vetorTrabalhado[i]),sizeof(modeloBandas))){
 
         //Contador
         i++;
 
-        //Redimenciona toda vez que o contador chega ao tamanho total do vetor e o ultimo id é diferente de 0(para evitar contagem de indices não usados dentro do vetor)
+        //Redimenciona toda vez que o contador chega ao tamanho total do vetor e o ultimo id é diferente de 0(para evitar contagem de indices não usados dentro do vetor).
         if(i == tamanho and vetorTrabalhado[i-1].id != 0)redimencionar(vetorTrabalhado,tamanho);
 
     }
@@ -862,7 +876,10 @@ void frontendOrdenarPorID(modeloBandas* vetorBandas,int tamanho){
 )" << endl << endl;
 
     for(int i = 0; i < tamanho; i++){
-         cout << endl;
+
+        //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
+        if(vetorBandas[i].id > 0){
+            cout << endl;
             cout << "╔═══════════════════════════════════════════════╗" << endl;
             cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
             cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
@@ -870,6 +887,7 @@ void frontendOrdenarPorID(modeloBandas* vetorBandas,int tamanho){
             cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
             cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
             cout << "╚═══════════════════════════════════════════════╝" << endl;
+        }
     }
 
         cout << endl << "\nPressione ENTER para voltar..." << endl;
@@ -898,14 +916,18 @@ void frontendOrdenarPorNome(modeloBandas* vetorBandas,int tamanho){
 )" << endl << endl;
 
     for(int i = 0; i < tamanho; i++){
-        cout << endl;
-        cout << "╔═══════════════════════════════════════════════╗" << endl;
-        cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
-        cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
-        cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
-        cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
-        cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
-        cout << "╚═══════════════════════════════════════════════╝" << endl;
+
+        //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
+        if(vetorBandas[i].id > 0){
+            cout << endl;
+            cout << "╔═══════════════════════════════════════════════╗" << endl;
+            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+            cout << "╚═══════════════════════════════════════════════╝" << endl;
+        }
     }
 
         cout << endl << "\nPressione ENTER para voltar..." << endl;
@@ -919,7 +941,7 @@ void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
     string verTudo;
     //Limpa a Tela
     limparTela();
-    //Chama o quicksort para ordenar o vetor por ID
+    //Chama o quicksort para ordenar o vetor por número de integrantes.
     ordenarPorNumDeIntegrantes(vetorBandas, tamanho);
 
     //Escrita no terminal.
@@ -938,17 +960,21 @@ void frontendOrdenarPorNumDeIntegrantes(modeloBandas* vetorBandas,int tamanho){
     cout << endl;
     if(verTudo == "s" or verTudo == "S"){
         for(int i = 0; i < tamanho; i++){
-            cout << endl;
-            cout << "╔═══════════════════════════════════════════════╗" << endl;
-            cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
-            cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
-            cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
-            cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
-            cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
-            cout << "╚═══════════════════════════════════════════════╝" << endl;
-            cout << endl << "\nPressione ENTER para voltar..." << endl;
-            cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
-            cin.get();
+            
+            //Condicional que mostra somente id's que não foram excluídos ou não são posições vazias.
+            if(vetorBandas[i].id > 0){
+                cout << endl;
+                cout << "╔═══════════════════════════════════════════════╗" << endl;
+                cout << "║ ID                    ║ " << vetorBandas[i].id << endl;
+                cout << "║ Nome                  ║ " << vetorBandas[i].nome << endl;
+                cout << "║ Gênero                ║ " << vetorBandas[i].genero << endl;
+                cout << "║ Nº de Integrantes     ║ " << vetorBandas[i].numerodeIntegrantes << endl;
+                cout << "║ Tempo de Show (horas) ║ " << fixed << setprecision(1) << vetorBandas[i].tempodeShow << endl;
+                cout << "╚═══════════════════════════════════════════════╝" << endl;
+                cout << endl << "\nPressione ENTER para voltar..." << endl;
+                cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
+                cin.get();
+            }
         }
     }else if(verTudo == "n" or verTudo == "N"){
         cout << endl << "Digite a posição inicial do trecho que deseja ver: ";
@@ -1098,19 +1124,7 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
         //Captação dos dados digitados pelo usuário
         cin >> nome;
 
-        //Laço repetitivo que roda o vetor inteiro.
-        for(int i = 0;i < tamanho;i++){
-
-            //Condicional que executa o côdigo quando o conteudo do vetorBandas em i for igual ao digitado pelo usuário
-            if(vetorBandas[i].nome == nome){
-
-                //Marca o id da struct deletada como -1 e aponta que a banda foi encontrada.
-                vetorBandas[i].id = -1;
-                bandaEncontrada = true;
-
-            }
-
-        }
+        removerNome(vetorBandas,tamanho,nome,bandaEncontrada);
 
         //Se a banda estava no vetor,mostra ao usuário o exito da operacao
         if(bandaEncontrada){
