@@ -35,16 +35,16 @@ que rode "index.cpp" e este arquivo paralelamente, pois como "index.cpp" utiliza
 using namespace std;
 
 
-//Função que compara a palavra que deve ser a primeira na ordem alfabética
+//Função que compara a palavra que deve ser a primeira na ordem alfabética.
 void comparaNome(modeloBandas* &vetorTrabalhado,int indiceDoMenor,int indiceComparado,int posicaoDaLetra){
 
-    //struct auxiliar
+    //struct auxiliar.
     modeloBandas aux;
 
-    //variáveis para controle de igualdade
+    //variáveis para controle de igualdade.
     int controleDoMenor,controleDoComparado;
 
-    //variável que garante que todas as letras(maiúsculas e minúsculas)sejam comparadas da mesma forma
+    //variável que garante que todas as letras(maiúsculas e minúsculas)sejam comparadas da mesma forma.
     if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] < 97)controleDoMenor = 32;
     else controleDoMenor = 0;
 
@@ -55,7 +55,7 @@ void comparaNome(modeloBandas* &vetorTrabalhado,int indiceDoMenor,int indiceComp
     //Se forem letras iguais
     if((int)vetorTrabalhado[indiceDoMenor].nome[posicaoDaLetra] + controleDoMenor == (int)vetorTrabalhado[indiceComparado].nome[posicaoDaLetra] + controleDoComparado){
 
-        //Soma uma unidade na posição dos indices das letras que serão comparadas
+        //Soma uma unidade na posição dos indices das letras que serão comparadas.
         posicaoDaLetra++;
         //Faz recursão com a nova posição comparada
         comparaNome(vetorTrabalhado,indiceDoMenor,indiceComparado,posicaoDaLetra);
@@ -74,16 +74,16 @@ void comparaNome(modeloBandas* &vetorTrabalhado,int indiceDoMenor,int indiceComp
 
 }
 
-//Função que recebe o vetorBandas e ordena em ordem alfabética
+//Função que recebe o vetorBandas e ordena em ordem alfabética.
 void ordenarPorNome(modeloBandas* &vetorTrabalhado,int tamanho){
 
-    //Laço que marca a posição onde a palavra ordenada alfabeticamente(com base na tabeça ASCII) deve estar
+    //Laço que marca a posição onde a palavra ordenada alfabeticamente(com base na tabeça ASCII) deve estar.
     for(int indiceDoMenor = 0;indiceDoMenor < tamanho;indiceDoMenor++){
 
         //Laço que marca os valores que serão comparados
         for(int indiceComparado = indiceDoMenor+1;indiceComparado < tamanho;indiceComparado++){
 
-            //Chamada da função comparaNome com o indice 0 para o vetor de char "nome"
+            //Chamada da função comparaNome com o indice 0 para o vetor de char "nome".
             comparaNome(vetorTrabalhado,indiceDoMenor,indiceComparado,0);
 
         }
@@ -91,7 +91,7 @@ void ordenarPorNome(modeloBandas* &vetorTrabalhado,int tamanho){
 
 }
 
-//Função que move e retorna a posição do pivo no vetor trabalhado(base da função quicksort voltada ao ID)
+//Função que move e retorna a posição do pivo no vetor trabalhado(base da função quicksort voltada ao ID).
 int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal){
 
     //inicialização de variaveis internas e necessárias à função
@@ -118,7 +118,7 @@ int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal
             vetorTrabalhado[j] = vetorTrabalhado[i];
             vetorTrabalhado[i] = aux;
 
-            //move os contadores,mostrando que os ID's estão na posição correta
+            //move os contadores,mostrando que os ID's estão na posição correta.
             i++;
             j--;
 
@@ -126,7 +126,7 @@ int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal
 
     }
 
-    //troca de lugar o pivo(que está na posição inicial com a posição onde ele deveria está)
+    //troca de lugar o pivo(que está na posição inicial com a posição onde ele deveria está).
     vetorTrabalhado[PosInicial] = vetorTrabalhado[j];
     vetorTrabalhado[j] = pivo;
 
@@ -134,10 +134,10 @@ int particionaVetorID(modeloBandas* &vetorTrabalhado,int PosInicial,int PosFinal
 
 }
 
-//Função de ordenação do tipo quicksort voltada para a ordenação por ID
+//Função de ordenação do tipo quicksort voltada para a ordenação por ID.
 void quicksortID(modeloBandas* &vet,int posPivo,int posFinal){
 
-    //variável que recebe o valor do novo pivo,que vai ser comparado
+    //variável que recebe o valor do novo pivo,que vai ser comparado.
     int novoPivo;
 
     //enquanto o pivo não ter o mesmo valor da posição final(mostra que a ordenação acabou)faz uso da recursividade.
@@ -146,7 +146,7 @@ void quicksortID(modeloBandas* &vet,int posPivo,int posFinal){
         //recebe a posição correta do pivo no vetor trabalhado.
         novoPivo = particionaVetorID(vet,posPivo,posFinal);
 
-        //recursividade da função em ambas as partes do vetor
+        //recursividade da função em ambas as partes do vetor.
         quicksortID(vet,posPivo,novoPivo - 1);
         quicksortID(vet,novoPivo + 1,posFinal);
     }
@@ -159,17 +159,17 @@ void ordenarPorID(modeloBandas* &vetOrdem,int tamanho){
     //chama a função quicksort
     quicksortID(vetOrdem,0,tamanho-1);
 
-    //Enquanto a primeira posição for zero,o laço repetitivo executa
+    //Enquanto a primeira posição for zero,o laço repetitivo executa.
     while(vetOrdem[0].id == 0){
 
-        //move o vetor uma posição para a esquerda
+        //move o vetor uma posição para a esquerda.
         for(int i = 1;i < tamanho;i++){
 
             vetOrdem[i-1] = vetOrdem[i];
 
         }
 
-        //zera o id da ultima posição do vetor
+        //zera o id da ultima posição do vetor.
         vetOrdem[tamanho-1].id = 0;
 
     }
@@ -178,35 +178,35 @@ void ordenarPorID(modeloBandas* &vetOrdem,int tamanho){
 
 int particionaVetorIntegrantes(modeloBandas* &vetorTrabalhado,int posInicial,int posFinal){
 
-    //Atribui ao pivo o primeira struct da partição
+    //Atribui ao pivo o primeira struct da partição.
     modeloBandas pivo = vetorTrabalhado[posInicial];
     modeloBandas aux;
 
-    //Atribui os extremos de onde a partição vai ocorrer
+    //Atribui os extremos de onde a partição vai ocorrer.
     int i = posInicial+1;
     int j = posFinal;
 
-    //enquanto as duas variáveis não se passarem,o laço roda
+    //enquanto as duas variáveis não se passarem,o laço roda.
     while (i <= j){
 
-        //Se o valor do pivo for menor ou igual ao do vetorTrabalhado e nâo é uma struct vazia,indica que sua posição está correta,então é decrescido à variável j
+        //Se o valor do pivo for menor ou igual ao do vetorTrabalhado e nâo é uma struct vazia,indica que sua posição está correta,então é decrescido à variável j.
         if(pivo.numerodeIntegrantes <= vetorTrabalhado[j].numerodeIntegrantes or vetorTrabalhado[j].numerodeIntegrantes == 0){
 
             j--;
         }
-        //Se o valor do pivo for maior ou igual ao do vetorTrabalhado,indica que sua posição está correta,então é acrescido à variável i
+        //Se o valor do pivo for maior ou igual ao do vetorTrabalhado,indica que sua posição está correta,então é acrescido à variável i.
         else if(pivo.numerodeIntegrantes >= vetorTrabalhado[i].numerodeIntegrantes){
 
             i++;
         }
-        //Caso não,foi o total contrário que ocorreu,então as variáveis são trocadas
+        //Caso não,foi o total contrário que ocorreu,então as variáveis são trocadas.
         else{
 
             aux = vetorTrabalhado[j];
             vetorTrabalhado[j] = vetorTrabalhado[i];
             vetorTrabalhado[i] = aux;
 
-            //Respectivas variáveis são manipuladas
+            //Respectivas variáveis são manipuladas.
             j--;
             i++;
 
@@ -216,25 +216,25 @@ int particionaVetorIntegrantes(modeloBandas* &vetorTrabalhado,int posInicial,int
 
     }
 
-    //troca de lugar a posição inicial com a do local adequado ao pivo
+    //troca de lugar a posição inicial com a do local adequado ao pivo.
     vetorTrabalhado[posInicial] = vetorTrabalhado[j];
     vetorTrabalhado[j] = pivo;
 
-    //retorna a posição do pivo
+    //retorna a posição do pivo.
     return j;
 }
 
-//Função que faz a recursividade antes e depois do novo pivo
+//Função que faz a recursividade antes e depois do novo pivo.
 void quicksortIntegrantes(modeloBandas* &vetorTrabalhado,int posPivo,int posFinal){
 
     int novoPivo;
 
     if(posPivo < posFinal) {
 
-        //Atribui ao novo pivo o retorno da função particionaVetorIntegrantes
+        //Atribui ao novo pivo o retorno da função particionaVetorIntegrantes.
         novoPivo = particionaVetorIntegrantes(vetorTrabalhado,posPivo,posFinal);
 
-        //Recursividade da função antes e depois da posição do novo pivo
+        //Recursividade da função antes e depois da posição do novo pivo.
         quicksortIntegrantes(vetorTrabalhado,posPivo,novoPivo - 1);
         quicksortIntegrantes(vetorTrabalhado,novoPivo + 1,posFinal);
 
@@ -243,7 +243,7 @@ void quicksortIntegrantes(modeloBandas* &vetorTrabalhado,int posPivo,int posFina
 
 };
 
-//Função que faz a primeira chamada do quicksortIntegrantes com posição do pivo no indice 0
+//Função que faz a primeira chamada do quicksortIntegrantes com posição do pivo no indice 0.
 void ordenarPorNumDeIntegrantes(modeloBandas* &vetorTrabalhado,int tamanho){
 
     quicksortIntegrantes(vetorTrabalhado,0,tamanho);
@@ -281,8 +281,13 @@ int particionaVetorTempoDeShow(modeloBandas* &vetor, int posInicial, int posFina
 void quicksortTempoDeShow(modeloBandas* &vetor, int posPivo, int posFinal){
     int novoPivo;
 
+    //Roda enquando o segmento do vetor não tiver tamanho único.
     if(posPivo < posFinal){
+
+        //Atribui a nova posição do pivo.
         novoPivo = particionaVetorTempoDeShow(vetor, posPivo, posFinal);
+
+        //Passa a função recursiva em ambos os lados do vetor(dividido pelo pivo).
         quicksortTempoDeShow(vetor,posPivo,novoPivo - 1);
         quicksortTempoDeShow(vetor,novoPivo + 1,posFinal);
     }
@@ -293,11 +298,11 @@ void ordenaPorTempoDeShow(modeloBandas* &vetor, int tamanho){
     quicksortTempoDeShow(vetor, 0, tamanho);
 }
 
-//Funçao recursiva que divide o vetorTrabalhado ao meio compara e usa recursão para melhor desempenho
+//Funçao recursiva que divide o vetorTrabalhado ao meio compara e usa recursão para melhor desempenho.
 int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *vetordeBusca){
 
 
-    //define o meio para a comparação do ID buscado com o meio do vetor 
+    //define o meio para a comparação do ID buscado com o meio do vetor. 
     int meio = (posicaoFinal+posicaoInicial)/2;
 
 
@@ -306,7 +311,7 @@ int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *ve
 
         return meio;
     }
-    // verifica se o ID buscado ainda pode ser buscado no vetor,pois quando a posição inicial for igual a posição final,quer dizer que o elemento não esta no vetor
+    // verifica se o ID buscado ainda pode ser buscado no vetor,pois quando a posição inicial for igual a posição final,quer dizer que o elemento não esta no vetor.
     else if(posicaoInicial < posicaoFinal){
 
         //verifica se o IDuser é menor que o meio do vetor,se sim faz recursão,porém a posição final recebe (meio-1),dividindo o vetor.
@@ -314,14 +319,14 @@ int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *ve
 
             return buscaBinaria(IDuser,posicaoInicial,meio-1,vetordeBusca);
         }
-        //verifica se o IDuser é maior que o meio do vetor,se sim faz recursão,porém a posição inicial recebe (meio+1),dividindo o vetor
+        //verifica se o IDuser é maior que o meio do vetor,se sim faz recursão,porém a posição inicial recebe (meio+1),dividindo o vetor.
         else if(IDuser > vetordeBusca[meio].id){
 
             return buscaBinaria(IDuser,meio+1,posicaoFinal,vetordeBusca);
         }
 
     }
-    //caso base:ao verificar que o elemento não está no vetor,retorna -1
+    //caso base:ao verificar que o elemento não está no vetor,retorna -1.
     else{
 
         return -1;
@@ -331,7 +336,7 @@ int buscaBinaria(int IDuser,int posicaoInicial,int posicaoFinal,modeloBandas *ve
 
 }
 
-/*Função que recebe o o id do usuário,tamanho do vetor trabalhado e o próprio vetor,e retorna a posição da banda(índice do vetorBandas) no vetor de classes*/
+/*Função que recebe o o id do usuário,tamanho do vetor trabalhado e o próprio vetor,e retorna a posição da banda(índice do vetorBandas) no vetor de classes.*/
 int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
 
     int posicao;
@@ -340,7 +345,7 @@ int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
     ordenarPorID(vetorTrabalhado,tamanho);
 
     if(IDuser > 0){
-        //posição recebe o retorno da função buscaBinária
+        //posição recebe o retorno da função buscaBinária.
         posicao = buscaBinaria(IDuser,posInicial,posFinal,vetorTrabalhado);
 
         return posicao;
@@ -353,27 +358,27 @@ int buscaPorID(int IDuser,int tamanho,modeloBandas *vetorTrabalhado){
 }
 
 
-/*Função que recebe o um nome escrito pelo usuário e compara ao vetor,retornando a posição(índice do vetorBandas)*/
+/*Função que recebe o um nome escrito pelo usuário e compara ao vetor,retornando a posição(índice do vetorBandas).*/
 int buscaPorNome(string nomeDaBanda,int tamanho,modeloBandas *vetorTrabalhado){
 
     int posicao,i = 0;
     bool encontrado = false;
     
 
-    //Laço de repetição que percorre todas os índices do vetorBandas
+    //Laço de repetição que percorre todas os índices do vetorBandas.
     while(i < tamanho and (!encontrado)){
 
-        //ao encontrar,a posição recebe a variável i(índice do vetorBandas)
+        //ao encontrar,a posição recebe a variável i(índice do vetorBandas).
         if(vetorTrabalhado[i].nome == nomeDaBanda and vetorTrabalhado[i].id > 0){
 
             posicao = i;
-            encontrado = true;//sentinela para evitar repetição desnecessária
+            encontrado = true;//sentinela para evitar repetição desnecessária.
         }
 
     i++;
     }
 
-    //caso não encontrar,a posição é marcada com -1
+    //caso não encontrar,a posição é marcada com -1.
     if(!encontrado){
 
         posicao = -1;
@@ -387,7 +392,7 @@ float buscadeGeneroTempodeShow(string generoPesquisado,int tamanho,modeloBandas 
 
     float tempodeShow = 0;
     
-    //laço de repetição que percorre todo o vetorTrabalhado
+    //laço de repetição que percorre todo o vetorTrabalhado.
     for(int i = 0;i < tamanho;i++){
 
         //compara se o genero é o mesmo da posição e se ela não foi excuída,se verdadeiro,soma ao tempodeShow.
@@ -401,16 +406,16 @@ float buscadeGeneroTempodeShow(string generoPesquisado,int tamanho,modeloBandas 
     return tempodeShow;
 }
 
-//Função que redimenciona o vetor trabalhado de 5 em 5 posições
+//Função que redimenciona o vetor trabalhado de 5 em 5 posições.
 void redimencionar(modeloBandas *&vet,int &tamanho){
 
-    //adiciona 5 ao tamanho antigo do vetor
+    //adiciona 5 ao tamanho antigo do vetor.
     tamanho += 5;
 
-    //cria um novo vetor com o espaco adequado na memória(acrescido)
+    //cria um novo vetor com o espaco adequado na memória(acrescido).
     modeloBandas* newVet = new modeloBandas[tamanho];
 
-    //passa os dados da struct antiga ao novo vetor
+    //passa os dados da struct antiga ao novo vetor.
     for(int i = 0;i < (tamanho-5);i++){
 
         newVet[i] = vet[i];
@@ -428,32 +433,32 @@ void redimencionar(modeloBandas *&vet,int &tamanho){
        
     }
 
-    //Deleta o espaco do vetor antigo e aponta para o novo local
+    //Deleta o espaco do vetor antigo e aponta para o novo local.
     delete [] vet;
     vet = newVet;
 
 }
 
-//Função que faz a leitura leitura dos dados no arquivo CSV e quando necessário chama a função redimencionar
+//Função que faz a leitura leitura dos dados no arquivo CSV e quando necessário chama a função redimencionar.
 void leitura(modeloBandas *&Vetortrabalhado,int &tamanho){
 
-    int i = 0; //Contador de repetições possíveis
-    string lixo;//caracteres que não serão lidos
+    int i = 0; //Contador de repetições possíveis.
+    string lixo;//caracteres que não serão lidos.
 
     ifstream entrada("lollapalufla.csv");
 
-    getline(entrada,lixo); //Passa a primeira linha do csv para a variável lixo
+    getline(entrada,lixo); //Passa a primeira linha do csv para a variável lixo.
 
-    //enquanto o id for diferente de 0,a leitura ocorrerá normalmente
+    //enquanto o id for diferente de 0,a leitura ocorrerá normalmente.
     while(entrada >> Vetortrabalhado[i].id){
 
-        entrada.ignore(2); //Desconsidera a primeira , e a primeira "
-        entrada.getline(reinterpret_cast<char*>(Vetortrabalhado[i].nome),100,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct,convertendo uma string para um vetor de char
-        entrada.ignore(1);//Desconsidera a vírgula
-        entrada.getline(reinterpret_cast<char*>(Vetortrabalhado[i].genero),100,',');//Lê o genero
-        entrada >> Vetortrabalhado[i].numerodeIntegrantes;//Lê o número de integrantes
-        entrada.ignore(1);//Desconsidera a vírgurla
-        entrada >> Vetortrabalhado[i].tempodeShow;//Lê o tempo de show
+        entrada.ignore(2); //Desconsidera a primeira , e a primeira ".
+        entrada.getline(reinterpret_cast<char*>(Vetortrabalhado[i].nome),100,'"'); //Lê do CSV o valor do Nome da Banda para a variável nome dentro da struct,convertendo uma string para um vetor de char.
+        entrada.ignore(1);//Desconsidera a vírgula.
+        entrada.getline(reinterpret_cast<char*>(Vetortrabalhado[i].genero),100,',');//Lê o genero.
+        entrada >> Vetortrabalhado[i].numerodeIntegrantes;//Lê o número de integrantes.
+        entrada.ignore(1);//Desconsidera a vírgurla.
+        entrada >> Vetortrabalhado[i].tempodeShow;//Lê o tempo de show.
 
         i++;
 
@@ -469,10 +474,10 @@ void leitura(modeloBandas *&Vetortrabalhado,int &tamanho){
 //Função que verifica se ha vaga para adicionar uma banda no vetor;
 bool verificaRedimencionar(modeloBandas* vet,int &tamanho){
 
-    //percorre o vetor buscando id's em branco
+    //percorre o vetor buscando id's em branco.
     for(int i = 0;i < tamanho;i++){
 
-        //ao encontrar o id em branco retorna 0(não necessário redimencionar)
+        //ao encontrar o id em branco retorna 0(não necessário redimencionar).
         if(vet[i].id == 0){
 
             return 0;
@@ -480,18 +485,18 @@ bool verificaRedimencionar(modeloBandas* vet,int &tamanho){
 
     }
 
-    //se nao encontrar retorna 1(necessário redimencionar)
+    //se nao encontrar retorna 1(necessário redimencionar).
     return 1;
 
 }
 
-//Função que retorna o ultimo id adicionado do vetorTrabalhado
+//Função que retorna o ultimo id adicionado do vetorTrabalhado.
 int ultimoID(modeloBandas *vetorTrabalhado,int tamanho){
 
    //Define como o maior id o número que está no inicio do vetor.
     int maior = vetorTrabalhado[0].id;
 
-    //Laço de repetição que percorre todos os elementos(ID) do vetor
+    //Laço de repetição que percorre todos os elementos(ID) do vetor.
     for(int i = 0;i < tamanho;i++){
 
         //Condicional que compara se algum valor maior que o que está na variável maior,e se for verdadeira a comparação,atribui à variável maior.
@@ -501,7 +506,7 @@ int ultimoID(modeloBandas *vetorTrabalhado,int tamanho){
 
     }
 
-    //retorno o maior ID
+    //retorno o maior ID.
     return maior;
 
 }
@@ -523,7 +528,7 @@ bool verificaADD(modeloBandas* &vet,int tamanho,string nome){
     }
 }
 
-//Função que adiciona novas bandas ao vetorBandas,e se necessário redimenciona;
+//Função que adiciona novas bandas ao vetorBandas,e se necessário redimenciona.
 void adicionar(modeloBandas* &vetorTrabalhado,int &tamanho,bool &confirmacao,string nome,string genero,int numerodeIntegrantes,int tempodeShow){
 
     if(verificaADD(vetorTrabalhado,tamanho,nome)){
@@ -535,20 +540,20 @@ void adicionar(modeloBandas* &vetorTrabalhado,int &tamanho,bool &confirmacao,str
 
     }
 
-    //Atribui ao retorno da função ultimoID acrescido de uma unidade à variável newID
+    //Atribui ao retorno da função ultimoID acrescido de uma unidade à variável newID.
     int newID = ultimoID(vetorTrabalhado,tamanho)+1;
     int indiceADD;
 
     //variável que garante apenas uma execução do comando dentro da condicional.
     bool primeiraVez = true;
 
-    //percorre o vetorTrabalhado até achar um id que seja igual a zero(ou seja,não há bandas registradas)
+    //percorre o vetorTrabalhado até achar um id que seja igual a zero(ou seja,não há bandas registradas).
     for(int i = 0;i < tamanho;i++){
 
-        //ao achar um id diferente de zero irá atribuir o valor,quando não achar mais valores diferentes de zero,o valor atribuido será do ultimo id que há banda registrada
+        //ao achar um id diferente de zero irá atribuir o valor,quando não achar mais valores diferentes de zero,o valor atribuido será do ultimo id que há banda registrada.
         if(vetorTrabalhado[i].id == 0 and primeiraVez){
 
-            //adiciona uma unidade para ser o índice que não há bandas adicionadas
+            //adiciona uma unidade para ser o índice que não há bandas adicionadas.
             indiceADD = i;
 
             //inviabiliza todas as outras execuções.
@@ -558,10 +563,10 @@ void adicionar(modeloBandas* &vetorTrabalhado,int &tamanho,bool &confirmacao,str
 
     }
 
-    //atribui os atributos da função para o vetorBandas
+    //atribui os atributos da função para o vetorBandas.
     vetorTrabalhado[indiceADD].id = newID;
     strcpy(vetorTrabalhado[indiceADD].genero,genero.c_str());
-    //uso do strcpy() para copiar o conteudo lido e fazer o casting para um vetor de char;
+    //uso do strcpy() para copiar o conteudo lido e fazer o casting para um vetor de char.
     strcpy(vetorTrabalhado[indiceADD].nome,nome.c_str());
     vetorTrabalhado[indiceADD].numerodeIntegrantes = numerodeIntegrantes;
     vetorTrabalhado[indiceADD].tempodeShow = tempodeShow;
@@ -628,7 +633,7 @@ void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho){
     //Laço de repetição com condição de passagem dos valores do binário para o vetorTrabalhado.
     while(entradaBinario.read(reinterpret_cast <char*> (&vetorTrabalhado[i]),sizeof(modeloBandas))){
 
-        //Contador
+        //Contador.
         i++;
 
         //Redimenciona toda vez que o contador chega ao tamanho total do vetor e o ultimo id é diferente de 0(para evitar contagem de indices não usados dentro do vetor).
@@ -636,35 +641,34 @@ void lerDoBinario(modeloBandas* &vetorTrabalhado,int &tamanho){
 
     }
     
-
 }   
 
-//Função que deleta e cria um novo arquivo com o novo vetor
+//Função que deleta e cria um novo arquivo com o novo vetor.
 void salvarAlteracao(modeloBandas* vet,int tamanho){
 
     //OBS:Temporariamente o arquivo que irá salvar será o "saida.csv",para em casos de erros nn perder o banco de dados original.
-    ofstream saida("saida.csv");
+    ofstream saida("lollapalufla.csv");
     ofstream saidaBinario("saidaBinario.dat",ios::binary);
 
-    //Representa o molde que o csv irá seguir
+    //Representa o molde que o csv irá seguir.
     saida << "#ID da Banda,Nome da Banda,Genero Musical,Quantidade de Integrantes,Tempo de Show" << endl;
 
     //Um laço de repetição que irá gravar todo o vetor(já ajustado) no csv e no arquivo binário.
     for(int i = 0;i < tamanho;i++){
 
-        //compara se é maior que 0,pois exclui campos não gravados e excluídos
+        //compara se é maior que 0,pois exclui campos não gravados e excluídos.
         if(vet[i].id > 0){
 
-            //CSV
+            //CSV.
             saida << vet[i].id  << ',' << '"' << vet[i].nome << '"' << ',' << vet[i].genero << ',' << vet[i].numerodeIntegrantes << ',' << vet[i].tempodeShow << endl;
             
         }
     };
 
-    //Binário
+    //Binário.
     int i = 0;
 
-    //Verifica se o índice é menor que o tamanho e se o id é maior que zero(se sim,quer dizer que nâo há nada naquele indice do vetorBandas ou que foi excluida)
+    //Verifica se o índice é menor que o tamanho e se o id é maior que zero(se sim,quer dizer que nâo há nada naquele indice do vetorBandas ou que foi excluida).
     while(i < tamanho and vet[i].id > 0){
 
         saidaBinario.write(reinterpret_cast<const char*>(&vet[i]),sizeof(modeloBandas));
@@ -672,13 +676,13 @@ void salvarAlteracao(modeloBandas* vet,int tamanho){
 
     }
 
-    //Descarrega os Buffer's
+    //Descarrega os Buffer's.
     saidaBinario.close();
     saida.close();
 
 }
 
-//Função que Limpará a tela na troca de Menus
+//Função que Limpará a tela na troca de Menus.
 void limparTela(){
     //Detecta se o Sistema Operacional é Windows e utiliza o comando "cls" para limpar o terminal.
     #if defined(_WIN32)
@@ -711,13 +715,13 @@ void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
                                          
 )" << endl << "Digite o gênero para Saber o Tempo de Show: ";
 
-    //Captação de dados que o usuário digitou no terminal
+    //Captação de dados que o usuário digitou no terminal.
     cin >> genero;
 
     //Condição que trata caso o usuário não digitar um número inteiro.
     if (cin.fail()) {
         genero = "generoInexistente";
-        cin.clear(); // limpa o estado de erro
+        cin.clear(); // limpa o estado de erro.
         cin.get();
     }
 
@@ -747,7 +751,7 @@ void frontendBuscaPorGenero(modeloBandas* vetorBandas,int tamanho){
     }
 }
 
-//Função de Busca por ID(interface)
+//Função de Busca por ID(interface).
 void frontendBuscaID(modeloBandas* vetorBandas,int tamanho){
         
     limparTela();
@@ -770,7 +774,7 @@ void frontendBuscaID(modeloBandas* vetorBandas,int tamanho){
     cin >> id;
     //Condição que trata caso o usuário não digitar um número inteiro.
     if (cin.fail()) {
-        cin.clear(); // limpa o estado de erro
+        cin.clear(); // limpa o estado de erro.
         cin.get();
         id = -1;
     }
@@ -781,7 +785,7 @@ void frontendBuscaID(modeloBandas* vetorBandas,int tamanho){
 
     //Se o valor da variável i for igual à -1,significa que a banda não foi encontrada no vetor.
     if(i == -1){
-        //Escrita no terminal
+        //Escrita no terminal.
         cout << endl;
         cout << "❌ Banda não encontrada." << endl;
         cout << "\nPressione ENTER para voltar..." << endl;
@@ -837,7 +841,7 @@ void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
 
     //Se o valor da variável i for igual à -1,significa que a banda não foi encontrada no vetor.
     if(i == -1){
-        //Escrita no terminal
+        //Escrita no terminal.
         cout << endl;
         cout << "❌ Banda não encontrada." << endl;
         cout << "\nPressione ENTER para voltar..." << endl;
@@ -865,18 +869,18 @@ void frontendBuscaNome(modeloBandas* vetorBandas,int tamanho){
 void frontendExibirMenuOrdenar(modeloBandas* vetorBandas,int tamanho, int ordem, int tipoOrdenacao){
     int posInicial, posFinal;
     string verTudo;
-    //Limpa a Tela
+    //Limpa a Tela.
     limparTela();
 
     //Chama o quicksort para ordenar o vetor pela forma escolhida.
     switch (tipoOrdenacao){
-    case 0: //Ordenar por ID
+    case 0: //Ordenar por ID.
         ordenarPorID(vetorBandas,tamanho);
         break;
-    case 1: //Ordenar por Nome
+    case 1: //Ordenar por Nome.
         ordenarPorNome(vetorBandas,tamanho);
         break;
-    case 2: //Ordenar por N° de Integrantes
+    case 2: //Ordenar por N° de Integrantes.
         ordenarPorNumDeIntegrantes(vetorBandas,tamanho);
         break;
     default:
@@ -917,7 +921,11 @@ void frontendExibirMenuOrdenar(modeloBandas* vetorBandas,int tamanho, int ordem,
                     cout << "╚═══════════════════════════════════════════════╝" << endl;
                 }
             }
+
+        //Capta se o usuário que ver a lista segmentada.
         }else if(verTudo == "n" or verTudo == "N"){
+
+            //Coleta o segmento que o usuário que ver.
             cout << endl << "Digite a posição inicial do trecho que deseja ver: ";
             cin >> posInicial;
             cout << endl;
@@ -925,11 +933,16 @@ void frontendExibirMenuOrdenar(modeloBandas* vetorBandas,int tamanho, int ordem,
             cin >> posFinal;
             cout << endl;
 
+            //Se a posição inicial for maior que a final avisa o usuário.
             if(posInicial > posFinal){
                 cout << "ERRO!" << endl << "Você digitou uma posição INICIAL maior que a FINAL." << endl;
-            }else if(posFinal >= tamanho or posInicial < 0){
+            }
+            //Se as posições digitadas não estiverem no vetor.
+            else if(posFinal >= tamanho or posInicial < 0){
                 cout << "ERRO!" << endl << "Você digitou um trecho inválido." << endl;
-            }else{
+            }
+            //Printa o vetor com a segmentação desejada.
+            else{
                 for(int i = posInicial; i <= posFinal; i++){
                     cout << endl;
                     cout << "╔═══════════════════════════════════════════════╗" << endl;
@@ -941,7 +954,9 @@ void frontendExibirMenuOrdenar(modeloBandas* vetorBandas,int tamanho, int ordem,
                     cout << "╚═══════════════════════════════════════════════╝" << endl;
                 }
             }
-        }else{
+        }
+        //Caso o comando não seja reconhecido.
+        else{
             cout << endl << "Você não digitou 'S' ou 'N'." << endl;
         }
     }else{
@@ -962,7 +977,11 @@ void frontendExibirMenuOrdenar(modeloBandas* vetorBandas,int tamanho, int ordem,
                     cout << "╚═══════════════════════════════════════════════╝" << endl;
                 }
             }
-        }else if(verTudo == "n" or verTudo == "N"){
+        }
+        //Caso o usuário deseje ver um segmento do vetor.
+        else if(verTudo == "n" or verTudo == "N"){
+
+            //Captação dos dados digitados pelo usuário.
             cout << endl << "Digite a posição inicial do trecho que deseja ver: ";
             cin >> posInicial;
             cout << endl;
@@ -970,11 +989,16 @@ void frontendExibirMenuOrdenar(modeloBandas* vetorBandas,int tamanho, int ordem,
             cin >> posFinal;
             cout << endl;
 
+            //Se a posição inicial for menor que a final alerta o usuário.
             if(posInicial < posFinal){
                 cout << "ERRO!" << endl << "Você digitou uma posição INICIAL menor que a FINAL." << endl;
-            }else if(posInicial >= tamanho or posFinal < 0){
+            }
+            //Caso a posição digitada pelo usuário esteja fora do vetor.
+            else if(posInicial >= tamanho or posFinal < 0){
                 cout << "ERRO!" << endl << "Você digitou um trecho inválido." << endl;
-            }else{
+            }
+            //Exibe o vetor.
+            else{
                 for(int i = posInicial; i >= posFinal; i--){
                     cout << endl;
                     cout << "╔═══════════════════════════════════════════════╗" << endl;
@@ -986,17 +1010,24 @@ void frontendExibirMenuOrdenar(modeloBandas* vetorBandas,int tamanho, int ordem,
                     cout << "╚═══════════════════════════════════════════════╝" << endl;
                 }
             }
-        }else{
+        }
+        //Alerta de que o comando digitado não foi reconhecido.
+        else{
             cout << endl << "Você não digitou 'S' ou 'N'." << endl;
         }        
     }
+
+    //Fim da exibição.
     cout << endl << "\nPressione ENTER para voltar..." << endl;
     cout << "══════════════════════════════════════════════════════════════════════════════════════════════════";
     cin.get();
     cin.get();
 }
 
+//Função que exibe a interface condicional de tipo de ordenação.
 void frontendMenuDeOrdem(modeloBandas* &vetorBandas, int tamanho, int tipoOrdenacao){
+
+    //Opções contidas na interface
     string opcoes[3] = {
         "Ordenar em ordem Crescente",
         "Ordenar em ordem Decrescente",
@@ -1006,15 +1037,18 @@ void frontendMenuDeOrdem(modeloBandas* &vetorBandas, int tamanho, int tipoOrdena
     const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
     int escolha;
 
+    //Laço que repete o programa até que seu fim chegue.
     while(true){
 
+        //variável que recebe o que o usuário escolheu.
         escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 5);
 
+        //limpa a tela da ultima exibição.
         limparTela();
 
+        //Condicional de escolha do usuário que chama a função de ordenação crescente e passa o tipo de ordenação.
         switch(escolha){
             case 0:
-                //Chama a função de ordenação crescente e passa o tipo de ordenação.
                 frontendExibirMenuOrdenar(vetorBandas, tamanho, 0, tipoOrdenacao);
                 break;
             case 1:
@@ -1033,6 +1067,8 @@ void frontendMenuDeOrdem(modeloBandas* &vetorBandas, int tamanho, int tipoOrdena
 
 //Função menu das ordenações do vetor.
 void frontendMenuPartipantes(modeloBandas* vetorBandas,int tamanho){
+
+    //Opções contidas na interface.
     string opcoes[4] = {
         "Ordenar Participantes por ID",
         "Ordenar Participantes por Nome",
@@ -1043,23 +1079,27 @@ void frontendMenuPartipantes(modeloBandas* vetorBandas,int tamanho){
     const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
     int escolha;
 
+    //Laço que repete até que o fim do programa chegue.
     while(true){
 
+        //Variável que recebe a escolha feita pelo usuário.
         escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 4);
 
+        //limpa a tela da ultima exibição.
         limparTela();
 
+        //Condicional da escolha do usuário.
         switch(escolha){
             case 0:
-                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente
+                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente.
                 frontendMenuDeOrdem(vetorBandas, tamanho, 0);
                 break;
             case 1:
-                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente
+                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente.
                 frontendMenuDeOrdem(vetorBandas, tamanho, 1);
                 break;
             case 2:
-                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente
+                //Chama a função de Menu para escolher se será em ordem Crescente ou Decrescente.
                 frontendMenuDeOrdem(vetorBandas, tamanho, 2);
                 break;
             case 3:
@@ -1073,8 +1113,10 @@ void frontendMenuPartipantes(modeloBandas* vetorBandas,int tamanho){
     }
 }
 
-//Função menu das funções de busca
+//Função menu das funções de busca.
 void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
+
+    //Opções contidas na interface de escolha.
     string opcoes[4] = {
         "Busca por Nome",
         "Busca por ID",
@@ -1085,10 +1127,13 @@ void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
     const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
     int escolha;
 
+    //Laço que roda até que o fim do programa chegue.
     while(true){
 
+        //Variável que recebe a escolha do usuário.
         escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 3);
 
+        //Função que limpa a tela da ultima exibição.
         limparTela();
 
         switch(escolha){
@@ -1118,6 +1163,7 @@ void frontendMenuBusca(modeloBandas* vetorBandas,int tamanho){
 //Função que faz a remoção por nome.
 void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
 
+    //Função que limpa a tela da ultima exibição.
     limparTela();
 
     string nome;
@@ -1137,15 +1183,15 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
                                                        ╚═                                                             
 )" << endl << endl << "Digite o nome da banda a ser removida: ";
 
-    //Laço de repetição que roda enquanto nenhum comando for reconhecido ou for diferente de 0
+    //Laço de repetição que roda enquanto nenhum comando for reconhecido ou for diferente de 0.
     do{
 
-        //Captação dos dados digitados pelo usuário
+        //Captação dos dados digitados pelo usuário.
         cin >> nome;
 
         removerNome(vetorBandas,tamanho,nome,bandaEncontrada);
 
-        //Se a banda estava no vetor,mostra ao usuário o exito da operacao
+        //Se a banda estava no vetor,mostra ao usuário o exito da operação.
         if(bandaEncontrada){
 
             //Escrita no terminal.
@@ -1185,9 +1231,10 @@ void frontendRemoverPorNome(modeloBandas* &vetorBandas,int tamanho){
 
 }
 
-//Função que faz a remoção por ID
+//Função que faz a remoção por ID.
 void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
 
+    //Função que limpa a tela da ultima exibição.
     limparTela();
 
     int id;
@@ -1207,16 +1254,16 @@ void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
                                                        ╚═                                                             
 )" << endl << endl << "Digite o ID da banda a ser removida: ";
 
-    //Laço de repetição que roda enquanto nenhum comando for reconhecido ou for diferente de 0
+    //Laço de repetição que roda enquanto nenhum comando for reconhecido ou for diferente de 0.
     do{
 
-        //Captação dos dados digitados pelo usuário
+        //Captação dos dados digitados pelo usuário.
         cin >> id;
 
         //Laço repetitivo que roda o vetor inteiro.
         for(int i = 0;i < tamanho;i++){
 
-            //Condicional que executa o côdigo quando o conteudo do vetorBandas em i for igual ao digitado pelo usuário
+            //Condicional que executa o côdigo quando o conteudo do vetorBandas em i for igual ao digitado pelo usuário.
             if(vetorBandas[i].id == id and id > 0){
 
                 //Marca o id da struct deletada como -1 e aponta que a banda foi encontrada.
@@ -1227,7 +1274,7 @@ void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
 
         }
 
-        //Se a banda estava no vetor,mostra ao usuário o exito da operacao
+        //Se a banda estava no vetor,mostra ao usuário o exito da operação.
         if(bandaEncontrada){
 
             //Escrita no terminal.
@@ -1267,9 +1314,9 @@ void frontendRemoverPorID(modeloBandas* &vetorBandas,int tamanho){
 
 }
 
-//Função que faz a interface no terminal dos comandos de adição de usuário
+//Função que faz a interface no terminal dos comandos de adição de usuário.
 void frontendAdicionar(modeloBandas* &vetor, int &tamanho) {
-    limparTela(); // Usa aquela função que limpa terminal no Linux/Windows
+    limparTela(); // Usa aquela função que limpa terminal no Linux/Windows.
 
     string nome, genero;
     int integrantes;
@@ -1408,6 +1455,7 @@ Use as setas ↑ ↓ para navegar e ENTER para selecionar:
 
 }
 
+//Função que exibe o menu de leitura.
 void frontendExibirMenuLeitura(string opcoes[], int totalOpcoes, int selecionado){
     //Limpa o terminal para a exibição do Menu.
     limparTela();
@@ -1438,7 +1486,7 @@ void frontendExibirMenuLeitura(string opcoes[], int totalOpcoes, int selecionado
 void frontendExibirMenuParticipantes(string opcoes[], int totalOpcoes, int selecionado){
     //Limpa o terminal;
     limparTela();
-    //Exibe BUSCA em ASCII no terminal
+    //Exibe BUSCA em ASCII no terminal.
     cout << R"(
 ══════════════════════════════════════════════════════════════════════════════════════════════════
 
@@ -1466,7 +1514,7 @@ void frontendExibirMenuParticipantes(string opcoes[], int totalOpcoes, int selec
 void frontendExibirMenuOrdem(string opcoes[], int totalOpcoes, int selecionado){
     //Limpa o terminal;
     limparTela();
-    //Exibe BUSCA em ASCII no terminal
+    //Exibe BUSCA em ASCII no terminal.
     cout << R"(
 ══════════════════════════════════════════════════════════════════════════════════════════════════
 
@@ -1480,7 +1528,7 @@ void frontendExibirMenuOrdem(string opcoes[], int totalOpcoes, int selecionado){
     Use as setas ↑ ↓ para navegar e ENTER para selecionar:                                     
     )" << endl << endl;
     
-    //Laço de repetição que apresenta as opções disponíveis no sistema;
+    //Laço de repetição que apresenta as opções disponíveis no sistema.
     for (int i = 0; i < totalOpcoes; ++i) {
         if (i == selecionado) {
             cout << " > " << opcoes[i] << endl;
@@ -1493,9 +1541,9 @@ void frontendExibirMenuOrdem(string opcoes[], int totalOpcoes, int selecionado){
 
 //Função que exibe o menu "selecionável" de busca.
 void frontendExibirMenuDeBusca(string opcoes[], int totalOpcoes, int selecionado){
-    //Limpa o terminal;
+    //Limpa o terminal.
     limparTela();
-    //Exibe BUSCA em ASCII no terminal
+    //Exibe BUSCA em ASCII no terminal.
     cout << R"(
 ══════════════════════════════════════════════════════════════════════════════════════════════════
                             ██████╗ ██╗   ██╗███████╗ ██████╗ █████╗ 
@@ -1507,7 +1555,7 @@ void frontendExibirMenuDeBusca(string opcoes[], int totalOpcoes, int selecionado
     Use as setas ↑ ↓ para navegar e ENTER para selecionar:                                     
     )" << endl << endl;
     
-    //Laço de repetição que apresenta as opções disponíveis no sistema;
+    //Laço de repetição que apresenta as opções disponíveis no sistema.
     for (int i = 0; i < totalOpcoes; ++i) {
         if (i == selecionado) {
             cout << " > " << opcoes[i] << endl;
@@ -1524,11 +1572,11 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
     int tecla;
 
     while (true) {
-        //Exibe o "Menu Selecionável" necessário
-        //0: Menu Leitura, 1: Menu Principal, 2: Menu de Remoção, 3: Menu de Busca, 4: Menu de Participantes, 5: Menu de Ordenação
+        //Exibe o "Menu Selecionável" necessário.
+        //0: Menu Leitura, 1: Menu Principal, 2: Menu de Remoção, 3: Menu de Busca, 4: Menu de Participantes, 5: Menu de Ordenação.
         switch(menu){
             case 0:
-                //frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado);
+                //frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado).
                 frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado);
                 #if defined(_WIN32)
                         tecla = _getch();
@@ -1698,7 +1746,10 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
     }
 }
 
+//Função que faz a interface do menu de remoção
 void frontendMenuDeRemocao(modeloBandas* &vetorBandas,int tamanho){
+
+    //Exibe as opções contidas na interface.
     string opcoes[3] = {
         "Remover por Nome",
         "Remover por ID",
@@ -1708,10 +1759,13 @@ void frontendMenuDeRemocao(modeloBandas* &vetorBandas,int tamanho){
     const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
     int escolha;
 
+    //Laço que roda enquanto o programa não chega ao fim.
     while(true){
 
+        //Variável que recebe a escolha do usuário.
         escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 2);
 
+        //Função que limpa a ultima exibição.
         limparTela();
 
         switch(escolha){
@@ -1734,7 +1788,10 @@ void frontendMenuDeRemocao(modeloBandas* &vetorBandas,int tamanho){
     }
 }
 
+//Função que faz a interface do menu principal.
 void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
+
+    //Opções contidas no menu.
     string opcoes[6] = {
         "Adicionar Banda",
         "Remover Banda",
@@ -1747,12 +1804,16 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
     const int totalOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
     int escolha;
 
+    //Laço de repetição que roda enquanto o fim do programa não chegar.
     while(true){
 
+        //Variável que recebe a escolha do usuário.
         escolha = frontendMenuSelecionavel(opcoes, totalOpcoes, 1);
 
+        //Função que limpa a tela da ultima exibição.
         limparTela();
 
+        //Comdicional de escolha do usuário.
         switch(escolha){
             case 0:
                 //Chama a interface de adição de usuário(função frontendAdicionar)
@@ -1785,8 +1846,6 @@ void frontendMenuPrincipal(modeloBandas* &vetorBandas, int &tamanho){
     }
 }
 
-
-
 //Função que faz a interface de leitura.
 void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
     string opcoes[3] = {
@@ -1804,7 +1863,7 @@ void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
 
         switch(escolha){
             case 0:
-                //Lê os dados pelo arquivo binário
+                //Lê os dados pelo arquivo binário.
                 lerDoBinario(vetorBandas,tamanho);
                 cout << "\n✅ Leitura por Binário realizada com sucesso!\n" << "";
                 cout << "\nPressione ENTER para iniciar o programa..." << endl;
@@ -1815,7 +1874,7 @@ void frontendLeitura(modeloBandas* &vetorBandas,int &tamanho){
                 return;
                 break;
             case 1:
-                //Lê os dados pelo CSV;
+                //Lê os dados pelo CSV.
                 leitura(vetorBandas,tamanho);
                 cout << "   \n✅ Leitura por CSV realizada com sucesso!\n" << "";
                 cout << "   \nPressione ENTER para iniciar o programa..." << endl;

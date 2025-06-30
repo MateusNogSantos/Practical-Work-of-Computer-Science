@@ -14,8 +14,6 @@ Nomes:  > Mateus Nogueira dos Santos Turma:10B.
 
 */
 
-/*DE EXTREMA IMPORTÂNCIA:ao acabar o programa mudar o ofstream para ("lolapalufla.txt") e desalocar dinamicamente os vetores*/
-
 int main(){
     #if defined(_WIN32)
         system("chcp 65001 > nul");
@@ -25,12 +23,11 @@ int main(){
 
     modeloBandas* vetorBandas = new modeloBandas[tamanho];
 
+    //Chama a função em outro arquivo.
     frontendLeitura(vetorBandas, tamanho);
 
-    for(int i = 0;i < tamanho;i++){
-
-        cout << vetorBandas[i].nome << endl;
-    }
+    //Desaloca o vetor.
+    delete [] vetorBandas;
 
     return 0;
 }
