@@ -1576,28 +1576,39 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
         //0: Menu Leitura, 1: Menu Principal, 2: Menu de Remoção, 3: Menu de Busca, 4: Menu de Participantes, 5: Menu de Ordenação.
         switch(menu){
             case 0:
-                //frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado).
+                //Chama a função que exibe o menu de leitura.
                 frontendExibirMenuLeitura(opcoes, totalOpcoes, selecionado);
+                //Condicional que verifica se o sistema está rodando no Windows ou Linux.
                 #if defined(_WIN32)
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = _getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
                             if (tecla == 72){
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
                             } else if (tecla == 80){
                                 selecionado = (selecionado + 1) % totalOpcoes;
                             }
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 13) {
                             return selecionado;
                         }
                 #else
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 27 && getch() == 91) {
                             tecla = getch();
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
                             if (tecla == 'A')
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
                             else if (tecla == 'B')
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 10) {
                             return selecionado;
                         }
@@ -1605,135 +1616,195 @@ int frontendMenuSelecionavel(string opcoes[], int totalOpcoes, int menu) {
                 break;
                 break;
             case 1:
+                //Exibe o menu principal.
                 frontendExibirMenuPrincipal(opcoes, totalOpcoes, selecionado);
-
+                //Condicional que verifica se o sistema está rodando no Windows ou Linux.
                 #if defined(_WIN32)
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = _getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
-                            if (tecla == 72)
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
+                            if (tecla == 72){
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
-                            else if (tecla == 80)
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
+                            } else if (tecla == 80){
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                            }
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 13) {
                             return selecionado;
                         }
                 #else
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 27 && getch() == 91) {
                             tecla = getch();
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
                             if (tecla == 'A')
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
                             else if (tecla == 'B')
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 10) {
                             return selecionado;
                         }
                 #endif
                 break;
             case 2:
-                frontendExibirMenuDeBusca(opcoes, totalOpcoes, selecionado);
-
+                //Exibe o menu de remoção.
+                frontendExibirMenuDeRemocao(opcoes, totalOpcoes, selecionado);
+                //Condicional que verifica se o sistema está rodando no Windows ou Linux.
                 #if defined(_WIN32)
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = _getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
-                            if (tecla == 72)
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
+                            if (tecla == 72){
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
-                            else if (tecla == 80)
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
+                            } else if (tecla == 80){
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                            }
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 13) {
                             return selecionado;
                         }
                 #else
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 27 && getch() == 91) {
                             tecla = getch();
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
                             if (tecla == 'A')
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
                             else if (tecla == 'B')
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 10) {
                             return selecionado;
                         }
                 #endif
                 break;
             case 3:
+                //Exibe o menu de busca.
                 frontendExibirMenuDeBusca(opcoes, totalOpcoes, selecionado);
-
+                //Condicional que verifica se o sistema está rodando no Windows ou Linux.
                 #if defined(_WIN32)
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = _getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
-                            if (tecla == 72)
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
+                            if (tecla == 72){
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
-                            else if (tecla == 80)
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
+                            } else if (tecla == 80){
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                            }
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 13) {
                             return selecionado;
                         }
                 #else
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 27 && getch() == 91) {
                             tecla = getch();
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
                             if (tecla == 'A')
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
                             else if (tecla == 'B')
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 10) {
                             return selecionado;
                         }
                 #endif
                 break;
             case 4:
+                //Exibe o menu de participantes.
                 frontendExibirMenuParticipantes(opcoes, totalOpcoes, selecionado);
-
+                //Condicional que verifica se o sistema está rodando no Windows ou Linux.
                 #if defined(_WIN32)
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = _getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
-                            if (tecla == 72)
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
+                            if (tecla == 72){
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
-                            else if (tecla == 80)
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
+                            } else if (tecla == 80){
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                            }
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 13) {
                             return selecionado;
                         }
                 #else
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 27 && getch() == 91) {
                             tecla = getch();
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
                             if (tecla == 'A')
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
                             else if (tecla == 'B')
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 10) {
                             return selecionado;
                         }
                 #endif
                 break;
             case 5:
+                //Exibe o menu de ordenação.
                 frontendExibirMenuOrdem(opcoes, totalOpcoes, selecionado);
-                
-                                #if defined(_WIN32)
+                //Condicional que verifica se o sistema está rodando no Windows ou Linux.
+                #if defined(_WIN32)
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = _getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 224 or tecla == 0) {
                             tecla = _getch();
-                            if (tecla == 72)
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
+                            if (tecla == 72){
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
-                            else if (tecla == 80)
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
+                            } else if (tecla == 80){
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                            }
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 13) {
                             return selecionado;
                         }
                 #else
+                        //Captura a tecla pressionada pelo usuário e atribui o key code a variável tecla
                         tecla = getch();
+                        //Condicional que verifica se a tecla pressionada é uma seta.
                         if (tecla == 27 && getch() == 91) {
                             tecla = getch();
+                            //Se a seta pressionada for para cima, decrementa o selecionado, para que a seta se mova subindo pelas opções.
                             if (tecla == 'A')
                                 selecionado = (selecionado - 1 + totalOpcoes) % totalOpcoes;
+                            //Se a seta pressionada for para baixo, incrementa o selecionado, para que a seta se mova descendo pelas opções.
                             else if (tecla == 'B')
                                 selecionado = (selecionado + 1) % totalOpcoes;
+                        //Se a tecla pressionada for ENTER, retorna o valor selecionado.
                         } else if (tecla == 10) {
                             return selecionado;
                         }
