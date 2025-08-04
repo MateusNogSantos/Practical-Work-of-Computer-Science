@@ -71,8 +71,8 @@ make clean
 
 ## 👨‍💻 Autores
 
-Bruno dos Santos Custódio
-Gabriel Carvalho Batista
+Bruno dos Santos Custódio -
+Gabriel Carvalho Batista -
 Mateus Nogueira dos Santos 
 
 
